@@ -8,16 +8,16 @@
     justify-content: center;
 }
 
-.headerContent{
+.headerConteudo{
+    display: flex;
     padding: 0;
     border: 0;
     width: 940px;
-    display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.headerContent img{
+.headerConteudo img{
     margin: 0;
     padding: 0;
     border: 0;
@@ -25,7 +25,7 @@
     height: 40px;
 }
 
-.headerContent a{
+.headerConteudo a{
     color: #000;
     text-decoration: none;
     font-size: 1rem;
@@ -44,24 +44,62 @@
     transition: all .3s ease-in;
 }
 
-.headerContent a:hover {
+.headerConteudo a:hover {
     transition: all .3s ease-out;
     box-shadow:  0 -1px 0 0 white inset, 0 -2px 0 0 black inset ;
 }
 
-.headerContent a::selection {
+.headerConteudo a::selection {
     color: white; background: black;
     text-shadow: none;
 }
 
-.headerContent select{
+.selectProdutores{
     border: none;
     font-size: 1rem;
     font-weight: 400;
     letter-spacing: 1px;
     color: #000;
-    transition: all .3s ease-in;
-    -webkit-appearance: none;
+    padding-right: 20px;
+    background: url("../../../public/setinha-verde.png") no-repeat right #fff;
+    background-size: 15px;
+    position: relative;
+    display: flex;
 }
+
+.menuProdutores{
+    position: absolute;
+    background-color: #fff;
+    top: 100%;
+    left: -20%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 140%;
+}
+
+.menuProdutores div{
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #72B234;
+    border-top: none;
+    padding: 10px;
+    letter-spacing: normal;
+    font-size: 0.8rem;
+    text-align: center;
+
+}
+
+.menuProdutores div:hover{
+    background-color: #72B23433;
+}
+
+.ativo{
+    background-color: #72B23433;
+}
+
+
+
 
 
