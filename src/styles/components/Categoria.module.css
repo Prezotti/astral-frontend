@@ -1,0 +1,43 @@
+.categoria{
+    display: flex;
+    flex-direction: column;
+    height: 140px;
+    width: 100px;
+    background-color: #fff;
+    gap: 10px;
+}
+
+.categoria div{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.categoria div img{
+    border-radius: 50%;
+    width: 70px;
+    object-fit: cover;
+    height: 70px;
+    cursor: pointer;
+}
+
+.categoria img:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.categoria p{
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+.borda{
+    border: #72B234 2px solid;
+}

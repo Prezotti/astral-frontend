@@ -7,6 +7,7 @@ export function Header() {
     const abrirMenuProdutores = () => {
         const menuProdutores = document.querySelector(`.${styles.menuProdutores}`) as HTMLDivElement
         menuProdutores.style.display = "flex"
+        menuProdutores.classList.add(styles.slideintop)
     }
 
     const fecharMenuProdutores = () => {
