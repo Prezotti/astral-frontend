@@ -1,0 +1,68 @@
+.container{
+    width: 940px;
+    margin: 0 auto;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.conteudo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.informacoes{
+    display: flex;
+    width: 66%;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.logo img{
+    height: 80px;
+}
+.contato{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.contato h3{
+    color: #72B234;
+    font-size: 20px;
+    font-weight: 600;
+}
+.contato div{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+}
+.redessociais{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.redessociais h3{
+    color: #72B234;
+    font-size: 20px;
+    font-weight: 600;
+}
+.redessociais div{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+}
+.redessociais div a{
+    text-decoration: none;
+    color: #000;
+}
+.copyright{
+    display: flex;
+    justify-content: center;
+    color: #A5A5A5;
+    padding: 10px 0;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+    border-top : 2px solid #DDD;
+}
