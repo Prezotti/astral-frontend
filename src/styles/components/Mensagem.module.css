@@ -1,0 +1,96 @@
+.container{
+    position: fixed;
+    width: 300px;
+    border-radius: 10px;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0;
+    gap: 10px;
+}
+
+.container p{
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 400;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.iconeAviso{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.iconeSair{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.sucesso{
+    background-color: #72B234;
+}
+
+.erro{
+    background-color: #FF3D3D;
+}
+
+.aviso{
+    background-color: #3D73FF;
+}
+
+.fadeIn{
+    animation: fadeIn 0.5s;
+    opacity: 1;
+}
+
+.fadeOut{
+    animation: fadeOut 0.5s;
+    opacity: 0;
+}
+
+.barraDeSumida{
+    height: 5px;
+    border-radius: 10px;
+    background-color: #fff;
+    animation: barraDeSumida 8s;
+    width: 0%;
+}
+
+@keyframes barraDeSumida{
+    from{
+        width: 100%;
+        border-radius: 10px;
+    }
+    50%{
+        opacity: 1;
+    }
+    to{
+        width: 0%;
+        border-radius: 15px;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut{
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}

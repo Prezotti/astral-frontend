@@ -5,6 +5,7 @@ import { Button } from '../components/Button'
 import { Categoria } from '@/components/Categoria';
 import { Produto } from '@/components/Produto';
 import { Footer } from '@/components/Footer';
+import { Mensagem } from '@/components/Mensagem';
 
 const produtos = [{
     "imagem": "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
