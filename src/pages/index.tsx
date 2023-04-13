@@ -4,6 +4,7 @@ import { Header } from '../components/Header'
 import { Button } from '../components/Button'
 import { Categoria } from '@/components/Categoria';
 import { Produto } from '@/components/Produto';
+import { Footer } from '@/components/Footer';
 
 const produtos = [{
     "imagem": "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
@@ -89,6 +90,7 @@ export default function Home() {
           </section>
         </section>
       </div>
+      <Footer />
     </>
   )
 }
