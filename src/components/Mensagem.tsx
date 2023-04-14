@@ -45,7 +45,7 @@ export function Mensagem({mensagem, tipo}: MensagemProps){
         {visivel && 
         (
             <div className={`${styles.container} ${styles[tipo]}`}>
-                {mensagem=="sucesso" ? <></> : <AiOutlineWarning color='#fff' size={20} className={styles.iconeAviso} />}
+                {tipo=="erro" ? <></> : <AiOutlineWarning color='#fff' size={20} className={styles.iconeAviso} />}
                 <IoClose color='#fff' size={20} className={styles.iconeSair} onClick={sair} />
                 <p>{mensagem}</p>
                 <div className={styles.barraDeSumida} />
