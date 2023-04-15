@@ -63,28 +63,43 @@ const produtos = [{
   'categoria': 'Doces',
 }]
 
+enum CategoriaEnum {
+  FRUTAS = "Frutas",
+  LEGUMES = "Legumes",
+  VERDURAS = "Verduras",
+  EMBALADOS = "Embalados",
+  DOCES = "Doces",
+  GRANJA = "Granja",
+  OUTROS = "Outros",
+}
+
+interface CategoriaInterface {
+  [key: string]: boolean;
+}
+
 export default function Home() {
 
-  interface CategoriaInterface {
-    [key: string]: boolean;
-  }
-
   const [categorias, setCategorias] = useState<CategoriaInterface>({
-    frutas: false,
-    legumes: false,
-    verduras: false,
-    embalados: false,
-    doces: false,
-    granja: false,
-    outros: false,
+    [CategoriaEnum.FRUTAS]: false,
+    [CategoriaEnum.LEGUMES]: false,
+    [CategoriaEnum.VERDURAS]: false,
+    [CategoriaEnum.EMBALADOS]: false,
+    [CategoriaEnum.DOCES]: false,
+    [CategoriaEnum.GRANJA]: false,
+    [CategoriaEnum.OUTROS]: false,
   });
 
-  function toggleCategoriaAtiva(categoria: string): void{
+  function toggleCategoriaAtiva(categoria: CategoriaEnum): void {
     setCategorias((prevState) => ({
       ...prevState,
       [categoria]: !prevState[categoria],
     }));
   }
+
+  const categoriasAtivas = Object.entries(categorias)
+    .filter(([_, ativa]) => ativa)
+    .map(([categoria, _]) => categoria as string);
+
 
   return (
     <>
@@ -99,53 +114,31 @@ export default function Home() {
       <div className={styles.categoriaDiv}>
         <h2>Filtrar por categoria</h2>
         <section className={styles.categorias}>
-          <Categoria imagem="/frutas.png" titulo="Frutas" categoriaAtiva={categorias.frutas} onClickfunc={() => toggleCategoriaAtiva('frutas')} />
-          <Categoria imagem="/legumes.png" titulo="Legumes" categoriaAtiva={categorias.legumes} onClickfunc={() => toggleCategoriaAtiva('legumes')}/>
-          <Categoria imagem="/verduras.png" titulo="Verduras" categoriaAtiva={categorias.verduras} onClickfunc={() => toggleCategoriaAtiva('verduras')}/>
-          <Categoria imagem="/embalados.png" titulo="Embalados" categoriaAtiva={categorias.embalados} onClickfunc={() => toggleCategoriaAtiva('embalados')}/>
-          <Categoria imagem="/doces-e-frutas.png" titulo="Doces e Frutas Secas" categoriaAtiva={categorias.doces} onClickfunc={() => toggleCategoriaAtiva('doces')}/>
-          <Categoria imagem="/granja-e-pescados.png" titulo="Granja e Pescados" categoriaAtiva={categorias.granja} onClickfunc={() => toggleCategoriaAtiva('granja')}/>
-          <Categoria imagem="/frutas.png" titulo="Outros" categoriaAtiva={categorias.outros} onClickfunc={() => toggleCategoriaAtiva('outros')}/>
+          <Categoria imagem="/frutas.png" titulo="Frutas" categoriaAtiva={categorias[CategoriaEnum.FRUTAS]} onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.FRUTAS)} />
+          <Categoria imagem="/legumes.png" titulo="Legumes" categoriaAtiva={categorias[CategoriaEnum.LEGUMES]} onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.LEGUMES)}/>
+          <Categoria imagem="/verduras.png" titulo="Verduras" categoriaAtiva={categorias[CategoriaEnum.VERDURAS]} onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.VERDURAS)}/>
+          <Categoria imagem="/embalados.png" titulo="Embalados" categoriaAtiva={categorias[CategoriaEnum.EMBALADOS]} onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.EMBALADOS)}/>
+          <Categoria imagem="/doces-e-frutas.png" titulo="Doces e Frutas Secas" categoriaAtiva={categorias[CategoriaEnum.DOCES]} onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.DOCES)}/>
+          <Categoria imagem="/granja-e-pescados.png" titulo="Granja e Pescados" categoriaAtiva={categorias[CategoriaEnum.GRANJA]} onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.GRANJA)}/>
+          <Categoria imagem="/frutas.png" titulo="Outros" categoriaAtiva={categorias[CategoriaEnum.OUTROS]} onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.OUTROS)}/>
         </section>
       </div>
       <div className={styles.produtosDiv}>
         <section className={styles.produtosSection}>
           <h2>Nossos Produtos</h2>
           <section className={styles.produtos}>
-            {produtos.filter((produto) => {
-              if (
-                categorias.frutas && produto.categoria === "Frutas" ||
-                categorias.legumes && produto.categoria === "Legumes" ||
-                categorias.verduras && produto.categoria === "Verduras" ||
-                categorias.embalados && produto.categoria === "Embalados" ||
-                categorias.doces && produto.categoria === "Doces" ||
-                categorias.granja && produto.categoria === "Granja" ||
-                categorias.outros && produto.categoria === "Outros"
-              ) {
-                return true;
-              } else if (
-                !categorias.frutas &&
-                !categorias.legumes &&
-                !categorias.verduras &&
-                !categorias.embalados &&
-                !categorias.doces &&
-                !categorias.granja &&
-                !categorias.outros
-              ) {
-                return true;
-              }
-            }).map((produto) => {
-              return (
-                <Produto
-                  imagem={produto.imagem}
-                  descricao={produto.descricao}
-                  preco={produto.preco}
-                  medida={produto.medida}
-                  produtor={produto.produtor}
-                  qtdEstoque={produto.estoque}
-                />
-              );
-            })}
+            {produtos.map((produto) => {
+              if (categoriasAtivas.length === 0) {
+                return <Produto 
+                  imagem={produto.imagem} descricao={produto.descricao} preco={produto.preco} 
+                  medida={produto.medida} produtor={produto.produtor} qtdEstoque={produto.estoque}
+                 />
+              } else if (categoriasAtivas.includes(produto.categoria)) {
+                return <Produto 
+                  imagem={produto.imagem} descricao={produto.descricao} preco={produto.preco} 
+                  medida={produto.medida} produtor={produto.produtor} qtdEstoque={produto.estoque}
+                 />
+              }})}
           </section>
         </section>
       </div>
