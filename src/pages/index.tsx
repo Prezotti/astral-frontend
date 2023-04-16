@@ -128,12 +128,7 @@ export default function Home() {
           <h2>Nossos Produtos</h2>
           <section className={styles.produtos}>
             {produtos.map((produto) => {
-              if (categoriasAtivas.length === 0) {
-                return <Produto 
-                  imagem={produto.imagem} descricao={produto.descricao} preco={produto.preco} 
-                  medida={produto.medida} produtor={produto.produtor} qtdEstoque={produto.estoque}
-                 />
-              } else if (categoriasAtivas.includes(produto.categoria)) {
+              if (categoriasAtivas.length === 0 || categoriasAtivas.includes(produto.categoria)) {
                 return <Produto 
                   imagem={produto.imagem} descricao={produto.descricao} preco={produto.preco} 
                   medida={produto.medida} produtor={produto.produtor} qtdEstoque={produto.estoque}
