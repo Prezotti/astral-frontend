@@ -144,7 +144,7 @@ export default function Home() {
           />
           <Categoria
             imagem="/doces-e-frutas.png"
-            titulo="Doces e Frutas Secas"
+            titulo="Doces"
             categoriaAtiva={categorias[CategoriaEnum.DOCES]}
             onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.DOCES)}
           />
@@ -155,7 +155,7 @@ export default function Home() {
             onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.GRANJA)}
           />
           <Categoria
-            imagem="/frutas.png"
+            imagem="/outros.png"
             titulo="Outros"
             categoriaAtiva={categorias[CategoriaEnum.OUTROS]}
             onClickfunc={() => toggleCategoriaAtiva(CategoriaEnum.OUTROS)}
