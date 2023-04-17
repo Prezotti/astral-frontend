@@ -181,6 +181,9 @@
   .precoCarrinho {
     font-size: 0.7rem;
   }
+  .precoCarrinho span {
+    font-size: 0.5rem;
+  }
   .selectProdutores {
     background-size: 10px;
     padding-right: 12px;
