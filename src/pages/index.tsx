@@ -108,7 +108,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className={styles.banner}>
+      {/* <div className={styles.banner}>
         <h1>Feira Astral</h1>
         <p>
           Nos dedicamos a entregar os melhores produtos orgânicos do município
@@ -196,7 +196,7 @@ export default function Home() {
           )}
         </section>
       </div>
-      <Footer />
+      <Footer /> */}
     </>
   );
 }
