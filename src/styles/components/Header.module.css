@@ -36,6 +36,9 @@
   font-size: 1rem;
   font-weight: 400;
   letter-spacing: 1px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
   text-shadow: 0px -2px 0 white, 0px -1px 0 white, 0px 0px 0 white,
     2px -2px 0 white, 2px -1px 0 white, 2px 0px 0 white, -2px -2px 0 white,
     -2px -1px 0 white, -2px 0px 0 white, 1px -2px 0 white, 1px -1px 0 white,
@@ -43,6 +46,16 @@
     0px -2px 0 white, 0px -1px 0 white, 0px 0px 0 white;
   box-shadow: 0 -1px 0 0 white inset, 0 -2px 0 0 transparent inset;
   transition: all 0.3s ease-in;
+}
+
+.precoCarrinho {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #72b234;
+}
+
+.precoCarrinho span {
+  font-size: 0.6rem;
 }
 
 .headerConteudo a:hover {
@@ -148,11 +161,27 @@
   .headerConteudo img {
     height: 30px;
   }
-  .headerConteudo a {
-    font-size: 0.8rem;
+  .selectProdutores {
+    background-size: 10px;
+    padding-right: 12px;
   }
+}
+
+@media (max-width: 420px) {
+  .headerConteudo {
+    padding: 0 5px;
+  }
+  .headerConteudo img {
+    height: 30px;
+  }
+  .headerConteudo a,
   .selectProdutores {
     font-size: 0.8rem;
+  }
+  .precoCarrinho {
+    font-size: 0.7rem;
+  }
+  .selectProdutores {
     background-size: 10px;
     padding-right: 12px;
   }
