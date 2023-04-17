@@ -91,6 +91,8 @@ export default function Home() {
     [CategoriaEnum.OUTROS]: false,
   });
 
+  let qtdProdutos = 0;
+
   function toggleCategoriaAtiva(categoria: CategoriaEnum): void {
     setCategorias((prevState) => ({
       ...prevState,
@@ -171,6 +173,7 @@ export default function Home() {
                 categoriasAtivas.length === 0 ||
                 categoriasAtivas.includes(produto.categoria)
               ) {
+                qtdProdutos++;
                 return (
                   <Produto
                     imagem={produto.imagem}
@@ -184,6 +187,11 @@ export default function Home() {
               }
             })}
           </section>
+          {qtdProdutos === 0 && (
+            <h3 className={styles.nenhumProdutoMsg}>
+              Nenhum produto encontrado para essa categoria
+            </h3>
+          )}
         </section>
       </div>
       <Footer />
