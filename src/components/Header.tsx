@@ -37,9 +37,6 @@ export function Header() {
         <section
           onMouseEnter={abrirMenuProdutores}
           onMouseLeave={fecharMenuProdutores}
-          onClick={abrirMenuProdutores}
-          onTouchStart={abrirMenuProdutores}
-          onTouchEnd={fecharMenuProdutores}
           className={styles.selectProdutores}
         >
           <p>Produtores</p>
