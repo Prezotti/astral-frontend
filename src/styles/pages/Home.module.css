@@ -34,7 +34,8 @@
 }
 
 .categoriaDiv {
-  width: 940px;
+  width: 100vw;
+  max-width: 940px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
