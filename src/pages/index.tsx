@@ -7,7 +7,8 @@ import { Button } from "../components/Button";
 import { Categoria } from "@/components/Categoria";
 import { Produto } from "@/components/Produto";
 import { Footer } from "@/components/Footer";
-import { Mensagem } from "@/components/Mensagem";
+
+import { HiOutlineEmojiSad } from "react-icons/hi";
 
 const produtos = [
   {
@@ -189,7 +190,8 @@ export default function Home() {
           </section>
           {qtdProdutos === 0 && (
             <h3 className={styles.nenhumProdutoMsg}>
-              Nenhum produto encontrado para essa categoria
+              Nenhum produto encontrado utilizando esses filtros
+              <HiOutlineEmojiSad size={25} />
             </h3>
           )}
         </section>
