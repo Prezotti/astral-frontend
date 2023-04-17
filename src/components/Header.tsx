@@ -20,7 +20,10 @@ export function Header() {
     menuProdutores.style.display = "none";
   };
 
-  const ativaFiltroProdutor = (evento: React.MouseEvent<HTMLDivElement>) => {
+  const ativaFiltroProdutor = (
+    evento: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
+    console.log(evento.currentTarget);
     evento.currentTarget.classList.toggle(styles.ativo);
     //todo: adicionar filtro
   };
@@ -37,12 +40,20 @@ export function Header() {
         <section
           onMouseEnter={abrirMenuProdutores}
           onMouseLeave={fecharMenuProdutores}
+          onTouchStart={abrirMenuProdutores}
           className={styles.selectProdutores}
         >
           <p>Produtores</p>
           <section className={styles.menuProdutores}>
             {produtores.map((produtor) => {
-              return <div onClick={ativaFiltroProdutor}>{produtor}</div>;
+              return (
+                <div
+                  onClick={ativaFiltroProdutor}
+                  onTouchStart={ativaFiltroProdutor}
+                >
+                  {produtor}
+                </div>
+              );
             })}
           </section>
         </section>

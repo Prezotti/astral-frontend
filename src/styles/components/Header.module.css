@@ -31,6 +31,7 @@
 }
 
 .headerConteudo a {
+  user-select: none;
   color: #000;
   text-decoration: none;
   font-size: 1rem;
@@ -70,6 +71,7 @@
 }
 
 .selectProdutores {
+  user-select: none;
   border: none;
   font-size: 1rem;
   font-weight: 400;
@@ -96,6 +98,8 @@
 }
 
 .menuProdutores div {
+  cursor: pointer;
+  user-select: none;
   width: 100%;
   border: 1px solid #72b234;
   border-top: none;
