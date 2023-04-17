@@ -1,5 +1,5 @@
 .headerContainer{
-    width: 100%;
+    width: 100vw;
     background-color: #fff;
     padding: 5px 0;
     border-bottom: 2px solid #DDD;
@@ -15,7 +15,8 @@
     display: flex;
     padding: 0;
     border: 0;
-    width: 940px;
+    width: 100%;
+    max-width: 940px;
     align-items: center;
     justify-content: space-between;
 }
