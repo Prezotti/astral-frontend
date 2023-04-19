@@ -7,7 +7,7 @@ import { Button } from "../components/Button";
 import { Categoria } from "@/components/Categoria";
 import { Produto } from "@/components/Produto";
 import { Footer } from "@/components/Footer";
-import {SearchBar} from "@/components/SearchBar"
+import { SearchBar } from "@/components/SearchBar";
 
 import { HiOutlineEmojiSad } from "react-icons/hi";
 
@@ -16,11 +16,11 @@ interface nomeInputProps {
 }
 
 export function nomeInput(props: nomeInputProps) {
-  const nome = props.nome
+  const nome = props.nome;
+  return nome;
 }
 
-console.log(nomeInput)
-
+console.log(nomeInput);
 
 const produtos = [
   {
@@ -94,6 +94,8 @@ interface CategoriaInterface {
 }
 
 export default function Home() {
+  const [busca, setBusca] = useState("");
+
   const [categorias, setCategorias] = useState<CategoriaInterface>({
     [CategoriaEnum.FRUTAS]: false,
     [CategoriaEnum.LEGUMES]: false,
@@ -106,8 +108,6 @@ export default function Home() {
 
   let qtdProdutos = 0;
 
-
-
   function toggleCategoriaAtiva(categoria: CategoriaEnum): void {
     setCategorias((prevState) => ({
       ...prevState,
@@ -119,10 +119,17 @@ export default function Home() {
     .filter(([_, ativa]) => ativa)
     .map(([categoria, _]) => categoria as string);
 
+  const handleSearch = (busca: string) => {
+    setBusca(busca);
+    return <></>;
+  };
+
+  console.log(busca);
+
   return (
     <>
-      <Header />
-      {/* <div className={styles.banner}>
+      <Header render={(busca) => handleSearch(busca)} />
+      <div className={styles.banner}>
         <h1>Feira Astral</h1>
         <p>
           Nos dedicamos a entregar os melhores produtos orgânicos do município
@@ -186,9 +193,11 @@ export default function Home() {
             {produtos.map((produto) => {
               if (
                 (categoriasAtivas.length === 0 ||
-                categoriasAtivas.includes(produto.categoria)) && (
-                  produto.descricao.toLowerCase().startsWith ("ban".toLowerCase())
-                )
+                  categoriasAtivas.includes(produto.categoria)) &&
+                (produto.descricao
+                  .toLowerCase()
+                  .includes(busca.toLowerCase()) ||
+                  busca === "")
               ) {
                 qtdProdutos++;
                 return (
@@ -212,7 +221,7 @@ export default function Home() {
           )}
         </section>
       </div>
-      <Footer /> */}
+      <Footer />
     </>
   );
 }

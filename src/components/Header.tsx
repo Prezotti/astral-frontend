@@ -4,7 +4,7 @@ import { SearchBar } from "./SearchBar";
 
 import { TiShoppingCart } from "react-icons/ti";
 
-export function Header() {
+export function Header({ render }: { render: (busca: string) => JSX.Element }) {
   const abrirMenuProdutores = () => {
     const menuProdutores = document.querySelector(
       `.${styles.menuProdutores}`
@@ -27,13 +27,17 @@ export function Header() {
 
   const produtores = ["Vanildo", "João", "Maria", "José", "ASdmiosajiod"];
 
+  const handleSearch = (busca: string) => {
+    return render(busca);
+  };
+
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerConteudo}>
         <img src="/icone-astral.png" alt="Astral logo" />
         <a href="/">Início</a>
         <a href="/sobre">Sobre</a>
-        <SearchBar />
+        <SearchBar render={(busca) => handleSearch(busca)} />
         <section
           onMouseEnter={abrirMenuProdutores}
           onMouseLeave={fecharMenuProdutores}

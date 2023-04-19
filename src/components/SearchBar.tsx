@@ -1,13 +1,15 @@
 import styles from "../styles/components/SearchBar.module.css";
 import { useState } from "react";
-import { nomeInput } from "../pages/";
 
-export function SearchBar() {
+export function SearchBar({
+  render,
+}: {
+  render: (busca: string) => JSX.Element;
+}) {
   const [busca, setBusca] = useState("");
 
   const handleBuscaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valorBusca = e.target.value;
-    console.log(valorBusca); // Imprime o valor atual da busca no console
     setBusca(valorBusca); // Atualiza o estado de busca com o valor digitado
   };
 
@@ -22,8 +24,7 @@ export function SearchBar() {
       <button type="submit">
         <img src="/botao-pesquisar.png" alt="Search" />
       </button>
-       {nomeInput({ nome: busca || "" })}
+      {render(busca)}
     </div>
-    
   );
 }
