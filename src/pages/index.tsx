@@ -7,8 +7,20 @@ import { Button } from "../components/Button";
 import { Categoria } from "@/components/Categoria";
 import { Produto } from "@/components/Produto";
 import { Footer } from "@/components/Footer";
+import { SearchBar } from "@/components/SearchBar";
 
 import { HiOutlineEmojiSad } from "react-icons/hi";
+
+interface nomeInputProps {
+  nome: string;
+}
+
+export function nomeInput(props: nomeInputProps) {
+  const nome = props.nome;
+  return nome;
+}
+
+console.log(nomeInput);
 
 const produtos = [
   {
@@ -82,6 +94,8 @@ interface CategoriaInterface {
 }
 
 export default function Home() {
+  const [busca, setBusca] = useState("");
+
   const [categorias, setCategorias] = useState<CategoriaInterface>({
     [CategoriaEnum.FRUTAS]: false,
     [CategoriaEnum.LEGUMES]: false,
@@ -105,9 +119,16 @@ export default function Home() {
     .filter(([_, ativa]) => ativa)
     .map(([categoria, _]) => categoria as string);
 
+  const handleSearch = (busca: string) => {
+    setBusca(busca);
+    return <></>;
+  };
+
+  console.log(busca);
+
   return (
     <>
-      <Header />
+      <Header render={(busca) => handleSearch(busca)} />
       <div className={styles.banner}>
         <h1>Feira Astral</h1>
         <p>
@@ -171,8 +192,12 @@ export default function Home() {
           <section className={styles.produtos}>
             {produtos.map((produto) => {
               if (
-                categoriasAtivas.length === 0 ||
-                categoriasAtivas.includes(produto.categoria)
+                (categoriasAtivas.length === 0 ||
+                  categoriasAtivas.includes(produto.categoria)) &&
+                (produto.descricao
+                  .toLowerCase()
+                  .includes(busca.toLowerCase()) ||
+                  busca === "")
               ) {
                 qtdProdutos++;
                 return (
