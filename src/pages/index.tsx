@@ -7,8 +7,20 @@ import { Button } from "../components/Button";
 import { Categoria } from "@/components/Categoria";
 import { Produto } from "@/components/Produto";
 import { Footer } from "@/components/Footer";
+import {SearchBar} from "@/components/SearchBar"
 
 import { HiOutlineEmojiSad } from "react-icons/hi";
+
+interface nomeInputProps {
+  nome: string;
+}
+
+export function nomeInput(props: nomeInputProps) {
+  const nome = props.nome
+}
+
+console.log(nomeInput)
+
 
 const produtos = [
   {
@@ -94,6 +106,8 @@ export default function Home() {
 
   let qtdProdutos = 0;
 
+
+
   function toggleCategoriaAtiva(categoria: CategoriaEnum): void {
     setCategorias((prevState) => ({
       ...prevState,
@@ -171,8 +185,10 @@ export default function Home() {
           <section className={styles.produtos}>
             {produtos.map((produto) => {
               if (
-                categoriasAtivas.length === 0 ||
-                categoriasAtivas.includes(produto.categoria)
+                (categoriasAtivas.length === 0 ||
+                categoriasAtivas.includes(produto.categoria)) && (
+                  produto.descricao.toLowerCase().startsWith ("ban".toLowerCase())
+                )
               ) {
                 qtdProdutos++;
                 return (
