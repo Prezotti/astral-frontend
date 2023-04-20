@@ -98,6 +98,7 @@
   .banner {
     margin-top: 120px;
     height: 200px;
+    margin-bottom: 15px;
   }
   .banner p {
     width: 60%;
@@ -105,6 +106,12 @@
   }
   .banner h1 {
     font-size: 1.5rem;
+  }
+  .categoriaDiv {
+    gap: 10px;
+  }
+  .categoriaDiv h2 {
+    font-size: 1.3rem;
   }
 }
 
@@ -120,6 +127,11 @@
   .banner h1 {
     font-size: 1.3rem;
   }
+  .categorias {
+    overflow-x: auto;
+    gap: 20px;
+    padding: 0 15px;
+  }
 }
 
 @media (max-width: 450px) {
@@ -130,6 +142,9 @@
 }
 
 @media (max-width: 400px) {
+  .categoriaDiv h2 {
+    font-size: 1.1rem;
+  }
   .banner {
     margin-top: 100px;
     height: 150px;
@@ -140,5 +155,11 @@
   }
   .banner h1 {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .categorias {
+    gap: 10px;
   }
 }

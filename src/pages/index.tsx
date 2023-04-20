@@ -139,7 +139,7 @@ export default function Home() {
           <Button text="SOBRE NÓS" onClick={() => {}} classType="botaoBanner" />
         </a>
       </div>
-      {/* <div className={styles.categoriaDiv}>
+      <div className={styles.categoriaDiv}>
         <h2>Filtrar por categoria</h2>
         <section className={styles.categorias}>
           <Categoria
@@ -186,6 +186,7 @@ export default function Home() {
           />
         </section>
       </div>
+      {/* 
       <div className={styles.produtosDiv}>
         <section className={styles.produtosSection}>
           <h2>Nossos Produtos</h2>
