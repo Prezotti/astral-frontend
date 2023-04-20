@@ -10,6 +10,12 @@
   border-radius: 9px;
 }
 
+.botaoProduto {
+  height: 30px;
+  width: 100px;
+  border-radius: 7.5px;
+}
+
 @media (max-width: 560px) {
   .botaoBanner {
     height: 32px;
