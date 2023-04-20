@@ -136,10 +136,10 @@ export default function Home() {
           de Santa Teresa. Venha conhecer!
         </p>
         <a href="/sobre">
-          <Button height={36} width={140} text="SOBRE NÓS" onClick={() => {}} />
+          <Button text="SOBRE NÓS" onClick={() => {}} classType="botaoBanner" />
         </a>
       </div>
-      <div className={styles.categoriaDiv}>
+      {/* <div className={styles.categoriaDiv}>
         <h2>Filtrar por categoria</h2>
         <section className={styles.categorias}>
           <Categoria
@@ -221,7 +221,7 @@ export default function Home() {
           )}
         </section>
       </div>
-      <Footer />
+      <Footer /> */}
     </>
   );
 }
