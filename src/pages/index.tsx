@@ -186,7 +186,6 @@ export default function Home() {
           />
         </section>
       </div>
-      {/* 
       <div className={styles.produtosDiv}>
         <section className={styles.produtosSection}>
           <h2>Nossos Produtos</h2>
@@ -222,6 +221,7 @@ export default function Home() {
           )}
         </section>
       </div>
+      {/* 
       <Footer /> */}
     </>
   );

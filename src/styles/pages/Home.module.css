@@ -95,6 +95,9 @@
 }
 
 @media (max-width: 768px) {
+  .produtos {
+    gap: 20px;
+  }
   .banner {
     margin-top: 120px;
     height: 200px;
@@ -111,6 +114,9 @@
     gap: 10px;
   }
   .categoriaDiv h2 {
+    font-size: 1.3rem;
+  }
+  .produtosSection h2 {
     font-size: 1.3rem;
   }
 }
@@ -132,6 +138,9 @@
     gap: 20px;
     padding: 0 15px;
   }
+  .produtos {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 450px) {
@@ -143,6 +152,9 @@
 
 @media (max-width: 400px) {
   .categoriaDiv h2 {
+    font-size: 1.1rem;
+  }
+  .produtosSection h2 {
     font-size: 1.1rem;
   }
   .banner {

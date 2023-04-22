@@ -16,12 +16,36 @@
   border-radius: 7.5px;
 }
 
+@media (max-width: 940px) {
+  .botaoProduto {
+    height: 24px;
+    width: 80px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 670px) {
+  .botaoProduto {
+    height: 18px;
+    width: 60px;
+    font-size: 0.5rem;
+    border-radius: 4.5px;
+  }
+}
+
 @media (max-width: 560px) {
   .botaoBanner {
     height: 32px;
     width: 128px;
     font-size: 0.8rem;
     border-radius: 8px;
+  }
+  .botaoProduto {
+    height: 24px;
+    width: 80px;
+    border-radius: 6px;
+    font-size: 0.8rem;
   }
 }
 
@@ -31,6 +55,12 @@
     width: 112px;
     font-size: 0.7rem;
     border-radius: 7px;
+  }
+  .botaoProduto {
+    height: 18px;
+    width: 60px;
+    font-size: 0.5rem;
+    border-radius: 4.5px;
   }
 }
 
