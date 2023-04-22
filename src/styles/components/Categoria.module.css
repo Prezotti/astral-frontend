@@ -5,6 +5,7 @@
   width: 100px;
   background-color: #fff;
   gap: 10px;
+  user-select: none;
 }
 
 .categoria div {
@@ -24,11 +25,6 @@
   cursor: pointer;
 }
 
-.categoria img:hover {
-  transform: scale(1.1);
-  transition: 0.5s;
-}
-
 .categoria p {
   text-align: center;
   font-size: 0.8rem;
@@ -42,6 +38,13 @@
   border: #72b234 2px solid;
 }
 
+@media (min-width: 768px) {
+  .categoria img:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+  }
+}
+
 @media (max-width: 768px) {
   .categoria {
     gap: 0;
@@ -51,9 +54,6 @@
   .categoria div {
     width: 80px;
     height: 80px;
-  }
-  .categoria img:hover {
-    transform: scale(1);
   }
 }
 

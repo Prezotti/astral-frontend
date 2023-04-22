@@ -78,10 +78,6 @@
   user-select: none;
 }
 
-.botaoAddItem button:hover {
-  transform: scale(1.2);
-}
-
 .ativoDiv {
   display: flex;
 }
@@ -90,10 +86,13 @@
   display: none;
 }
 
-@media (max-width: 940px) {
+@media (min-width: 768px) {
   .botaoAddItem button:hover {
-    transform: scale(1);
+    transform: scale(1.2);
   }
+}
+
+@media (max-width: 940px) {
   .cardProduto {
     width: 200px;
     height: 240px;

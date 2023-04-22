@@ -141,12 +141,18 @@
   .produtos {
     grid-template-columns: 1fr 1fr;
   }
+  .nenhumProdutoMsg {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 450px) {
   .banner {
     margin-top: 110px;
     gap: 10px;
+  }
+  .nenhumProdutoMsg {
+    font-size: 0.7rem;
   }
 }
 
@@ -173,5 +179,8 @@
 @media (max-width: 350px) {
   .categorias {
     gap: 10px;
+  }
+  .nenhumProdutoMsg {
+    font-size: 0.6rem;
   }
 }
