@@ -57,10 +57,11 @@
     border-radius: 7px;
   }
   .botaoProduto {
-    height: 18px;
-    width: 60px;
-    font-size: 0.5rem;
+    height: 24px;
+    width: 100%;
+    font-size: 0.7rem;
     border-radius: 4.5px;
+    align-items: center;
   }
 }
 
@@ -70,5 +71,13 @@
     width: 96px;
     font-size: 0.6rem;
     border-radius: 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  .botaoProduto {
+    height: 21px;
+    font-size: 0.6rem;
+    border-radius: 4.5px;
   }
 }

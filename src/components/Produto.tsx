@@ -54,7 +54,7 @@ export function Produto({
           `.${styles.botaoAddItem}`
         ) as HTMLDivElement;
       const botaoComprar = event.currentTarget.parentElement?.parentElement
-        ?.children[2] as HTMLButtonElement;
+        ?.children[1] as HTMLButtonElement;
       botaoAddItem.classList.add(styles.desabilitado);
       botaoAddItem.classList.remove(styles.ativoDiv);
       botaoComprar.classList.remove(styles.desabilitado);
@@ -71,8 +71,10 @@ export function Produto({
           <p>Produtor: {produtor}</p>
         </div>
         <div className={styles.infoComprar}>
-          <p>R$ {preco.toFixed(2).replace(".", ",")}</p>
-          <p className={styles.medida}>{medida}</p>
+          <section className={styles.texto}>
+            <p>R$ {preco.toFixed(2).replace(".", ",")}</p>
+            <p className={styles.medida}>{medida}</p>
+          </section>
           <Button
             text="COMPRAR"
             onClick={mudarBotao}
