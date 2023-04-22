@@ -43,7 +43,12 @@
   align-items: center;
   justify-content: space-around;
   color: #72b234;
+}
+
+.texto {
   font-weight: 700;
+  display: flex;
+  gap: 10px;
 }
 
 .medida {
@@ -179,7 +184,13 @@
 @media (max-width: 450px) {
   .cardProduto {
     width: 160px;
-    height: 192px;
+    height: 210px;
+  }
+  .conteudo {
+    gap: 5px;
+  }
+  .descricao {
+    gap: 5px;
   }
   .descricao h3 {
     font-size: 0.7rem;
@@ -188,26 +199,34 @@
     font-size: 0.5rem;
   }
   .infoComprar {
-    font-size: 0.6rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+  }
+  .texto {
+    width: 100%;
+    font-size: 0.9rem;
+    justify-content: space-between;
+    align-items: center;
   }
   .medida {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
   }
   .botaoAddItem {
-    height: 18px;
-    width: 60px;
-    font-size: 0.5rem;
+    height: 24px;
+    width: 100%;
+    font-size: 0.8rem;
     border-radius: 4.5px;
   }
   .botaoAddItem button {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 360px) {
   .cardProduto {
     width: 140px;
-    height: 168px;
+    height: 200px;
   }
   .descricao h3 {
     font-size: 0.7rem;
@@ -215,16 +234,15 @@
   .descricao p {
     font-size: 0.5rem;
   }
-  .infoComprar {
-    font-size: 0.6rem;
+  .texto {
+    font-size: 0.7rem;
   }
   .medida {
-    font-size: 0.5rem;
+    font-size: 0.6rem;
   }
   .botaoAddItem {
-    height: 18px;
-    width: 60px;
-    font-size: 0.5rem;
+    height: 21px;
+    font-size: 0.6rem;
     border-radius: 4.5px;
   }
   .botaoAddItem button {
