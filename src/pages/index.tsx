@@ -221,8 +221,7 @@ export default function Home() {
           )}
         </section>
       </div>
-      {/* 
-      <Footer /> */}
+      <Footer />
     </>
   );
 }

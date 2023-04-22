@@ -67,3 +67,63 @@
   font-weight: 500;
   border-top: 2px solid #ddd;
 }
+
+@media (max-width: 940px) {
+  .container {
+    padding: 20px;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .informacoes {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .contato h3 {
+    font-size: 1rem;
+  }
+  .redessociais h3 {
+    font-size: 1rem;
+  }
+  .informacoes {
+    font-size: 0.8rem;
+  }
+  .redessociais {
+    font-size: 0.8rem;
+  }
+  .copyright {
+    font-size: 0.8rem;
+  }
+  .logo img {
+    height: 60px;
+  }
+}
+
+@media (max-width: 425px) {
+  .container {
+    padding: 10px;
+    padding-bottom: 0;
+  }
+  .conteudo {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .informacoes {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 70%;
+    gap: 15px;
+  }
+  .contato {
+    width: 100%;
+  }
+  .redessociais {
+    width: 100%;
+  }
+  .informacoes h3 {
+    text-align: center;
+  }
+}
