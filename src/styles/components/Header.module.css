@@ -142,6 +142,12 @@
   }
 }
 
+@media (min-width: 768px) {
+  .menuProdutores div:hover {
+    background-color: #72b23433;
+  }
+}
+
 @media (max-width: 1024px) {
   .headerConteudo {
     padding: 0 20px;

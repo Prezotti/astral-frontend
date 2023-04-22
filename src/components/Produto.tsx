@@ -73,7 +73,11 @@ export function Produto({
         <div className={styles.infoComprar}>
           <p>R$ {preco.toFixed(2).replace(".", ",")}</p>
           <p className={styles.medida}>{medida}</p>
-          <Button height={30} width={100} text="COMPRAR" onClick={mudarBotao} />
+          <Button
+            text="COMPRAR"
+            onClick={mudarBotao}
+            classType="botaoProduto"
+          />
           <div className={styles.botaoAddItem}>
             <button onClick={removerItem}>-</button>
             <p>{quantidade}</p>
