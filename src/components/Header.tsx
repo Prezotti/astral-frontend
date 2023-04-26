@@ -6,7 +6,13 @@ import { TiShoppingCart } from "react-icons/ti";
 
 import { useState } from "react";
 
-export function Header({ render, filtroProdutores }: { render: (busca: string) => JSX.Element, filtroProdutores: (produtores:string[]) => JSX.Element  }) {
+export function Header({
+  render,
+  filtroProdutores,
+}: {
+  render: (busca: string) => JSX.Element;
+  filtroProdutores: (produtores: string[]) => JSX.Element;
+}) {
   const abrirMenuProdutores = () => {
     const menuProdutores = document.querySelector(
       `.${styles.menuProdutores}`
@@ -21,28 +27,23 @@ export function Header({ render, filtroProdutores }: { render: (busca: string) =
     ) as HTMLDivElement;
     menuProdutores.style.display = "none";
   };
-  
 
-const vetNomesProdutoresClicados: string[] = []; // declare o vetor fora da função
-
-const [produtoresAtivos, setProdutoresAtivos] = useState <string[]> ([])
+  const [produtoresAtivos, setProdutoresAtivos] = useState<string[]>([]);
 
   const ativaFiltroProdutor = (evento: React.MouseEvent<HTMLDivElement>) => {
     const nomeProdutorClicado = evento.currentTarget.textContent ?? "";
-  
-    evento.currentTarget.classList.toggle(styles.ativo);
-    
-    if (vetNomesProdutoresClicados.includes(nomeProdutorClicado)) {
-      // Nome já está presente no vetor, então remove
-      vetNomesProdutoresClicados.splice(vetNomesProdutoresClicados.indexOf(nomeProdutorClicado), 1);
-      setProdutoresAtivos(vetNomesProdutoresClicados)
 
+    evento.currentTarget.classList.toggle(styles.ativo);
+
+    if (produtoresAtivos.includes(nomeProdutorClicado)) {
+      // Nome já está presente no vetor, então remove
+      setProdutoresAtivos(
+        produtoresAtivos.filter((produtor) => produtor !== nomeProdutorClicado)
+      );
     } else {
       // Nome não está presente no vetor, então adiciona
-      vetNomesProdutoresClicados.push(nomeProdutorClicado);
-      setProdutoresAtivos(vetNomesProdutoresClicados)
+      setProdutoresAtivos([...produtoresAtivos, nomeProdutorClicado]);
     }
-    console.log(vetNomesProdutoresClicados)
   };
 
   const produtores = ["Vanildo", "João", "Maria", "José", "Henrique"];
