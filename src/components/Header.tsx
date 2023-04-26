@@ -4,7 +4,9 @@ import { SearchBar } from "./SearchBar";
 
 import { TiShoppingCart } from "react-icons/ti";
 
-export function Header({ render }: { render: (busca: string) => JSX.Element }) {
+import { useState } from "react";
+
+export function Header({ render, filtroProdutores }: { render: (busca: string) => JSX.Element, filtroProdutores: (produtores:string[]) => JSX.Element  }) {
   const abrirMenuProdutores = () => {
     const menuProdutores = document.querySelector(
       `.${styles.menuProdutores}`
@@ -19,13 +21,31 @@ export function Header({ render }: { render: (busca: string) => JSX.Element }) {
     ) as HTMLDivElement;
     menuProdutores.style.display = "none";
   };
+  
+
+const vetNomesProdutoresClicados: string[] = []; // declare o vetor fora da função
+
+const [produtoresAtivos, setProdutoresAtivos] = useState <string[]> ([])
 
   const ativaFiltroProdutor = (evento: React.MouseEvent<HTMLDivElement>) => {
+    const nomeProdutorClicado = evento.currentTarget.textContent ?? "";
+  
     evento.currentTarget.classList.toggle(styles.ativo);
-    //todo: adicionar filtro
+    
+    if (vetNomesProdutoresClicados.includes(nomeProdutorClicado)) {
+      // Nome já está presente no vetor, então remove
+      vetNomesProdutoresClicados.splice(vetNomesProdutoresClicados.indexOf(nomeProdutorClicado), 1);
+      setProdutoresAtivos(vetNomesProdutoresClicados)
+
+    } else {
+      // Nome não está presente no vetor, então adiciona
+      vetNomesProdutoresClicados.push(nomeProdutorClicado);
+      setProdutoresAtivos(vetNomesProdutoresClicados)
+    }
+    console.log(vetNomesProdutoresClicados)
   };
 
-  const produtores = ["Vanildo", "João", "Maria", "José", "ASdmiosajiod"];
+  const produtores = ["Vanildo", "João", "Maria", "José", "Henrique"];
 
   const handleSearch = (busca: string) => {
     return render(busca);
@@ -58,6 +78,7 @@ export function Header({ render }: { render: (busca: string) => JSX.Element }) {
           </p>
         </a>
       </div>
+      {filtroProdutores(produtoresAtivos)}
     </header>
   );
 }
