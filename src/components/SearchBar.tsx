@@ -10,7 +10,7 @@ export function SearchBar({
 
   const handleBuscaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valorBusca = e.target.value;
-    setBusca(valorBusca); // Atualiza o estado de busca com o valor digitado
+    setBusca(valorBusca); 
   };
 
   return (

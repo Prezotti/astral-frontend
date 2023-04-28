@@ -20,8 +20,6 @@ export function nomeInput(props: nomeInputProps) {
   return nome;
 }
 
-console.log(nomeInput);
-
 const produtos = [
   {
     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
@@ -46,7 +44,7 @@ const produtos = [
     descricao: "Pão caseiro com goiabada chinesa",
     preco: 2.5,
     medida: "Kg",
-    produtor: "Henrique",
+    produtor: "Vanildo",
     estoque: 10,
     categoria: "Verduras",
   },
@@ -95,7 +93,9 @@ interface CategoriaInterface {
 
 export default function Home() {
   const [busca, setBusca] = useState("");
-
+  const [vetNomesProdutoresClicados, setVetNomesProdutoresClicados] = useState<
+    string[]
+  >([]);
   const [categorias, setCategorias] = useState<CategoriaInterface>({
     [CategoriaEnum.FRUTAS]: false,
     [CategoriaEnum.LEGUMES]: false,
@@ -124,11 +124,19 @@ export default function Home() {
     return <></>;
   };
 
-  console.log(busca);
+  const handleFiltroProdutor = (produtores: string[]) => {
+    setVetNomesProdutoresClicados(produtores);
+    return <></>;
+  };
 
   return (
     <>
-      <Header render={(busca) => handleSearch(busca)} />
+      <Header
+        render={(busca) => handleSearch(busca)}
+        filtroProdutores={(vetNomesProdutoresClicados) =>
+          handleFiltroProdutor(vetNomesProdutoresClicados)
+        }
+      />
       <div className={styles.banner}>
         <h1>Feira Astral</h1>
         <p>
@@ -197,7 +205,9 @@ export default function Home() {
                 (produto.descricao
                   .toLowerCase()
                   .includes(busca.toLowerCase()) ||
-                  busca === "")
+                  busca === "") &&
+                (vetNomesProdutoresClicados.includes(produto.produtor) ||
+                  vetNomesProdutoresClicados.length == 0)
               ) {
                 qtdProdutos++;
                 return (
