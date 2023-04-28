@@ -3,16 +3,21 @@ import styles from "../styles/components/Header.module.css";
 import { SearchBar } from "./SearchBar";
 
 import { TiShoppingCart } from "react-icons/ti";
+import { CgProfile } from "react-icons/cg";
 
 import { useState } from "react";
+
+interface HeaderProps {
+  render: (busca: string) => JSX.Element;
+  filtroProdutores: (produtores: string[]) => JSX.Element;
+  tipo?: "cliente" | "produtor" | "admin";
+}
 
 export function Header({
   render,
   filtroProdutores,
-}: {
-  render: (busca: string) => JSX.Element;
-  filtroProdutores: (produtores: string[]) => JSX.Element;
-}) {
+  tipo = "cliente",
+}: HeaderProps) {
   const abrirMenuProdutores = () => {
     const menuProdutores = document.querySelector(
       `.${styles.menuProdutores}`
@@ -51,35 +56,58 @@ export function Header({
   const handleSearch = (busca: string) => {
     return render(busca);
   };
-
-  return (
-    <header className={styles.headerContainer}>
-      <div className={styles.headerConteudo}>
-        <img src="/icone-astral.png" alt="Astral logo" />
-        <a href="/">Início</a>
-        <a href="/sobre">Sobre</a>
-        <SearchBar render={(busca) => handleSearch(busca)} />
-        <section
-          onMouseEnter={abrirMenuProdutores}
-          onMouseLeave={fecharMenuProdutores}
-          onTouchStart={abrirMenuProdutores}
-          className={styles.selectProdutores}
-        >
-          <p>Produtores</p>
-          <section className={styles.menuProdutores}>
-            {produtores.map((produtor) => {
-              return <div onClick={ativaFiltroProdutor}>{produtor}</div>;
-            })}
+  if (tipo === "produtor")
+    return (
+      <header className={styles.headerContainer}>
+        <div className={styles.headerConteudo}>
+          <img src="/icone-astral.png" alt="Astral logo" />
+          <a href="/">Início</a>
+          <a href="/produtos">Produtos</a>
+          <a href="/vendas">Vendas</a>
+          <CgProfile className={styles.fotoProdutor} />
+        </div>
+      </header>
+    );
+  else if (tipo === "admin")
+    return (
+      <header className={styles.headerContainer}>
+        <div className={styles.headerConteudo}>
+          <img src="/icone-astral.png" alt="Astral logo" />
+          <a href="/">Início</a>
+          <a href="/vendas">Vendas</a>
+          <a href="/produtores">Produtores</a>
+        </div>
+      </header>
+    );
+  else
+    return (
+      <header className={styles.headerContainer}>
+        <div className={styles.headerConteudo}>
+          <img src="/icone-astral.png" alt="Astral logo" />
+          <a href="/">Início</a>
+          <a href="/sobre">Sobre</a>
+          <SearchBar render={(busca) => handleSearch(busca)} />
+          <section
+            onMouseEnter={abrirMenuProdutores}
+            onMouseLeave={fecharMenuProdutores}
+            onTouchStart={abrirMenuProdutores}
+            className={styles.selectProdutores}
+          >
+            <p>Produtores</p>
+            <section className={styles.menuProdutores}>
+              {produtores.map((produtor) => {
+                return <div onClick={ativaFiltroProdutor}>{produtor}</div>;
+              })}
+            </section>
           </section>
-        </section>
-        <a href="/carrinho">
-          <TiShoppingCart size={24} color="#000" />
-          <p className={styles.precoCarrinho}>
-            <span>R$</span> 99,99
-          </p>
-        </a>
-      </div>
-      {filtroProdutores(produtoresAtivos)}
-    </header>
-  );
+          <a href="/carrinho">
+            <TiShoppingCart size={24} color="#000" />
+            <p className={styles.precoCarrinho}>
+              <span>R$</span> 99,99
+            </p>
+          </a>
+        </div>
+        {filtroProdutores(produtoresAtivos)}
+      </header>
+    );
 }
