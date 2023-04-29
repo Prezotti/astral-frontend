@@ -92,13 +92,17 @@ interface CategoriaInterface {
   [key: string]: boolean;
 }
 
+interface ProdutorInterface {
+  nome: string;
+}
+
 interface ProdutoInterface {
   imagem: string;
   descricao: string;
   preco: number;
   medida: string;
-  produtor: string;
-  estoque: number;
+  produtor: ProdutorInterface;
+  qtdEstoque: number;
   categoria: string;
 }
 
@@ -235,7 +239,7 @@ export default function Home() {
                   .toLowerCase()
                   .includes(busca.toLowerCase()) ||
                   busca === "") &&
-                (vetNomesProdutoresClicados.includes(produto.produtor) ||
+                (vetNomesProdutoresClicados.includes(produto.produtor.nome) ||
                   vetNomesProdutoresClicados.length == 0)
               ) {
                 qtdProdutos++;
@@ -245,8 +249,8 @@ export default function Home() {
                     descricao={produto.descricao}
                     preco={produto.preco}
                     medida={produto.medida}
-                    produtor={produto.produtor}
-                    qtdEstoque={produto.estoque}
+                    produtor={produto.produtor.nome}
+                    qtdEstoque={produto.qtdEstoque}
                   />
                 );
               }
