@@ -1,13 +1,14 @@
 import styles from "../styles/pages/Home.module.css";
 
-import { useState } from "react";
+import axios from "axios";
+
+import { useEffect, useState } from "react";
 
 import { Header } from "../components/Header";
 import { Button } from "../components/Button";
 import { Categoria } from "@/components/Categoria";
 import { Produto } from "@/components/Produto";
 import { Footer } from "@/components/Footer";
-import { SearchBar } from "@/components/SearchBar";
 
 import { HiOutlineEmojiSad } from "react-icons/hi";
 
@@ -91,7 +92,32 @@ interface CategoriaInterface {
   [key: string]: boolean;
 }
 
+interface ProdutoInterface {
+  imagem: string;
+  descricao: string;
+  preco: number;
+  medida: string;
+  produtor: string;
+  estoque: number;
+  categoria: string;
+}
+
 export default function Home() {
+  const api = axios.create({
+    baseURL: "http://localhost:8080",
+  });
+
+  useEffect(() => {
+    api
+      .get("/produtos")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const [busca, setBusca] = useState("");
   const [vetNomesProdutoresClicados, setVetNomesProdutoresClicados] = useState<
     string[]
