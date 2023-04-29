@@ -232,6 +232,7 @@ export default function Home() {
           <h2>Nossos Produtos</h2>
           <section className={styles.produtos}>
             {produtos.map((produto) => {
+              console.log(produto);
               if (
                 (categoriasAtivas.length === 0 ||
                   categoriasAtivas.includes(produto.categoria)) &&
