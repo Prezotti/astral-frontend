@@ -79,13 +79,13 @@ export function nomeInput(props: nomeInputProps) {
 // ];
 
 enum CategoriaEnum {
-  FRUTAS = "Frutas",
-  LEGUMES = "Legumes",
-  VERDURAS = "Verduras",
-  EMBALADOS = "Embalados",
-  DOCES = "Doces",
-  GRANJA = "Granja",
-  OUTROS = "Outros",
+  FRUTAS = "FRUTAS",
+  LEGUMES = "LEGUMES",
+  VERDURAS = "VERDURAS",
+  EMBALADOS = "EMBALADOS",
+  DOCES = "DOCES",
+  GRANJA = "GRANJA",
+  OUTROS = "OUTROS",
 }
 
 interface CategoriaInterface {
@@ -97,6 +97,7 @@ interface ProdutorInterface {
 }
 
 interface ProdutoInterface {
+  id: number;
   imagem: string;
   descricao: string;
   preco: number;
@@ -111,14 +112,13 @@ export default function Home() {
     baseURL: "http://localhost:8080",
   });
 
-  let produtos: ProdutoInterface[] = [];
+  const [produtos, setProdutos] = useState<ProdutoInterface[]>([]);
 
   useEffect(() => {
     api
       .get("/produto")
       .then((response) => {
-        produtos = response.data;
-        console.log(produtos);
+        setProdutos(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -232,7 +232,6 @@ export default function Home() {
           <h2>Nossos Produtos</h2>
           <section className={styles.produtos}>
             {produtos.map((produto) => {
-              console.log(produto);
               if (
                 (categoriasAtivas.length === 0 ||
                   categoriasAtivas.includes(produto.categoria)) &&
@@ -246,6 +245,7 @@ export default function Home() {
                 qtdProdutos++;
                 return (
                   <Produto
+                    key={produto.id}
                     imagem={produto.imagem}
                     descricao={produto.descricao}
                     preco={produto.preco}
