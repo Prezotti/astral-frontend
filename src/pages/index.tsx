@@ -109,7 +109,7 @@ export default function Home() {
 
   useEffect(() => {
     api
-      .get("/produtos")
+      .get("/produto")
       .then((response) => {
         console.log(response.data);
       })
