@@ -13,6 +13,11 @@ interface HeaderProps {
   tipo?: "cliente" | "produtor" | "admin";
 }
 
+interface ProdutorInterface {
+  nome: string;
+  id: number;
+}
+
 export function Header({
   render,
   filtroProdutores,
@@ -51,7 +56,11 @@ export function Header({
     }
   };
 
-  const produtores = ["Vanildo", "João", "Maria", "José", "Henrique"];
+  const produtores: ProdutorInterface[] = [
+    { nome: "Vanildo", id: 5 },
+    { nome: "Henrique", id: 6 },
+    { nome: "Angélica", id: 7 },
+  ];
 
   const handleSearch = (busca: string) => {
     return render(busca);
@@ -96,7 +105,11 @@ export function Header({
             <p>Produtores</p>
             <section className={styles.menuProdutores}>
               {produtores.map((produtor) => {
-                return <div onClick={ativaFiltroProdutor}>{produtor}</div>;
+                return (
+                  <div onClick={ativaFiltroProdutor} key={produtor.id}>
+                    {produtor.nome}
+                  </div>
+                );
               })}
             </section>
           </section>

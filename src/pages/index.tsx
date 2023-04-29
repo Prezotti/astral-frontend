@@ -1,13 +1,14 @@
 import styles from "../styles/pages/Home.module.css";
 
-import { useState } from "react";
+import axios from "axios";
+
+import { useEffect, useState } from "react";
 
 import { Header } from "../components/Header";
 import { Button } from "../components/Button";
 import { Categoria } from "@/components/Categoria";
 import { Produto } from "@/components/Produto";
 import { Footer } from "@/components/Footer";
-import { SearchBar } from "@/components/SearchBar";
 
 import { HiOutlineEmojiSad } from "react-icons/hi";
 
@@ -20,78 +21,110 @@ export function nomeInput(props: nomeInputProps) {
   return nome;
 }
 
-const produtos = [
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Henrique",
-    estoque: 10,
-    categoria: "Frutas",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Angélica e Vanildo",
-    estoque: 15,
-    categoria: "Legumes",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Pão caseiro com goiabada chinesa",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Vanildo",
-    estoque: 10,
-    categoria: "Verduras",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Henrique",
-    estoque: 10,
-    categoria: "Frutas",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Henrique",
-    estoque: 10,
-    categoria: "Embalados",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Dúzia",
-    produtor: "Henrique",
-    estoque: 10,
-    categoria: "Doces",
-  },
-];
+// const produtos = [
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Henrique",
+//     estoque: 10,
+//     categoria: "Frutas",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Angélica e Vanildo",
+//     estoque: 15,
+//     categoria: "Legumes",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Pão caseiro com goiabada chinesa",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Vanildo",
+//     estoque: 10,
+//     categoria: "Verduras",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Henrique",
+//     estoque: 10,
+//     categoria: "Frutas",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Henrique",
+//     estoque: 10,
+//     categoria: "Embalados",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Dúzia",
+//     produtor: "Henrique",
+//     estoque: 10,
+//     categoria: "Doces",
+//   },
+// ];
 
 enum CategoriaEnum {
-  FRUTAS = "Frutas",
-  LEGUMES = "Legumes",
-  VERDURAS = "Verduras",
-  EMBALADOS = "Embalados",
-  DOCES = "Doces",
-  GRANJA = "Granja",
-  OUTROS = "Outros",
+  FRUTAS = "FRUTAS",
+  LEGUMES = "LEGUMES",
+  VERDURAS = "VERDURAS",
+  EMBALADOS = "EMBALADOS",
+  DOCES = "DOCES",
+  GRANJA = "GRANJA",
+  OUTROS = "OUTROS",
 }
 
 interface CategoriaInterface {
   [key: string]: boolean;
 }
 
+interface ProdutorInterface {
+  nome: string;
+}
+
+interface ProdutoInterface {
+  id: number;
+  imagem: string;
+  descricao: string;
+  preco: number;
+  medida: string;
+  produtor: ProdutorInterface;
+  qtdEstoque: number;
+  categoria: string;
+}
+
 export default function Home() {
+  const api = axios.create({
+    baseURL: "http://localhost:8080",
+  });
+
+  const [produtos, setProdutos] = useState<ProdutoInterface[]>([]);
+
+  useEffect(() => {
+    api
+      .get("/produto")
+      .then((response) => {
+        setProdutos(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const [busca, setBusca] = useState("");
   const [vetNomesProdutoresClicados, setVetNomesProdutoresClicados] = useState<
     string[]
@@ -206,18 +239,19 @@ export default function Home() {
                   .toLowerCase()
                   .includes(busca.toLowerCase()) ||
                   busca === "") &&
-                (vetNomesProdutoresClicados.includes(produto.produtor) ||
+                (vetNomesProdutoresClicados.includes(produto.produtor.nome) ||
                   vetNomesProdutoresClicados.length == 0)
               ) {
                 qtdProdutos++;
                 return (
                   <Produto
+                    key={produto.id}
                     imagem={produto.imagem}
                     descricao={produto.descricao}
                     preco={produto.preco}
                     medida={produto.medida}
-                    produtor={produto.produtor}
-                    qtdEstoque={produto.estoque}
+                    produtor={produto.produtor.nome}
+                    qtdEstoque={produto.qtdEstoque}
                   />
                 );
               }
