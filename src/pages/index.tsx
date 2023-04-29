@@ -21,62 +21,62 @@ export function nomeInput(props: nomeInputProps) {
   return nome;
 }
 
-const produtos = [
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Henrique",
-    estoque: 10,
-    categoria: "Frutas",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Angélica e Vanildo",
-    estoque: 15,
-    categoria: "Legumes",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Pão caseiro com goiabada chinesa",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Vanildo",
-    estoque: 10,
-    categoria: "Verduras",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Henrique",
-    estoque: 10,
-    categoria: "Frutas",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Kg",
-    produtor: "Henrique",
-    estoque: 10,
-    categoria: "Embalados",
-  },
-  {
-    imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-    descricao: "Banana Prata",
-    preco: 2.5,
-    medida: "Dúzia",
-    produtor: "Henrique",
-    estoque: 10,
-    categoria: "Doces",
-  },
-];
+// const produtos = [
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Henrique",
+//     estoque: 10,
+//     categoria: "Frutas",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Angélica e Vanildo",
+//     estoque: 15,
+//     categoria: "Legumes",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Pão caseiro com goiabada chinesa",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Vanildo",
+//     estoque: 10,
+//     categoria: "Verduras",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Henrique",
+//     estoque: 10,
+//     categoria: "Frutas",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Kg",
+//     produtor: "Henrique",
+//     estoque: 10,
+//     categoria: "Embalados",
+//   },
+//   {
+//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
+//     descricao: "Banana Prata",
+//     preco: 2.5,
+//     medida: "Dúzia",
+//     produtor: "Henrique",
+//     estoque: 10,
+//     categoria: "Doces",
+//   },
+// ];
 
 enum CategoriaEnum {
   FRUTAS = "Frutas",
@@ -107,11 +107,13 @@ export default function Home() {
     baseURL: "http://localhost:8080",
   });
 
+  let produtos: ProdutoInterface[] = [];
+
   useEffect(() => {
     api
       .get("/produto")
       .then((response) => {
-        console.log(response.data);
+        produtos = response.data;
       })
       .catch((error) => {
         console.log(error);
