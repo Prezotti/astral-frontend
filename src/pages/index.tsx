@@ -114,6 +114,7 @@ export default function Home() {
       .get("/produto")
       .then((response) => {
         produtos = response.data;
+        console.log(produtos);
       })
       .catch((error) => {
         console.log(error);
