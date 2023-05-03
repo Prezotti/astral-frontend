@@ -11,9 +11,14 @@ import { CgProfile } from "react-icons/cg";
 import { useEffect, useState } from "react";
 
 interface HeaderProps {
-  render: (busca: string) => JSX.Element;
-  filtroProdutores: (produtores: string[]) => JSX.Element;
+  render?: (busca: string) => JSX.Element;
+  filtroProdutores?: (produtores: string[]) => JSX.Element;
   tipo?: "cliente" | "produtor" | "admin";
+}
+
+interface ProdutorInterface {
+  nome: string;
+  id: number;
 }
 
 interface ProdutorInterface {
