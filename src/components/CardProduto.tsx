@@ -30,9 +30,9 @@ export function CardProduto({ produto, retornaItem }: CardProdutoProps) {
   };
 
   const adicionarItem = (event: React.MouseEvent<HTMLButtonElement>) => {
-    item.quantidade = quantidade + 1;
-    retornaItem(item);
     if (quantidade < produto.qtdEstoque) {
+      item.quantidade = quantidade + 1;
+      retornaItem(item);
       setQuantidade(quantidade + 1);
       setMostrarMensagem(false);
     } else {
