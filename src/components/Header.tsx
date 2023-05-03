@@ -14,6 +14,7 @@ interface HeaderProps {
   render: (busca: string) => JSX.Element;
   filtroProdutores: (produtores: string[]) => JSX.Element;
   tipo?: "cliente" | "produtor" | "admin";
+  valorCarrinho: number;
 }
 
 interface ProdutorInterface {
@@ -25,6 +26,7 @@ export function Header({
   render,
   filtroProdutores,
   tipo = "cliente",
+  valorCarrinho,
 }: HeaderProps) {
   const [produtoresAtivos, setProdutoresAtivos] = useState<string[]>([]);
   const [produtores, setProdutores] = useState<ProdutorInterface[]>([]);
@@ -127,7 +129,7 @@ export function Header({
           <a href="/carrinho">
             <TiShoppingCart size={24} color="#000" />
             <p className={styles.precoCarrinho}>
-              <span>R$</span> 99,99
+              <span>R$</span> {valorCarrinho.toFixed(2).replace(".", ",")}
             </p>
           </a>
         </div>

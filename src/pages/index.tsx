@@ -9,10 +9,15 @@ import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { Button } from "../components/Button";
 import { Categoria } from "@/components/Categoria";
-import { Produto } from "@/components/Produto";
+import { CardProduto } from "@/components/CardProduto";
 import { Footer } from "@/components/Footer";
 
 import { HiOutlineEmojiSad } from "react-icons/hi";
+
+import { Produto } from "@/classes/Produto";
+import { Produtor } from "@/classes/Produtor";
+import { Carrinho } from "@/classes/Carrinho";
+import { ItemCompra } from "@/classes/ItemCompra";
 
 interface nomeInputProps {
   nome: string;
@@ -22,63 +27,6 @@ export function nomeInput(props: nomeInputProps) {
   const nome = props.nome;
   return nome;
 }
-
-// const produtos = [
-//   {
-//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-//     descricao: "Banana Prata",
-//     preco: 2.5,
-//     medida: "Kg",
-//     produtor: "Henrique",
-//     estoque: 10,
-//     categoria: "Frutas",
-//   },
-//   {
-//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-//     descricao: "Banana Prata",
-//     preco: 2.5,
-//     medida: "Kg",
-//     produtor: "Angélica e Vanildo",
-//     estoque: 15,
-//     categoria: "Legumes",
-//   },
-//   {
-//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-//     descricao: "Pão caseiro com goiabada chinesa",
-//     preco: 2.5,
-//     medida: "Kg",
-//     produtor: "Vanildo",
-//     estoque: 10,
-//     categoria: "Verduras",
-//   },
-//   {
-//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-//     descricao: "Banana Prata",
-//     preco: 2.5,
-//     medida: "Kg",
-//     produtor: "Henrique",
-//     estoque: 10,
-//     categoria: "Frutas",
-//   },
-//   {
-//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-//     descricao: "Banana Prata",
-//     preco: 2.5,
-//     medida: "Kg",
-//     produtor: "Henrique",
-//     estoque: 10,
-//     categoria: "Embalados",
-//   },
-//   {
-//     imagem: "https://tinypic.host/images/2023/04/12/imagem-produto.jpeg",
-//     descricao: "Banana Prata",
-//     preco: 2.5,
-//     medida: "Dúzia",
-//     produtor: "Henrique",
-//     estoque: 10,
-//     categoria: "Doces",
-//   },
-// ];
 
 enum CategoriaEnum {
   FRUTAS = "FRUTAS",
@@ -94,33 +42,63 @@ interface CategoriaInterface {
   [key: string]: boolean;
 }
 
-interface ProdutorInterface {
-  nome: string;
-}
-
-interface ProdutoInterface {
-  id: number;
-  imagem: string;
+interface ProdutoJSONInteface {
   descricao: string;
   preco: number;
   medida: string;
-  produtor: ProdutorInterface;
+  produtor: ProdutorJSONInterface;
   qtdEstoque: number;
   categoria: string;
+  imagem: string;
+  id: number;
+  disponivel: boolean;
 }
 
-export default function Home() {
-  const [produtos, setProdutos] = useState<ProdutoInterface[]>([]);
+interface ProdutorJSONInterface {
+  nome: string;
+  id: number;
+  disponivel: boolean;
+  telefone: string;
+}
 
-  useEffect(() => {
+let carrinho = new Carrinho();
+
+export default function Home() {
+  const [produtos, setProdutos] = useState<Produto[]>([]);
+  const [valorCarrinho, setValorCarrinho] = useState(0);
+
+  const getProdutos = async () => {
     api
       .get("/produto")
       .then((response) => {
-        setProdutos(response.data);
+        response.data.forEach((produto: ProdutoJSONInteface) => {
+          const produtor = new Produtor(
+            produto.produtor.nome,
+            produto.produtor.disponivel,
+            produto.produtor.telefone,
+            produto.produtor.id
+          );
+          const produtoNovo = new Produto(
+            produto.descricao,
+            produto.preco,
+            produto.medida,
+            produtor,
+            produto.qtdEstoque,
+            produto.categoria,
+            produto.imagem,
+            produto.id,
+            produto.disponivel
+          );
+          setProdutos((prevState) => [...prevState, produtoNovo]);
+        });
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    getProdutos();
   }, []);
 
   const [busca, setBusca] = useState("");
@@ -160,6 +138,11 @@ export default function Home() {
     return <></>;
   };
 
+  const colocaCarrinho = (item: ItemCompra) => {
+    carrinho.adicionarItem(item);
+    setValorCarrinho(carrinho.calcularTotal());
+  };
+
   return (
     <>
       <Header
@@ -167,6 +150,7 @@ export default function Home() {
         filtroProdutores={(vetNomesProdutoresClicados) =>
           handleFiltroProdutor(vetNomesProdutoresClicados)
         }
+        valorCarrinho={valorCarrinho}
       />
       <div className={styles.banner}>
         <h1>Feira Astral</h1>
@@ -242,14 +226,10 @@ export default function Home() {
               ) {
                 qtdProdutos++;
                 return (
-                  <Produto
+                  <CardProduto
                     key={produto.id}
-                    imagem={produto.imagem}
-                    descricao={produto.descricao}
-                    preco={produto.preco}
-                    medida={produto.medida}
-                    produtor={produto.produtor.nome}
-                    qtdEstoque={produto.qtdEstoque}
+                    produto={produto}
+                    retornaItem={(item) => colocaCarrinho(item)}
                   />
                 );
               }
