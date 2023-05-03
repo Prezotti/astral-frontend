@@ -1,11 +1,14 @@
 import styles from "../styles/components/Header.module.css";
 
+import axios from "axios";
+import api from "@/api/api";
+
 import { SearchBar } from "./SearchBar";
 
 import { TiShoppingCart } from "react-icons/ti";
 import { CgProfile } from "react-icons/cg";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface HeaderProps {
   render: (busca: string) => JSX.Element;
@@ -23,6 +26,22 @@ export function Header({
   filtroProdutores,
   tipo = "cliente",
 }: HeaderProps) {
+  const [produtoresAtivos, setProdutoresAtivos] = useState<string[]>([]);
+  const [produtores, setProdutores] = useState<ProdutorInterface[]>([]);
+
+  const getProdutores = async () => {
+    try {
+      const response = await api.get("/produtor");
+      setProdutores(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getProdutores();
+  }, []);
+
   const abrirMenuProdutores = () => {
     const menuProdutores = document.querySelector(
       `.${styles.menuProdutores}`
@@ -37,8 +56,6 @@ export function Header({
     ) as HTMLDivElement;
     menuProdutores.style.display = "none";
   };
-
-  const [produtoresAtivos, setProdutoresAtivos] = useState<string[]>([]);
 
   const ativaFiltroProdutor = (evento: React.MouseEvent<HTMLDivElement>) => {
     const nomeProdutorClicado = evento.currentTarget.textContent ?? "";
@@ -55,12 +72,6 @@ export function Header({
       setProdutoresAtivos([...produtoresAtivos, nomeProdutorClicado]);
     }
   };
-
-  const produtores: ProdutorInterface[] = [
-    { nome: "Vanildo", id: 5 },
-    { nome: "Henrique", id: 6 },
-    { nome: "Angélica", id: 7 },
-  ];
 
   const handleSearch = (busca: string) => {
     return render(busca);

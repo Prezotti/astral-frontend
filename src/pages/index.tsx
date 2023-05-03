@@ -2,6 +2,8 @@ import styles from "../styles/pages/Home.module.css";
 
 import axios from "axios";
 
+import api from "@/api/api";
+
 import { useEffect, useState } from "react";
 
 import { Header } from "../components/Header";
@@ -108,10 +110,6 @@ interface ProdutoInterface {
 }
 
 export default function Home() {
-  const api = axios.create({
-    baseURL: "http://localhost:8080",
-  });
-
   const [produtos, setProdutos] = useState<ProdutoInterface[]>([]);
 
   useEffect(() => {
