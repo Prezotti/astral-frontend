@@ -130,12 +130,10 @@ export default function Home() {
 
   const handleSearch = (busca: string) => {
     setBusca(busca);
-    return <></>;
   };
 
   const handleFiltroProdutor = (produtores: string[]) => {
     setVetNomesProdutoresClicados(produtores);
-    return <></>;
   };
 
   const colocaCarrinho = (item: ItemCompra) => {
@@ -146,8 +144,8 @@ export default function Home() {
   return (
     <>
       <Header
-        render={(busca) => handleSearch(busca)}
-        filtroProdutores={(vetNomesProdutoresClicados) =>
+        retornaBusca={(busca) => handleSearch(busca)}
+        retornaProdutoresSelecionados={(vetNomesProdutoresClicados) =>
           handleFiltroProdutor(vetNomesProdutoresClicados)
         }
         valorCarrinho={valorCarrinho}

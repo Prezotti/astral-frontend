@@ -2,15 +2,16 @@ import styles from "../styles/components/SearchBar.module.css";
 import { useState } from "react";
 
 export function SearchBar({
-  render,
+  retornaBusca,
 }: {
-  render: (busca: string) => JSX.Element;
+  retornaBusca: (busca: string) => void;
 }) {
   const [busca, setBusca] = useState("");
 
   const handleBuscaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valorBusca = e.target.value;
-    setBusca(valorBusca); 
+    setBusca(valorBusca);
+    retornaBusca(valorBusca);
   };
 
   return (
@@ -24,7 +25,6 @@ export function SearchBar({
       <button type="submit">
         <img src="/botao-pesquisar.png" alt="Search" />
       </button>
-      {render(busca)}
     </div>
   );
 }
