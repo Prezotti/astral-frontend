@@ -12,8 +12,8 @@ import { useEffect, useState } from "react";
 import { Produtor } from "@/classes/Produtor";
 
 interface HeaderProps {
-  retornaBusca: (busca: string) => void;
-  retornaProdutoresSelecionados: (produtores: string[]) => void;
+  retornaBusca?: (busca: string) => void;
+  retornaProdutoresSelecionados?: (produtores: string[]) => void;
   tipo?: "cliente" | "produtor" | "admin";
   valorCarrinho: number;
 }
@@ -67,20 +67,27 @@ export function Header({
 
     if (produtoresAtivos.includes(nomeProdutorClicado)) {
       // Nome já está presente no vetor, então remove
-      retornaProdutoresSelecionados(
-        produtoresAtivos.filter((produtor) => produtor !== nomeProdutorClicado)
-      );
+      if (retornaProdutoresSelecionados)
+        retornaProdutoresSelecionados(
+          produtoresAtivos.filter(
+            (produtor) => produtor !== nomeProdutorClicado
+          )
+        );
       setProdutoresAtivos(
         produtoresAtivos.filter((produtor) => produtor !== nomeProdutorClicado)
       );
     } else {
       // Nome não está presente no vetor, então adiciona
-      retornaProdutoresSelecionados([...produtoresAtivos, nomeProdutorClicado]);
+      if (retornaProdutoresSelecionados)
+        retornaProdutoresSelecionados([
+          ...produtoresAtivos,
+          nomeProdutorClicado,
+        ]);
       setProdutoresAtivos([...produtoresAtivos, nomeProdutorClicado]);
     }
   };
   const handleSearch = (busca: string) => {
-    return retornaBusca(busca);
+    if (retornaBusca) return retornaBusca(busca);
   };
   if (tipo === "produtor")
     return (
