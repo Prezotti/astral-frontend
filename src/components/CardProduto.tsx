@@ -1,4 +1,4 @@
-import styles from "../styles/components/Produto.module.css";
+import styles from "../styles/components/CardProduto.module.css";
 import { Button } from "./Button";
 
 import { useState } from "react";
