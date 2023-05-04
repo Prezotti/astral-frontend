@@ -48,19 +48,20 @@
 .texto {
   font-weight: 700;
   display: flex;
-  gap: 10px;
+  gap: 5px;
+  align-items: center;
 }
 
 .medida {
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .botaoAddItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100px;
+  width: 90px;
   height: 30px;
   border-radius: 7.5px;
   background-color: white;
@@ -109,10 +110,10 @@
     font-size: 0.7rem;
   }
   .infoComprar {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
   .medida {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
   .botaoAddItem {
     height: 24px;
@@ -137,7 +138,7 @@
     font-size: 0.5rem;
   }
   .infoComprar {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
   }
   .medida {
     font-size: 0.5rem;
@@ -165,10 +166,10 @@
     font-size: 0.7rem;
   }
   .infoComprar {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
   .medida {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
   .botaoAddItem {
     height: 24px;
