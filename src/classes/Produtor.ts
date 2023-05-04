@@ -1,27 +1,27 @@
 export class Produtor{
-    #nome : string;
-    #disponivel : boolean;
-    #telefone : string;
-    #id: number;
+    private _nome : string;
+    private _disponivel : boolean;
+    private _telefone : string;
+    private _id: number;
 
     constructor(nome : string, disponivel : boolean, telefone : string, id : number){
-        this.#nome = nome;
-        this.#disponivel = disponivel;
-        this.#telefone = telefone;
-        this.#id = id;
+        this._nome = nome;
+        this._disponivel = disponivel;
+        this._telefone = telefone;
+        this._id = id;
     }
 
     get nome(){
-        return this.#nome;
+        return this._nome;
     }
     get disponivel(){
-        return this.#disponivel;
+        return this._disponivel;
     }
     get telefone(){
-        return this.#telefone;
+        return this._telefone;
     }
     get id(){
-        return this.#id;
+        return this._id;
     }
 
 
