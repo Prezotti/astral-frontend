@@ -27,8 +27,8 @@ interface ProdutorInterface {
 }
 
 export function Header({
-  render,
-  filtroProdutores,
+  render = () => <></>,
+  filtroProdutores = () => <></>,
   tipo = "cliente",
 }: HeaderProps) {
   const [produtoresAtivos, setProdutoresAtivos] = useState<string[]>([]);
