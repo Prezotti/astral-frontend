@@ -1,24 +1,24 @@
 import { Produto } from "./Produto";
 
 export class ItemCompra{
-    #quantidade : number;
-    #produto : Produto;
+    private _quantidade : number;
+    private _produto : Produto;
 
     constructor(quantidade : number, produto : Produto){
-        this.#quantidade = quantidade;
-        this.#produto = produto;
+        this._quantidade = quantidade;
+        this._produto = produto;
     }
 
     set quantidade(quantidade : number){
         if(quantidade < 0)
             throw new Error("Quantidade inválida");
-        this.#quantidade = quantidade;
+        this._quantidade = quantidade;
     }
 
     get quantidade(){
-        return this.#quantidade;
+        return this._quantidade;
     }
     get produto(){
-        return this.#produto;
+        return this._produto;
     }
 }

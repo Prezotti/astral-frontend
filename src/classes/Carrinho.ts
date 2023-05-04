@@ -1,13 +1,13 @@
 import { ItemCompra } from "./ItemCompra";
 export class Carrinho{
-    #itens : ItemCompra[];
+    private _itens : ItemCompra[];
 
     constructor(){
-        this.#itens = [];
+        this._itens = [];
     }
 
     get itens(){
-        return this.#itens;
+        return this._itens;
     }
 
     adicionarItem(item : ItemCompra){
@@ -16,24 +16,24 @@ export class Carrinho{
         if(item.quantidade == 0)
             this.removerItem(item);
         else{
-            let indice = this.#itens.findIndex(itemCarrinho => itemCarrinho.produto.id == item.produto.id);
+            let indice = this._itens.findIndex(itemCarrinho => itemCarrinho.produto.id == item.produto.id);
             if(indice >= 0)
-                this.#itens[indice] = item;
+                this._itens[indice] = item;
             else
-                this.#itens.push(item);
+                this._itens.push(item);
         }
     }
 
     removerItem(item : ItemCompra){
-        let indice = this.#itens.findIndex(itemCarrinho => itemCarrinho.produto.id == item.produto.id);
+        let indice = this._itens.findIndex(itemCarrinho => itemCarrinho.produto.id == item.produto.id);
         if(indice >= 0)
-            this.#itens.splice(indice, 1);
+            this._itens.splice(indice, 1);
     }
 
     calcularTotal(){
         let total = 0;
-        console.log(this.#itens);
-        this.#itens.forEach(item => {
+        console.log(this._itens);
+        this._itens.forEach(item => {
             total += item.produto.preco * item.quantidade;
         });
         return total;

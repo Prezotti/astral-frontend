@@ -23,6 +23,11 @@ interface ProdutorInterface {
   id: number;
 }
 
+interface ProdutorInterface {
+  nome: string;
+  id: number;
+}
+
 export function Header({
   retornaBusca,
   retornaProdutoresSelecionados,
