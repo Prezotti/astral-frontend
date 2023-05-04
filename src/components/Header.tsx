@@ -15,7 +15,7 @@ interface HeaderProps {
   retornaBusca?: (busca: string) => void;
   retornaProdutoresSelecionados?: (produtores: string[]) => void;
   tipo?: "cliente" | "produtor" | "admin";
-  valorCarrinho: number;
+  valorCarrinho?: number;
 }
 
 interface ProdutorInterface {
@@ -145,7 +145,7 @@ export function Header({
           <a href="/carrinho">
             <TiShoppingCart size={24} color="#000" />
             <p className={styles.precoCarrinho}>
-              <span>R$</span> {valorCarrinho.toFixed(2).replace(".", ",")}
+              <span>R$</span> {valorCarrinho?.toFixed(2).replace(".", ",")}
             </p>
           </a>
         </div>
