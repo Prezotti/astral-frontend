@@ -9,10 +9,11 @@ import { TiShoppingCart } from "react-icons/ti";
 import { CgProfile } from "react-icons/cg";
 
 import { useEffect, useState } from "react";
+import { Produtor } from "@/classes/Produtor";
 
 interface HeaderProps {
-  render: (busca: string) => JSX.Element;
-  filtroProdutores: (produtores: string[]) => JSX.Element;
+  retornaBusca: (busca: string) => void;
+  retornaProdutoresSelecionados: (produtores: string[]) => void;
   tipo?: "cliente" | "produtor" | "admin";
   valorCarrinho: number;
 }
@@ -23,8 +24,8 @@ interface ProdutorInterface {
 }
 
 export function Header({
-  render,
-  filtroProdutores,
+  retornaBusca,
+  retornaProdutoresSelecionados,
   tipo = "cliente",
   valorCarrinho,
 }: HeaderProps) {
@@ -66,17 +67,20 @@ export function Header({
 
     if (produtoresAtivos.includes(nomeProdutorClicado)) {
       // Nome já está presente no vetor, então remove
+      retornaProdutoresSelecionados(
+        produtoresAtivos.filter((produtor) => produtor !== nomeProdutorClicado)
+      );
       setProdutoresAtivos(
         produtoresAtivos.filter((produtor) => produtor !== nomeProdutorClicado)
       );
     } else {
       // Nome não está presente no vetor, então adiciona
+      retornaProdutoresSelecionados([...produtoresAtivos, nomeProdutorClicado]);
       setProdutoresAtivos([...produtoresAtivos, nomeProdutorClicado]);
     }
   };
-
   const handleSearch = (busca: string) => {
-    return render(busca);
+    return retornaBusca(busca);
   };
   if (tipo === "produtor")
     return (
@@ -108,7 +112,7 @@ export function Header({
           <img src="/icone-astral.png" alt="Astral logo" />
           <a href="/">Início</a>
           <a href="/sobre">Sobre</a>
-          <SearchBar render={(busca) => handleSearch(busca)} />
+          <SearchBar retornaBusca={(busca) => handleSearch(busca)} />
           <section
             onMouseEnter={abrirMenuProdutores}
             onMouseLeave={fecharMenuProdutores}
@@ -133,7 +137,6 @@ export function Header({
             </p>
           </a>
         </div>
-        {filtroProdutores(produtoresAtivos)}
       </header>
     );
 }
