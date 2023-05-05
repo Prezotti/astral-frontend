@@ -16,6 +16,15 @@
   border-radius: 7.5px;
 }
 
+.botaoBannerProdutor{
+  border-radius: 9px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 10px;
+  margin: 8px 0;
+  width: 260px;
+}
+
 @media (max-width: 940px) {
   .botaoProduto {
     height: 24px;
