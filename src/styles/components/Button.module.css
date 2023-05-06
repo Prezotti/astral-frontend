@@ -25,6 +25,11 @@
   margin: 8px 0;
 }
 
+.botaoCardFeira{
+  border-radius: 9px;
+  padding: 10px;
+}
+
 .botaoBannerProdutor{
   border-radius: 9px;
   font-weight: 500;
