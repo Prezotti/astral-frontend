@@ -50,7 +50,7 @@ export default function Admin() {
             </section>
           </div>
         </section>
-        {/* <section className={styles.sectionFeira}>
+        <section className={styles.sectionFeira}>
           <h1>Feiras</h1>
           <CardFeira
             id={2}
@@ -64,7 +64,7 @@ export default function Admin() {
             valorFinal={910.15}
             data="20/04/2023"
           />
-        </section> */}
+        </section>
       </section>
     </>
   );

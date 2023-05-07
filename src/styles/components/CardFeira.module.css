@@ -43,3 +43,59 @@
 .fechado{
     color: #FF3D3D;
 }
+
+
+@media (max-width: 768px) {
+    .divCard{
+        height: 170px;
+    }
+}
+
+@media (max-width: 670px) {
+    .divCard{
+        height: 150px;
+    }
+    .divCard h4{
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 560px) {
+    .divCard{
+        height: 130px;
+    }
+    .divCard h4{
+        font-size: 1.2em;
+    }
+    .divCard p{
+        font-size: 1em;
+    }
+    .aberta, .fechado{
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 450px) {
+    .divCard{
+        height: 110px;
+    }
+    .divCard h4{
+        font-size: 1em;
+    }
+    .divCard p{
+        font-size: 0.8em;
+    }
+    .aberta, .fechado{
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 400px) {
+    .divCard div{
+        margin: 5px 10px;
+    }
+
+    .direitaCard{
+        margin: 50px 10px;
+    }
+}

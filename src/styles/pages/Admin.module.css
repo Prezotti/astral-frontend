@@ -80,13 +80,13 @@
 }
 
 @media (max-width: 1024px) {
-    .painel{
+    .painel, .sectionFeira{
         width: 740px;
     }
   }
 
   @media (max-width: 768px) {
-    .painel{
+    .painel, .sectionFeira{
         width: 640px;
     }
 
@@ -96,13 +96,17 @@
 
     .conteudo h1 {
         font-size: 1.6rem;
-        font-weight: 700;
         margin-bottom: 5px;
+    }
+
+    .sectionFeira h1{
+        margin: 5px;
+        font-size: 1.6rem;
     }
   }
 
   @media (max-width: 670px) {
-    .painel{
+    .painel, .sectionFeira{
         width: 540px;
     }
 
@@ -122,7 +126,7 @@
   }
 
   @media (max-width: 560px) {
-    .painel{
+    .painel, .sectionFeira{
         width: 430px;
     }
 
@@ -141,13 +145,20 @@
         font-size: 0.8rem;
     }
 
+    .sectionFeira{
+        gap: 8px;
+    }
+
   }
 
   @media (max-width: 450px) {
-    .painel{
+    .painel, .sectionFeira{
         width: 90%;
     }
     .painel img{
        display: none;
+    }
+    .sectionFeira h1{
+        font-size: 1.2em;
     }
   }
