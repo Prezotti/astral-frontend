@@ -2,7 +2,7 @@
   width: 100vw;
   background-color: #fff;
   padding: 5px 0;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 1px solid #ddd;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,16 +27,21 @@
   padding: 0;
   border: 0;
   display: block;
-  height: 40px;
+  height: 42px;
+}
+
+.headerConteudo > img{
+  margin-top: 3px;
 }
 
 .headerConteudo a {
   user-select: none;
   color: #000;
   text-decoration: none;
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 1px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 5px;
   display: flex;
   gap: 5px;
   align-items: center;
@@ -47,6 +52,11 @@
     0px -2px 0 white, 0px -1px 0 white, 0px 0px 0 white;
   box-shadow: 0 -1px 0 0 white inset, 0 -2px 0 0 transparent inset;
   transition: all 0.3s ease-in;
+}
+
+.divCarrinho{
+  width: 10%;
+  margin-bottom: 1px;
 }
 
 .precoCarrinho {
@@ -61,7 +71,7 @@
 
 .headerConteudo a:hover {
   transition: all 0.3s ease-out;
-  box-shadow: 0 -1px 0 0 white inset, 0 -2px 0 0 black inset;
+  box-shadow: 0 -1px 0 0 white inset, 0 -2px 0 0 #72b234 inset;
 }
 
 .headerConteudo a::selection {
@@ -73,16 +83,18 @@
 .selectProdutores {
   user-select: none;
   border: none;
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 1px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   color: #000;
+  margin-top: 5px;
   padding-right: 20px;
   background: url("../../../public/setinha-verde.png") no-repeat #fff;
   background-position: right center;
   background-size: 15px;
   position: relative;
   display: flex;
+  margin-right: 5px;
 }
 
 .menuProdutores {
