@@ -1,17 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-.body {
-    width: 100%;
+.main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: #f5f5f5; 
 }
 
 .sectionPainel{
     width: 100%;
-    background-color: #FFFFFF;
     padding: 30px 0;
     display: flex;
     justify-content: center;
@@ -65,7 +62,15 @@
     color: #FA8001;
 }
 
+.divFeira{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
 .sectionFeira{
+    padding-top: 15px;
     width: 940px;
     display: flex;
     flex-direction: column;

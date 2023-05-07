@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { CardFeira } from "@/components/CardFeira";
 import { useState } from "react";
 import Switch from "@mui/material/Switch";
+import { Footer } from "@/components/Footer";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
@@ -16,7 +17,7 @@ export default function Admin() {
   return (
     <>
       <Header tipo="admin" />
-      <section className={styles.body}>
+      <section className={styles.main}>
         <section className={styles.sectionPainel}>
           <div className={styles.painel}>
             <img
@@ -50,22 +51,25 @@ export default function Admin() {
             </section>
           </div>
         </section>
-        <section className={styles.sectionFeira}>
-          <h1>Feiras</h1>
-          <CardFeira
-            id={2}
-            aberta={true}
-            valorFinal={910.15}
-            data="20/04/2023"
-          />
-          <CardFeira
-            id={1}
-            aberta={false}
-            valorFinal={910.15}
-            data="20/04/2023"
-          />
-        </section>
+        <div className={styles.divFeira}>
+          <section className={styles.sectionFeira}>
+            <h1>Feiras</h1>
+            <CardFeira
+              id={2}
+              aberta={true}
+              valorFinal={910.15}
+              data="20/04/2023"
+            />
+            <CardFeira
+              id={1}
+              aberta={false}
+              valorFinal={910.15}
+              data="20/04/2023"
+            />
+          </section>
+        </div>
       </section>
+      <Footer />
     </>
   );
 }
