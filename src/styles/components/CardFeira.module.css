@@ -1,0 +1,45 @@
+.divCard{
+    display: flex;
+    width: 90%;
+    height: 200px;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    
+}
+
+.divCard h4 {
+    font-size: 30px;
+}
+
+.divCard div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px 30px;
+}
+
+.esquerdaCard p{
+    color: #FA8001;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.direitaCard p{
+    font-weight: 700;
+}
+
+.centralizar, .aberta, .fechado{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.aberta{
+    color: #72B234;
+}
+
+.fechado{
+    color: #FF3D3D;
+}

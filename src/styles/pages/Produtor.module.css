@@ -8,7 +8,7 @@
 
 .painel {
     display: flex;
-    width: 60%;
+    width: 940px;
     border: 0px solid rgba(0, 0, 0, 0.04);
     box-shadow: 2px 5px 23px rgba(0, 0, 0, 0.12);
     border-radius: 6px;
