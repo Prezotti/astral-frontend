@@ -1,29 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-.body{
-    overflow-x: hidden;
-  background-color: #f5f5f5;
-
+.body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #f5f5f5; 
 }
 
-.painelAdmin {
+.sectionPainel{
     width: 100vw;
-    height: 80vh;
+    background-color: #FFFFFF;
+    padding: 30px 0;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
 }
 
-.banner {
+.painel {
     display: flex;
-    width: 60%;
+    width: 940px;
     border: 0px solid rgba(0, 0, 0, 0.04);
     box-shadow: 2px 5px 23px rgba(0, 0, 0, 0.12);
     border-radius: 6px;
-    margin-top: 100px;
+    margin-top: 60px;
 }
 
-.banner img {
+.painel img {
     width: 280px;
     border-radius: 6px 0 0 6px;
 }
@@ -53,8 +57,18 @@
     flex-direction: column;
 }
 
+.botaoSwitch{
+    display: flex;
+    align-items: center;
+}
+
+.botaoSwitch p{
+    color: #FA8001;
+}
+
 .divFeira{
-  background-color: #f5f5f5;
+  width: 100vw;
+  padding: 20px 0;
 }
 
 .sectionFeira{
@@ -70,50 +84,4 @@
 .sectionFeira h1 {
     color: #72B234;
     font-size: 35px;
-}
-
-.divCard{
-    display: flex;
-    width: 700px;
-    height: 20vh;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    
-}
-
-.divCard h4 {
-    font-size: 30px;
-}
-
-.divCard div{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 10px 30px;
-}
-
-.esquerdaCard p{
-    color: #FA8001;
-    font-weight: 700;
-    font-size: 18px;
-}
-
-.direitaCard p{
-    font-weight: 700;
-}
-
-.centralizar, .aberta, .fechado{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.aberta{
-    color: #72B234;
-}
-
-.fechado{
-    color: #FF3D3D;
 }
