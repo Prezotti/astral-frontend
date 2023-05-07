@@ -50,23 +50,21 @@ export default function Admin() {
             </section>
           </div>
         </section>
-        <div className={styles.divFeira}>
-          <section className={styles.sectionFeira}>
-            <h1>Feiras</h1>
-            <CardFeira
-              id={2}
-              aberta={true}
-              valorFinal={910.15}
-              data="20/04/2023"
-            />
-            <CardFeira
-              id={1}
-              aberta={false}
-              valorFinal={910.15}
-              data="20/04/2023"
-            />
-          </section>
-        </div>
+        {/* <section className={styles.sectionFeira}>
+          <h1>Feiras</h1>
+          <CardFeira
+            id={2}
+            aberta={true}
+            valorFinal={910.15}
+            data="20/04/2023"
+          />
+          <CardFeira
+            id={1}
+            aberta={false}
+            valorFinal={910.15}
+            data="20/04/2023"
+          />
+        </section> */}
       </section>
     </>
   );

@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 .body {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -11,7 +10,7 @@
 }
 
 .sectionPainel{
-    width: 100vw;
+    width: 100%;
     background-color: #FFFFFF;
     padding: 30px 0;
     display: flex;
@@ -66,13 +65,7 @@
     color: #FA8001;
 }
 
-.divFeira{
-  width: 100vw;
-  padding: 20px 0;
-}
-
 .sectionFeira{
-    margin: 0 auto;
     width: 940px;
     display: flex;
     flex-direction: column;
@@ -85,3 +78,76 @@
     color: #72B234;
     font-size: 35px;
 }
+
+@media (max-width: 1024px) {
+    .painel{
+        width: 740px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .painel{
+        width: 640px;
+    }
+
+    .painel img{
+        width: 220px;
+    }
+
+    .conteudo h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+  }
+
+  @media (max-width: 670px) {
+    .painel{
+        width: 540px;
+    }
+
+    .painel img{
+        width: 180px;
+    }
+
+    .conteudo h1 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .conteudo p{
+        font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .painel{
+        width: 430px;
+    }
+
+    .painel img{
+        width: 120px;
+    }
+
+    .conteudo h1 {
+        padding-top: 8px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .conteudo p{
+        font-size: 0.8rem;
+    }
+
+  }
+
+  @media (max-width: 450px) {
+    .painel{
+        width: 90%;
+    }
+    .painel img{
+       display: none;
+    }
+  }

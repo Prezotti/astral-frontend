@@ -55,6 +55,13 @@
     font-size: 0.5rem;
     border-radius: 4.5px;
   }
+
+  .botaoBannerAdmin{
+    height: 32px;
+    width: 180px;
+    font-size: 0.7rem;
+    border-radius: 9px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -69,6 +76,13 @@
     width: 80px;
     border-radius: 6px;
     font-size: 0.8rem;
+  }
+  .botaoBannerAdmin{
+    height: 28px;
+    width: 160px;
+    font-size: 0.6rem;
+    border-radius: 7px;
+    margin: 5px 0;
   }
 }
 
