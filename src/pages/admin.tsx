@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { CardFeira } from "@/components/CardFeira";
 import { useState } from "react";
 import Switch from "@mui/material/Switch";
+import { Footer } from "@/components/Footer";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
@@ -16,7 +17,7 @@ export default function Admin() {
   return (
     <>
       <Header tipo="admin" />
-      <section className={styles.body}>
+      <section className={styles.main}>
         <section className={styles.sectionPainel}>
           <div className={styles.painel}>
             <img
@@ -68,6 +69,7 @@ export default function Admin() {
           </section>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

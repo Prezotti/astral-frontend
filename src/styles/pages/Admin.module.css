@@ -1,18 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-.body {
-    width: 100vw;
-    height: 100vh;
+.main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: #f5f5f5; 
 }
 
 .sectionPainel{
-    width: 100vw;
-    background-color: #FFFFFF;
+    width: 100%;
     padding: 30px 0;
     display: flex;
     justify-content: center;
@@ -67,12 +63,14 @@
 }
 
 .divFeira{
-  width: 100vw;
-  padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #f5f5f5;
 }
 
 .sectionFeira{
-    margin: 0 auto;
+    padding-top: 15px;
     width: 940px;
     display: flex;
     flex-direction: column;
@@ -85,3 +83,87 @@
     color: #72B234;
     font-size: 35px;
 }
+
+@media (max-width: 1024px) {
+    .painel, .sectionFeira{
+        width: 740px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .painel, .sectionFeira{
+        width: 640px;
+    }
+
+    .painel img{
+        width: 220px;
+    }
+
+    .conteudo h1 {
+        font-size: 1.6rem;
+        margin-bottom: 5px;
+    }
+
+    .sectionFeira h1{
+        margin: 5px;
+        font-size: 1.6rem;
+    }
+  }
+
+  @media (max-width: 670px) {
+    .painel, .sectionFeira{
+        width: 540px;
+    }
+
+    .painel img{
+        width: 180px;
+    }
+
+    .conteudo h1 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .conteudo p{
+        font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .painel, .sectionFeira{
+        width: 430px;
+    }
+
+    .painel img{
+        width: 120px;
+    }
+
+    .conteudo h1 {
+        padding-top: 8px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .conteudo p{
+        font-size: 0.8rem;
+    }
+
+    .sectionFeira{
+        gap: 8px;
+    }
+
+  }
+
+  @media (max-width: 450px) {
+    .painel, .sectionFeira{
+        width: 90%;
+    }
+    .painel img{
+       display: none;
+    }
+    .sectionFeira h1{
+        font-size: 1.2em;
+    }
+  }
