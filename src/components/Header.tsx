@@ -142,12 +142,14 @@ export function Header({
               })}
             </section>
           </section>
-          <a href="/carrinho">
-            <TiShoppingCart size={24} color="#000" />
-            <p className={styles.precoCarrinho}>
-              <span>R$</span> {valorCarrinho?.toFixed(2).replace(".", ",")}
-            </p>
-          </a>
+          <div className={styles.divCarrinho}>
+            <a href="/carrinho">
+              <TiShoppingCart size={24} color="#000" className={styles.iconeCarrinho}/>
+              <p className={styles.precoCarrinho}>
+                <span>R$</span> {valorCarrinho?.toFixed(2).replace(".", ",")}
+              </p>
+            </a>
+          </div>
         </div>
       </header>
     );
