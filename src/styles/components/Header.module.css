@@ -171,11 +171,17 @@
   .headerConteudo {
     padding: 0 20px;
   }
+  .divCarrinho{
+    width: 100px;
+  }
 }
 
 @media (max-width: 768px) {
   .headerConteudo {
     flex-wrap: wrap;
+  }
+  .divCarrinho{
+    width: 100px;
   }
 }
 
@@ -189,6 +195,12 @@
   .fotoProdutor {
     width: 30px;
     height: 30px;
+  }
+  .iconeCarrinho{
+    width: 20px;
+  }
+  .divCarrinho{
+    width: 80px;
   }
   .selectProdutores {
     background-size: 10px;
@@ -207,11 +219,17 @@
   .selectProdutores {
     font-size: 0.8rem;
   }
+  .iconeCarrinho{
+    width: 19px;
+  }
+  .divCarrinho{
+    width: 75px;
+  }
   .precoCarrinho {
     font-size: 0.7rem;
   }
   .precoCarrinho span {
-    font-size: 0.5rem;
+    font-size: 0.6rem;
   }
   .selectProdutores {
     background-size: 10px;
@@ -225,6 +243,12 @@
   }
   .headerConteudo a {
     font-size: 0.7rem;
+  }
+  .iconeCarrinho{
+    width: 16px;
+  }
+  .divCarrinho{
+    width: 70px;
   }
   .selectProdutores {
     font-size: 0.7rem;
