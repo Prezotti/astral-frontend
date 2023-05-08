@@ -17,6 +17,13 @@
   font-size: 0.9rem;
 }
 
+.botaoModal {
+  padding: 7px;
+  border-radius: 7.5px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .botaoBannerAdmin {
   border-radius: 9px;
   font-weight: 500;
@@ -25,12 +32,12 @@
   margin: 8px 0;
 }
 
-.botaoCardFeira{
+.botaoCardFeira {
   border-radius: 9px;
   padding: 10px;
 }
 
-.botaoBannerProdutor{
+.botaoBannerProdutor {
   border-radius: 9px;
   font-weight: 500;
   font-size: 0.9rem;
@@ -56,14 +63,14 @@
     border-radius: 4.5px;
   }
 
-  .botaoBannerAdmin{
+  .botaoBannerAdmin {
     height: 32px;
     width: 180px;
     font-size: 0.7rem;
     border-radius: 9px;
   }
 
-  .botaoCardFeira{
+  .botaoCardFeira {
     height: 32px;
     width: 140px;
     font-size: 0.7rem;
@@ -84,7 +91,7 @@
     border-radius: 6px;
     font-size: 0.8rem;
   }
-  .botaoBannerAdmin{
+  .botaoBannerAdmin {
     height: 28px;
     width: 160px;
     font-size: 0.6rem;
@@ -107,7 +114,7 @@
     border-radius: 4.5px;
     align-items: center;
   }
-  .botaoCardFeira{
+  .botaoCardFeira {
     height: 24px;
     width: 120px;
     font-size: 0.6rem;

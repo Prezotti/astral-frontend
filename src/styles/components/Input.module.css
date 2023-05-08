@@ -1,0 +1,22 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.input label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #90c75a;
+}
+
+.input input {
+  width: 250px;
+  height: 2rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: #eaeaea;
+  color: #a5a5a5;
+}
