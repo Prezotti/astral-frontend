@@ -65,3 +65,18 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
+
+@media (max-width: 940px) {
+  .conteudo {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .conteudo {
+    grid-template-columns: 1fr;
+  }
+  .voltarSection p {
+    display: none;
+  }
+}
