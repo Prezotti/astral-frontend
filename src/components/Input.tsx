@@ -1,12 +1,12 @@
 import { useState } from "react";
 import styles from "../styles/components/Input.module.css";
 
-interface InputProps {
+export interface InputProps {
   label: string;
   type: string;
   placeholder: string;
   value: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({

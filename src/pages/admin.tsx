@@ -7,6 +7,7 @@ import Switch from "@mui/material/Switch";
 import { Footer } from "@/components/Footer";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
+import Select from "@/components/Select";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
@@ -18,6 +19,7 @@ export default function Admin() {
     email: "",
     senha: "",
     senhaRepetida: "",
+    tipo: "produtor",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,6 +139,16 @@ export default function Admin() {
             setInfoProdutor({ ...infoProdutor, senhaRepetida: e.target.value });
           }}
         />
+        <Select
+          label="Tipo de cadastro"
+          value={infoProdutor.tipo}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, tipo: e.target.value });
+          }}
+        >
+          <option value="produtor">Produtor</option>
+          <option value="feirante">Feirante</option>
+        </Select>
       </Modal>
       <Footer />
     </>
