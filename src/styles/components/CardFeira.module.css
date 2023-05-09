@@ -1,32 +1,55 @@
+.linhaUm{
+    display: flex;
+    align-items: center;
+    height: 3vh;
+}
+
+.linhaDois{
+    display: flex;
+    align-items: center;
+    height: 3vh;
+}
+
+.linhaTres{
+    display: flex;
+    align-items: center;
+    height: 3vh;
+}
+
 .divCard{
     display: flex;
     width: 90%;
     height: 200px;
-    justify-content: space-between;
     margin-bottom: 15px;
     background-color: #FFFFFF;
     border-radius: 10px;
-    
+    flex-direction: column;
+    justify-content: space-between; 
+    padding: 25px 40px;
 }
 
 .divCard h4 {
-    font-size: 30px;
+    font-size: 1.6rem;
+    font-weight: 600;
 }
 
 .divCard div{
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    margin: 10px 30px;
 }
 
-.esquerdaCard p{
+.linhaDois p{
     color: #FA8001;
-    font-weight: 700;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 1.12rem;
+}
+.linhaTres p{
+    font-weight: 600;
+    font-size: 1.12rem;
+
 }
 
-.direitaCard p{
+.linhaUm p{
     font-weight: 700;
 }
 
@@ -54,15 +77,21 @@
 @media (max-width: 670px) {
     .divCard{
         height: 150px;
+        padding: 15px 35px;
+
     }
     .divCard h4{
         font-size: 1.5em;
+    }
+    .linhaTres p{
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 560px) {
     .divCard{
         height: 130px;
+        padding: 15px 20px;
     }
     .divCard h4{
         font-size: 1.2em;
@@ -72,6 +101,9 @@
     }
     .aberta, .fechado{
         font-size: 1em;
+    }
+    .linhaTres p{
+        font-size: 1rem;
     }
 }
 
@@ -92,10 +124,12 @@
 
 @media (max-width: 400px) {
     .divCard div{
-        margin: 5px 10px;
+        padding: 5px 10px;
     }
+}
 
-    .direitaCard{
-        margin: 50px 10px;
+@media (max-width: 380px) {
+    .divCard div{
+        padding: 0px 0px;
     }
 }
