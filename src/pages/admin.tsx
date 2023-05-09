@@ -20,8 +20,6 @@ export default function Admin() {
     senhaRepetida: "",
   });
 
-  let nome, telefone, email, senha, senhaRepetida;
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     setTextoSwitch(event.target.checked ? "Feira aberta!" : "Abrir feira");
@@ -99,30 +97,45 @@ export default function Admin() {
           placeholder="Nome do produtor"
           type="text"
           value={infoProdutor.nome}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, nome: e.target.value });
+          }}
         />
         <Input
           label="Telefone"
           placeholder="Telefone do produtor"
           type="text"
           value={infoProdutor.telefone}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, telefone: e.target.value });
+          }}
         />
         <Input
           label="E-mail"
           placeholder="E-mail do produtor"
           type="text"
           value={infoProdutor.email}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, email: e.target.value });
+          }}
         />
         <Input
           label="Senha"
           placeholder="Senha temporária"
           type="password"
           value={infoProdutor.senha}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, senha: e.target.value });
+          }}
         />
         <Input
           label="Repita a senha"
           placeholder="Repita a senha"
           type="password"
           value={infoProdutor.senhaRepetida}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, senhaRepetida: e.target.value });
+          }}
         />
       </Modal>
       <Footer />
