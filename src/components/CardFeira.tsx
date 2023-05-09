@@ -14,21 +14,8 @@ interface CardFeiraProps {
 export function CardFeira({ id, aberta, valorFinal, data }: CardFeiraProps) {
   return (
     <div className={styles.divCard}>
-      <div className={styles.esquerdaCard}>
+      <div className={styles.linhaUm}>
         <h4>Feira {id}</h4>
-        <p className={styles.centralizar}>
-          <RiMoneyDollarCircleLine /> R${" "}
-          {valorFinal.toFixed(2).replace(".", ",")}
-        </p>
-        <Button
-          text="Consultar vendas"
-          onClick={() => {}}
-          classType="botaoCardFeira"
-          backgroundColor="#72B234"
-        />
-      </div>
-
-      <div className={styles.direitaCard}>
         {aberta ? (
           <p className={styles.aberta}>
             {" "}
@@ -40,11 +27,28 @@ export function CardFeira({ id, aberta, valorFinal, data }: CardFeiraProps) {
             <BsCircleFill color="#FF3D3D" /> Fechado
           </p>
         )}
-        <p className={styles.centralizar}>
+      </div>
+        <div className={styles.linhaDois}>
+          <p className={styles.centralizar}>
+            <RiMoneyDollarCircleLine /> R${" "}
+            {valorFinal.toFixed(2).replace(".", ",")}
+          </p>
+        </div>
+
+        <div className={styles.linhaTres}>
+          <Button
+            text="Consultar vendas"
+            onClick={() => {}}
+            classType="botaoCardFeira"
+            backgroundColor="#72B234"
+          />
+                  <p className={styles.centralizar}>
           {" "}
           <BiCalendar /> {data}{" "}
         </p>
-      </div>
+        </div>
+
+
     </div>
   );
 }
