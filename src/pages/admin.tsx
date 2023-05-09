@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
+import EscolherArquivoInput from "@/components/EscolherArquivoInput";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
@@ -20,6 +21,7 @@ export default function Admin() {
     senha: "",
     senhaRepetida: "",
     tipo: "produtor",
+    foto: "",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,6 +151,13 @@ export default function Admin() {
           <option value="produtor">Produtor</option>
           <option value="feirante">Feirante</option>
         </Select>
+        <EscolherArquivoInput
+          label="Escolher imagem"
+          value={infoProdutor.foto}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, foto: e.target.value });
+          }}
+        />
       </Modal>
       <Footer />
     </>
