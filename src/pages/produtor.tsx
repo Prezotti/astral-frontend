@@ -74,8 +74,8 @@ export default function Produtor() {
         setVisivel={() => {
           setModalVisivel(false);
         }}
-        textoBotao="CADASTRAR PRODUTOR"
-        titulo="Cadastro de Produtor"
+        textoBotao="CADASTRAR PRODUTO"
+        titulo="Cadastro de Produto"
         visivel={modalVisivel}
       >
         <Input
@@ -148,7 +148,7 @@ export default function Produtor() {
           </Select>
         </div>
         <EscolherArquivoInput
-          label="Escolher magem"
+          label="Escolher imagem"
           tipoArquivo="img"
           value={infoProduto.imagem}
           onChange={(e) => {
