@@ -20,8 +20,6 @@ export default function Admin() {
     email: "",
     senha: "",
     senhaRepetida: "",
-    tipo: "produtor",
-    foto: "",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,24 +136,10 @@ export default function Admin() {
           type="password"
           value={infoProdutor.senhaRepetida}
           onChange={(e) => {
-            setInfoProdutor({ ...infoProdutor, senhaRepetida: e.target.value });
-          }}
-        />
-        <Select
-          label="Tipo de cadastro"
-          value={infoProdutor.tipo}
-          onChange={(e) => {
-            setInfoProdutor({ ...infoProdutor, tipo: e.target.value });
-          }}
-        >
-          <option value="produtor">Produtor</option>
-          <option value="feirante">Feirante</option>
-        </Select>
-        <EscolherArquivoInput
-          label="Escolher imagem"
-          value={infoProdutor.foto}
-          onChange={(e) => {
-            setInfoProdutor({ ...infoProdutor, foto: e.target.value });
+            setInfoProdutor({
+              ...infoProdutor,
+              senhaRepetida: e.target.value,
+            });
           }}
         />
       </Modal>
