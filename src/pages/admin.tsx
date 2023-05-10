@@ -5,10 +5,22 @@ import { CardFeira } from "@/components/CardFeira";
 import { useState } from "react";
 import Switch from "@mui/material/Switch";
 import { Footer } from "@/components/Footer";
+import Modal from "@/components/Modal";
+import Input from "@/components/Input";
+import Select from "@/components/Select";
+import EscolherArquivoInput from "@/components/EscolherArquivoInput";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
   const [textoSwitch, setTextoSwitch] = useState("Feira aberta!");
+  const [modalVisivel, setModalVisivel] = useState(false);
+  const [infoProdutor, setInfoProdutor] = useState({
+    nome: "",
+    telefone: "",
+    email: "",
+    senha: "",
+    senhaRepetida: "",
+  });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -36,7 +48,9 @@ export default function Admin() {
                 <Button
                   backgroundColor="#72B234"
                   text="CADASTRAR PRODUTOR"
-                  onClick={() => {}}
+                  onClick={() => {
+                    setModalVisivel(true);
+                  }}
                   classType="botaoBannerAdmin"
                 />
                 <div className={styles.botaoSwitch}>
@@ -69,6 +83,66 @@ export default function Admin() {
           </section>
         </div>
       </section>
+      <Modal
+        onClickBotao={() => {
+          console.log(infoProdutor);
+        }}
+        setVisivel={() => {
+          setModalVisivel(false);
+        }}
+        textoBotao="CADASTRAR PRODUTOR"
+        titulo="Cadastro de Produtor"
+        visivel={modalVisivel}
+      >
+        <Input
+          label="Nome"
+          placeholder="Nome do produtor"
+          type="text"
+          value={infoProdutor.nome}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, nome: e.target.value });
+          }}
+        />
+        <Input
+          label="Telefone"
+          placeholder="Telefone do produtor"
+          type="text"
+          value={infoProdutor.telefone}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, telefone: e.target.value });
+          }}
+        />
+        <Input
+          label="E-mail"
+          placeholder="E-mail do produtor"
+          type="text"
+          value={infoProdutor.email}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, email: e.target.value });
+          }}
+        />
+        <Input
+          label="Senha"
+          placeholder="Senha temporária"
+          type="password"
+          value={infoProdutor.senha}
+          onChange={(e) => {
+            setInfoProdutor({ ...infoProdutor, senha: e.target.value });
+          }}
+        />
+        <Input
+          label="Repita a senha"
+          placeholder="Repita a senha"
+          type="password"
+          value={infoProdutor.senhaRepetida}
+          onChange={(e) => {
+            setInfoProdutor({
+              ...infoProdutor,
+              senhaRepetida: e.target.value,
+            });
+          }}
+        />
+      </Modal>
       <Footer />
     </>
   );

@@ -1,0 +1,82 @@
+.modalBlur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #72b234;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.voltarSection {
+  position: absolute;
+  left: 10px;
+  display: flex;
+  gap: 5px;
+  font-size: 1rem;
+  align-items: center;
+  cursor: pointer;
+}
+
+.tituloSection div {
+  height: 2px;
+  width: 40px;
+  background-color: #fa8001;
+  border-radius: 5px;
+}
+
+.iconeVoltar {
+  width: 20px;
+  height: 20px;
+}
+
+.conteudo {
+  width: 100%;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 940px) {
+  .conteudo {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .conteudo {
+    grid-template-columns: 1fr;
+  }
+  .voltarSection p {
+    display: none;
+  }
+}
