@@ -53,3 +53,11 @@
 .botaoSwitch p{
     color: #FA8001;
 }
+
+.divMedida{
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}

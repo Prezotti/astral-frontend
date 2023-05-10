@@ -7,8 +7,6 @@ import Switch from "@mui/material/Switch";
 import { Footer } from "@/components/Footer";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
-import Select from "@/components/Select";
-import EscolherArquivoInput from "@/components/EscolherArquivoInput";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
