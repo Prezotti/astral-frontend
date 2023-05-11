@@ -7,6 +7,7 @@ import Switch from "@mui/material/Switch";
 import { Footer } from "@/components/Footer";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
+import { Painel } from "@/components/Painel";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
@@ -24,45 +25,35 @@ export default function Admin() {
     setChecked(event.target.checked);
     setTextoSwitch(event.target.checked ? "Feira aberta!" : "Abrir feira");
   };
+
   return (
     <>
       <Header tipo="admin" />
       <section className={styles.main}>
-        <section className={styles.sectionPainel}>
-          <div className={styles.painel}>
-            <img
-              src="/banner-admin.jpg"
-              alt="Imagem de uma pessoa escolhendo uma verdura em um hortifruit"
-            />
-            <section className={styles.conteudo}>
-              <h1>Painel do Administrador</h1>
-              <p>O que você deseja fazer?</p>
-              <div className={styles.botoes}>
-                <Button
-                  text="NOVA FEIRA"
-                  onClick={() => {}}
-                  classType="botaoBannerAdmin"
-                />
-                <Button
-                  backgroundColor="#72B234"
-                  text="CADASTRAR PRODUTOR"
-                  onClick={() => {
-                    setModalVisivel(true);
-                  }}
-                  classType="botaoBannerAdmin"
-                />
-                <div className={styles.botaoSwitch}>
-                  <Switch
-                    color="warning"
-                    checked={checked}
-                    onChange={handleChange}
-                  />
-                  <p>{textoSwitch}</p>
-                </div>
-              </div>
-            </section>
+        <Painel
+          img="/banner-admin.jpg"
+          alt="Imagem de uma pessoa escolhendo uma verdura em um hortifruit"
+          titulo="Painel do Administrador"
+          subTitulo="O que você deseja fazer?"
+        >
+          <Button
+            text="NOVA FEIRA"
+            onClick={() => {}}
+            classType="botaoBannerPainel"
+          />
+          <Button
+            backgroundColor="#72B234"
+            text="CADASTRAR PRODUTOR"
+            onClick={() => {
+              setModalVisivel(true);
+            }}
+            classType="botaoBannerPainel"
+          />
+          <div className={styles.botaoSwitch}>
+            <Switch color="warning" checked={checked} onChange={handleChange} />
+            <p>{textoSwitch}</p>
           </div>
-        </section>
+        </Painel>
         <div className={styles.divFeira}>
           <section className={styles.sectionFeira}>
             <h1>Feiras</h1>
