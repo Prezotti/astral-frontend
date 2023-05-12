@@ -32,7 +32,7 @@
   font-weight: 700;
 }
 
-.descricao p {
+.nomeProdutor {
   color: #a5a5a5;
   font-size: 0.8rem;
   font-weight: 400;
@@ -42,7 +42,13 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  color: #72b234;
+}
+
+.opcoesProdutor {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 10px;
 }
 
 .texto {
@@ -50,6 +56,7 @@
   display: flex;
   gap: 5px;
   align-items: center;
+  color: #72b234;
 }
 
 .medida {
@@ -106,7 +113,7 @@
   .descricao h3 {
     font-size: 0.8rem;
   }
-  .descricao p {
+  .nomeProdutor {
     font-size: 0.7rem;
   }
   .infoComprar {
@@ -134,7 +141,7 @@
   .descricao h3 {
     font-size: 0.7rem;
   }
-  .descricao p {
+  .nomeProdutor {
     font-size: 0.5rem;
   }
   .infoComprar {
@@ -152,6 +159,9 @@
   .botaoAddItem button {
     font-size: 1rem;
   }
+  .opcoesProdutor {
+    padding-bottom: 0px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -162,7 +172,7 @@
   .descricao h3 {
     font-size: 0.8rem;
   }
-  .descricao p {
+  .nomeProdutor {
     font-size: 0.7rem;
   }
   .infoComprar {
@@ -196,7 +206,7 @@
   .descricao h3 {
     font-size: 0.7rem;
   }
-  .descricao p {
+  .nomeProdutor {
     font-size: 0.5rem;
   }
   .infoComprar {
@@ -232,7 +242,7 @@
   .descricao h3 {
     font-size: 0.7rem;
   }
-  .descricao p {
+  .nomeProdutor {
     font-size: 0.5rem;
   }
   .texto {
