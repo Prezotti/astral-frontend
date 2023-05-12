@@ -46,6 +46,19 @@
   width: 260px;
 }
 
+.botaoOpcao {
+  padding: 5px;
+  border-radius: 7.5px;
+}
+
+.botaoOpcao span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
 @media (max-width: 940px) {
   .botaoProduto {
     height: 24px;
@@ -68,6 +81,16 @@
     width: 180px;
     font-size: 0.7rem;
     border-radius: 9px;
+  }
+
+  .botaoOpcao {
+    padding: 3px;
+    border-radius: 5px;
+  }
+
+  .botaoOpcao span {
+    width: 16px;
+    height: 16px;
   }
 
   .botaoCardFeira {
@@ -139,7 +162,7 @@
     font-size: 0.6rem;
     border-radius: 4.5px;
   }
-  .botaoCardFeira{
+  .botaoCardFeira {
     width: 100px;
   }
 }

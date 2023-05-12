@@ -1,9 +1,11 @@
+import { IconType } from "react-icons/lib";
 import styles from "../styles/components/Button.module.css";
 
 interface ButtonProps {
   backgroundColor?: string;
   color?: string;
   text: string;
+  icon?: IconType;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   classType: string;
 }
@@ -14,7 +16,11 @@ export function Button({
   text,
   classType,
   onClick,
+  icon,
 }: ButtonProps) {
+  let Icon: IconType = () => <></>;
+  if (icon) Icon = icon;
+
   return (
     <button
       style={{
@@ -25,6 +31,11 @@ export function Button({
       onClick={onClick}
     >
       {text}
+      {icon && (
+        <span>
+          <Icon />
+        </span>
+      )}
     </button>
   );
 }
