@@ -46,12 +46,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 255px;
 }
 
 @media (max-width: 1024px) {
     .painel{
         width: 740px;
     }
+    
   }
 
   @media (max-width: 768px) {
@@ -83,7 +85,7 @@
         font-size: 1.4rem;
         font-weight: 700;
         margin-bottom: 5px;
-    }
+    }   
 
     .conteudo p{
         font-size: 0.9rem;
@@ -107,8 +109,12 @@
     }
 
     .conteudo p{
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
+
+    .botoes{
+        align-items: center;
+        }
   }
 
   @media (max-width: 450px) {
@@ -117,5 +123,9 @@
     }
     .painel img{
        display: none;
+    }
+    .botoes{
+        width: 190px;
+        align-items: center;
     }
   }

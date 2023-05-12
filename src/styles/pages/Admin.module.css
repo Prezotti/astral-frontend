@@ -16,7 +16,9 @@
 
 .botaoSwitch{
     display: flex;
-    align-items: center;
+    align-items: center; 
+    width: 190px;
+   
 }
 
 .botaoSwitch p{
@@ -42,6 +44,9 @@
    .sectionFeira{
         width: 740px;
     }
+    .botaoSwitch{
+        width: 190px;
+        }
   }
 
   @media (max-width: 768px) {
@@ -52,13 +57,16 @@
     .sectionFeira h1{
         margin: 5px;
         font-size: 1.6rem;
-    }
+    } 
   }
 
   @media (max-width: 670px) {
     .sectionFeira{
         width: 540px;
     }
+    .botaoSwitch{
+        width: 180px;
+        }
   }
 
   @media (max-width: 560px) {

@@ -10,7 +10,7 @@ import EscolherArquivoInput from "@/components/EscolherArquivoInput";
 import { Painel } from "@/components/Painel";
 
 export default function Produtor() {
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [textoSwitch, setTextoSwitch] = useState("Participar da feira");
   const [modalVisivel, setModalVisivel] = useState(false);
   const [infoProduto, setInfoProduto] = useState({
@@ -26,7 +26,7 @@ export default function Produtor() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     setTextoSwitch(
-      event.target.checked ? "Participando da feira!" : "Participar da feira"
+      event.target.checked ? "Participando!" : "Participar da feira"
     );
   };
 

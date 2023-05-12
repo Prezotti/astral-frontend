@@ -9,6 +9,8 @@
 .botaoSwitch{
     display: flex;
     align-items: center;
+    align-self: flex-start;
+  
 }
 
 .botaoSwitch p{
@@ -21,4 +23,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
+}
+
+@media (max-width: 1440px) {
+    .botaoSwitch{
+        width: 250px;
+    }
 }

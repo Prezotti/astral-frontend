@@ -16,7 +16,7 @@ export default function Admin() {
   const [infoProdutor, setInfoProdutor] = useState({
     nome: "",
     telefone: "",
-    email: "",
+    email: "",  
     senha: "",
     senhaRepetida: "",
   });
