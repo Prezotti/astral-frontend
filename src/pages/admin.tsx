@@ -7,9 +7,6 @@ import Switch from "@mui/material/Switch";
 import { Footer } from "@/components/Footer";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
-import { CardProduto } from "@/components/CardProduto";
-import { Produtor } from "@/classes/Produtor";
-import { Produto } from "@/classes/Produto";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
@@ -22,20 +19,6 @@ export default function Admin() {
     senha: "",
     senhaRepetida: "",
   });
-
-  const produtor = new Produtor("João", true, "123456", 1);
-
-  const produtoNovo = new Produto(
-    "Banana",
-    10,
-    "Dúzia",
-    produtor,
-    10,
-    "FRUTAS",
-    "https://api-astral.s3.sa-east-1.amazonaws.com/produtor_2/Abobora.jpg_1682721733402",
-    10,
-    true
-  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
