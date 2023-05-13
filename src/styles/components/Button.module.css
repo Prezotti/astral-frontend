@@ -46,6 +46,19 @@
   width: 260px;
 }
 
+.botaoOpcao {
+  padding: 5px;
+  border-radius: 7.5px;
+}
+
+.botaoOpcao span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
 .botaoLogin{
   border-radius: 9px;
   font-weight: 500;
