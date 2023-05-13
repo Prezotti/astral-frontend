@@ -6,14 +6,23 @@ import { Mensagem } from "./Mensagem";
 import { ItemCompra } from "@/classes/ItemCompra";
 import { Produto } from "@/classes/Produto";
 
+import { MdModeEdit, MdDelete } from "react-icons/md";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+
 interface CardProdutoProps {
   produto: Produto;
-  retornaItem: (item: ItemCompra) => void;
+  type?: "cliente" | "produtor";
+  retornaItem?: (item: ItemCompra) => void;
 }
 
-export function CardProduto({ produto, retornaItem }: CardProdutoProps) {
+export function CardProduto({
+  produto,
+  retornaItem = () => {},
+  type = "cliente",
+}: CardProdutoProps) {
   const [quantidade, setQuantidade] = useState(0);
   const [mostrarMensagem, setMostrarMensagem] = useState(false);
+  const [disponivel, setDisponivel] = useState(produto.disponivel);
 
   const item = new ItemCompra(quantidade, produto);
 
@@ -62,26 +71,82 @@ export function CardProduto({ produto, retornaItem }: CardProdutoProps) {
     <section className={styles.cardProduto}>
       <img src={produto.imagem} alt="Imagem do produto" />
       <div className={styles.conteudo}>
-        <div className={styles.descricao}>
+        <div
+          className={styles.descricao}
+          style={!disponivel ? { color: "#b0b0b0" } : {}}
+        >
           <h3>{produto.descricao}</h3>
-          <p>Produtor: {produto.produtor.nome}</p>
+          {type === "cliente" && (
+            <p className={styles.nomeProdutor}>
+              Produtores: {produto.produtor.nome}
+            </p>
+          )}
+          {type === "produtor" && (
+            <section
+              className={styles.texto}
+              style={!disponivel ? { color: "#b0b0b0" } : {}}
+            >
+              <p>R$ {produto.preco.toFixed(2).replace(".", ",")}</p>
+              <p className={styles.medida}>{produto.medida}</p>
+            </section>
+          )}
         </div>
-        <div className={styles.infoComprar}>
-          <section className={styles.texto}>
-            <p>R$ {produto.preco.toFixed(2).replace(".", ",")}</p>
-            <p className={styles.medida}>{produto.medida}</p>
-          </section>
-          <Button
-            text="COMPRAR"
-            onClick={mudarBotao}
-            classType="botaoProduto"
-          />
-          <div className={styles.botaoAddItem}>
-            <button onClick={removerItem}>-</button>
-            <p>{quantidade}</p>
-            <button onClick={adicionarItem}>+</button>
+        {type === "cliente" && (
+          <div className={styles.infoComprar}>
+            <section className={styles.texto}>
+              <p>R$ {produto.preco.toFixed(2).replace(".", ",")}</p>
+              <p className={styles.medida}>{produto.medida}</p>
+            </section>
+            <Button
+              text="COMPRAR"
+              onClick={mudarBotao}
+              classType="botaoProduto"
+            />
+            <div className={styles.botaoAddItem}>
+              <button onClick={removerItem}>-</button>
+              <p>{quantidade}</p>
+              <button onClick={adicionarItem}>+</button>
+            </div>
           </div>
-        </div>
+        )}
+        {type === "produtor" && (
+          <div className={styles.opcoesProdutor}>
+            <Button
+              icon={MdModeEdit}
+              classType="botaoOpcao"
+              text=""
+              onClick={() => {}}
+            />
+            <Button
+              icon={MdDelete}
+              classType="botaoOpcao"
+              text=""
+              onClick={() => {}}
+            />
+
+            {disponivel ? (
+              <Button
+                icon={AiFillEye}
+                classType="botaoOpcao"
+                text=""
+                onClick={() => {
+                  setDisponivel(false);
+                  //colocar função para mudar disponibilidade no banco
+                }}
+              />
+            ) : (
+              <Button
+                icon={AiFillEyeInvisible}
+                classType="botaoOpcao"
+                text=""
+                onClick={() => {
+                  setDisponivel(true);
+                  //colocar função para mudar disponibilidade no banco
+                }}
+              />
+            )}
+          </div>
+        )}
       </div>
       {mostrarMensagem && (
         <Mensagem

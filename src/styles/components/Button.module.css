@@ -93,6 +93,16 @@
     border-radius: 9px;
   }
 
+  .botaoOpcao {
+    padding: 3px;
+    border-radius: 5px;
+  }
+
+  .botaoOpcao span {
+    width: 16px;
+    height: 16px;
+  }
+
   .botaoCardFeira {
     height: 32px;
     width: 140px;
@@ -165,7 +175,7 @@
     font-size: 0.6rem;
     border-radius: 4.5px;
   }
-  .botaoCardFeira{
+  .botaoCardFeira {
     width: 100px;
   }
 }

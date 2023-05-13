@@ -145,6 +145,9 @@ export default function Produtor() {
             <option value="g.">Grama</option>
             <option value="Kg.">Quilo</option>
             <option value="Maço">Maço</option>
+            <option value="Penca">Penca</option>
+            <option value="Pacote">Pacote</option>
+            <option value="Pote">Pote</option>
           </Select>
         </div>
         <EscolherArquivoInput
