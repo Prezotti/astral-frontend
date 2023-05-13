@@ -59,6 +59,16 @@
   height: 20px;
 }
 
+.botaoLogin{
+  border-radius: 9px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 10px;
+  margin: 30px 0;
+  width: 200px;
+
+}
+
 @media (max-width: 940px) {
   .botaoProduto {
     height: 24px;
@@ -144,6 +154,9 @@
     border-radius: 6px;
     margin: 5px 0;
     padding: 0;
+  }
+  .botaoLogin{
+    font-size: 0.8rem;
   }
 }
 
