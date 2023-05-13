@@ -34,7 +34,12 @@ export default function Produtor() {
     <>
       <Header tipo="produtor" />
       <section className={styles.body}>
-        <Painel img="/img-painel-produtor.jpg" alt="Imagem de duas pessoas segurando um pote com tomates cerejas dentro" titulo="Olá, Henrique" subTitulo="O que você deseja fazer?" >
+        <Painel
+          img="/img-painel-produtor.jpg"
+          alt="Imagem de duas pessoas segurando um pote com tomates cerejas dentro"
+          titulo="Olá, Henrique"
+          subTitulo="O que você deseja fazer?"
+        >
           <Button
             text="CADASTRAR PRODUTO"
             onClick={() => {
