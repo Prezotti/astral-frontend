@@ -1,9 +1,12 @@
+import jwt, { JwtPayload } from "jsonwebtoken";
+
 export const Cargos = {
-    ADMIN: 'admin',
-    USER: 'user',
+    ADMINISTRADOR: 'Administrador',
+    PRODUTOR: 'Produtor',
   };
 
-export const temCargo = (userRole: string, requiredRole: string) => {
-    // Implemente a lógica para verificar se o usuário tem o papel necessário
+export const temCargo = (token: string, requiredRole: string) => {
+    const tokenDecodificado = jwt.decode(token) as JwtPayload;
+    const userRole = tokenDecodificado.role;
     return userRole === requiredRole;
   };

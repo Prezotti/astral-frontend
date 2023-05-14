@@ -1,8 +1,12 @@
+import { useState } from "react";
+
+import { GetServerSidePropsContext } from "next";
+import { Cargos, temCargo } from "@/cargos/cargos";
+
 import { Button } from "@/components/Button";
 import Switch from "@mui/material/Switch";
 import styles from "../styles/pages/Produtor.module.css";
 import { Header } from "@/components/Header";
-import { useState } from "react";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
@@ -153,4 +157,21 @@ export default function Produtor() {
       </Modal>
     </>
   );
+}
+
+export async function getServerSideProps(contexto: GetServerSidePropsContext) {
+  if (
+    contexto.req.cookies.token === undefined ||
+    !temCargo(contexto.req.cookies.token, Cargos.PRODUTOR)
+  ) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }

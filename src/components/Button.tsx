@@ -6,6 +6,7 @@ interface ButtonProps {
   color?: string;
   text: string;
   icon?: IconType;
+  loading?: boolean;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   classType: string;
 }
@@ -17,6 +18,7 @@ export function Button({
   classType,
   onClick,
   icon,
+  loading = false,
 }: ButtonProps) {
   let Icon: IconType = () => <></>;
   if (icon) Icon = icon;
@@ -31,10 +33,13 @@ export function Button({
       onClick={onClick}
     >
       {text}
-      {icon && (
-        <span>
-          <Icon />
-        </span>
+      {icon && <Icon />}
+      {loading && (
+        <img
+          src="/loading-animation.svg"
+          alt="Carregando..."
+          className={styles.iconeCarregamento}
+        />
       )}
     </button>
   );

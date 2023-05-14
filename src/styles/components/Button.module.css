@@ -2,6 +2,10 @@
   border: none;
   cursor: pointer;
   font-size: 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .botaoBanner {
@@ -24,7 +28,7 @@
   font-weight: 600;
 }
 
-.botaoBannerPainel{
+.botaoBannerPainel {
   border-radius: 9px;
   font-weight: 500;
   font-size: 0.9rem;
@@ -60,14 +64,20 @@
   height: 20px;
 }
 
-.botaoLogin{
+.botaoLogin {
   border-radius: 9px;
   font-weight: 500;
   font-size: 0.9rem;
   padding: 10px;
   margin: 30px 0;
   width: 200px;
+}
 
+.iconeCarregamento {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 15px;
 }
 
 @media (max-width: 940px) {
@@ -87,7 +97,7 @@
     border-radius: 4.5px;
   }
 
-  .botaoBannerPainel{
+  .botaoBannerPainel {
     height: 32px;
     width: 180px;
     font-size: 0.7rem;
@@ -125,7 +135,7 @@
     border-radius: 6px;
     font-size: 0.8rem;
   }
-  .botaoBannerPainel{
+  .botaoBannerPainel {
     height: 28px;
     width: 160px;
     font-size: 0.6rem;
@@ -156,7 +166,7 @@
     margin: 5px 0;
     padding: 0;
   }
-  .botaoLogin{
+  .botaoLogin {
     font-size: 0.8rem;
   }
 }
