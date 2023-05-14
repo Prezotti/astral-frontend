@@ -1,7 +1,5 @@
 import styles from "../styles/pages/Home.module.css";
 
-import axios from "axios";
-
 import api from "@/api/api";
 
 import { useEffect, useState } from "react";
