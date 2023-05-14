@@ -1,56 +1,71 @@
 import styles from "../styles/pages/Login.module.css";
-import { Cargos } from "@/cargos/cargos";
+import { Cargos, temCargo } from "@/cargos/cargos";
 
 import { useState } from "react";
 import { useRouter } from "next/router";
 
 import api from "@/api/api";
 
-import jwt, { JwtPayload } from "jsonwebtoken";
+import cookie from "js-cookie";
+
+import isEmail from "validator/lib/isEmail";
 
 import { IoIosArrowBack } from "react-icons/io";
 import { Button } from "@/components/Button";
 import { Mensagem } from "@/components/Mensagem";
 
-export interface TokenDecodificado extends JwtPayload {
-  role: string;
-}
-
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [mostrarMensagem, setMostrarMensagem] = useState(false);
+  const [mostrarMensagemLoginInvalido, setMostrarMensagemLoginInvalido] =
+    useState(false);
+  const [mostrarMensagemEmailInvalido, setMostrarMensagemEmailInvalido] =
+    useState(false);
+  const [mostrarMensagemSenhaEmBranco, setmostrarMensagemSenhaEmBranco] =
+    useState(false);
+  const [carregando, setCarregando] = useState(false);
 
   const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMostrarMensagemEmailInvalido(false);
     setEmail(event.target.value);
   };
 
   const onChangeSenha = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setmostrarMensagemSenhaEmBranco(false);
     setSenha(event.target.value);
   };
 
   const router = useRouter();
 
   const fazerLogin = () => {
-    setMostrarMensagem(false);
+    setMostrarMensagemLoginInvalido(false);
+
+    if (!isEmail(email)) {
+      setMostrarMensagemEmailInvalido(true);
+      return;
+    }
+    if (senha.length === 0) {
+      setmostrarMensagemSenhaEmBranco(true);
+      return;
+    }
+    setCarregando(true);
     api
       .post("/login", { email: email, senha: senha })
       .then((response) => {
         if (response.status === 200) {
-          localStorage.setItem("token", response.data.token);
-          const tokenDecodificado = jwt.decode(
-            response.data.token
-          ) as TokenDecodificado;
-          if (tokenDecodificado.role === Cargos.ADMIN) {
+          cookie.set("token", response.data.token, {
+            expires: 1 / 12,
+            path: "/",
+          });
+          if (temCargo(response.data.token, Cargos.ADMINISTRADOR))
             router.push("/admin");
-          }
-          if (tokenDecodificado.role === Cargos.USER) {
+          if (temCargo(response.data.token, Cargos.PRODUTOR))
             router.push("/produtor");
-          }
         }
       })
       .catch((error) => {
-        setMostrarMensagem(true);
+        setMostrarMensagemLoginInvalido(true);
+        setCarregando(false);
       });
   };
 
@@ -93,6 +108,7 @@ export default function Login() {
 
           <Button
             text="ENTRAR"
+            loading={carregando}
             onClick={() => {
               fazerLogin();
             }}
@@ -101,8 +117,14 @@ export default function Login() {
           />
         </div>
       </section>
-      {mostrarMensagem && (
+      {mostrarMensagemLoginInvalido && (
         <Mensagem mensagem={`Login ou senha incorretos!`} tipo="erro" />
+      )}
+      {mostrarMensagemEmailInvalido && (
+        <Mensagem mensagem={`Formato de e-mail incorreto`} tipo="erro" />
+      )}
+      {mostrarMensagemSenhaEmBranco && (
+        <Mensagem mensagem={`Digite sua senha`} tipo="erro" />
       )}
     </div>
   );

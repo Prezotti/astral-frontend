@@ -8,6 +8,8 @@ import { Footer } from "@/components/Footer";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
 import { Painel } from "@/components/Painel";
+import { GetServerSidePropsContext } from "next";
+import { Cargos, temCargo } from "@/cargos/cargos";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
@@ -135,4 +137,20 @@ export default function Admin() {
       <Footer />
     </>
   );
+}
+export async function getServerSideProps(contexto: GetServerSidePropsContext) {
+  if (
+    contexto.req.cookies.token === undefined ||
+    !temCargo(contexto.req.cookies.token, Cargos.ADMINISTRADOR)
+  ) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }
