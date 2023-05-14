@@ -24,12 +24,13 @@
   font-weight: 600;
 }
 
-.botaoBannerAdmin {
+.botaoBannerPainel{
   border-radius: 9px;
   font-weight: 500;
   font-size: 0.9rem;
   padding: 10px;
   margin: 8px 0;
+  width: 100%;
 }
 
 .botaoCardFeira {
@@ -86,7 +87,7 @@
     border-radius: 4.5px;
   }
 
-  .botaoBannerAdmin {
+  .botaoBannerPainel{
     height: 32px;
     width: 180px;
     font-size: 0.7rem;
@@ -124,7 +125,7 @@
     border-radius: 6px;
     font-size: 0.8rem;
   }
-  .botaoBannerAdmin {
+  .botaoBannerPainel{
     height: 28px;
     width: 160px;
     font-size: 0.6rem;

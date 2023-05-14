@@ -7,10 +7,11 @@ import Modal from "@/components/Modal";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import EscolherArquivoInput from "@/components/EscolherArquivoInput";
+import { Painel } from "@/components/Painel";
 
 export default function Produtor() {
-  const [checked, setChecked] = useState(true);
-  const [textoSwitch, setTextoSwitch] = useState("participar da feira");
+  const [checked, setChecked] = useState(false);
+  const [textoSwitch, setTextoSwitch] = useState("Participar da feira");
   const [modalVisivel, setModalVisivel] = useState(false);
   const [infoProduto, setInfoProduto] = useState({
     descricao: "",
@@ -25,7 +26,7 @@ export default function Produtor() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     setTextoSwitch(
-      event.target.checked ? "Participando da feira!" : "Participar da feira"
+      event.target.checked ? "Participando!" : "Participar da feira"
     );
   };
 
@@ -33,39 +34,30 @@ export default function Produtor() {
     <>
       <Header tipo="produtor" />
       <section className={styles.body}>
-        <div className={styles.painel}>
-          <img
-            src="/img-painel-produtor.jpg"
-            alt="Imagem de duas pessoas segurando um pote com tomates cerejas dentro"
+        <Painel
+          img="/img-painel-produtor.jpg"
+          alt="Imagem de duas pessoas segurando um pote com tomates cerejas dentro"
+          titulo="Olá, Henrique"
+          subTitulo="O que você deseja fazer?"
+        >
+          <Button
+            text="CADASTRAR PRODUTO"
+            onClick={() => {
+              setModalVisivel(true);
+            }}
+            classType="botaoBannerPainel"
           />
-          <section className={styles.conteudo}>
-            <h1>Olá, Henrique</h1>
-            <p>O que você deseja fazer?</p>
-            <div className={styles.botoes}>
-              <Button
-                text="CADASTRAR PRODUTO"
-                onClick={() => {
-                  setModalVisivel(true);
-                }}
-                classType="botaoBannerProdutor"
-              />
-              <Button
-                backgroundColor="#72B234"
-                text="CONSULTAR VENDAS"
-                onClick={() => {}}
-                classType="botaoBannerProdutor"
-              />
-              <div className={styles.botaoSwitch}>
-                <Switch
-                  color="warning"
-                  checked={checked}
-                  onChange={handleChange}
-                />
-                <p>{textoSwitch}</p>
-              </div>
-            </div>
-          </section>
-        </div>
+          <Button
+            backgroundColor="#72B234"
+            text="CONSULTAR VENDAS"
+            onClick={() => {}}
+            classType="botaoBannerPainel"
+          />
+          <div className={styles.botaoSwitch}>
+            <Switch color="warning" checked={checked} onChange={handleChange} />
+            <p>{textoSwitch}</p>
+          </div>
+        </Painel>
       </section>
       <Modal
         onClickBotao={() => {
