@@ -1,5 +1,5 @@
 import styles from "../styles/pages/Login.module.css";
-import { Cargos, temCargo } from "@/cargos/cargos";
+import { Cargos, temCargo } from "@/service/tokenService";
 
 import { useState } from "react";
 import { useRouter } from "next/router";
