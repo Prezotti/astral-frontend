@@ -1,15 +1,16 @@
+import { useState } from "react";
+import { GetServerSidePropsContext } from "next";
+
 import { Button } from "@/components/Button";
 import styles from "../styles/pages/Admin.module.css";
 import { Header } from "@/components/Header";
 import { CardFeira } from "@/components/CardFeira";
-import { useState } from "react";
 import Switch from "@mui/material/Switch";
 import { Footer } from "@/components/Footer";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
 import { Painel } from "@/components/Painel";
-import { GetServerSidePropsContext } from "next";
-import { Cargos, temCargo } from "@/cargos/cargos";
+import { Cargos, temCargo } from "@/service/tokenService";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);

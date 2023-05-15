@@ -1,7 +1,9 @@
 import { useState } from "react";
 
 import { GetServerSidePropsContext } from "next";
-import { Cargos, temCargo } from "@/cargos/cargos";
+import { Cargos, temCargo, getId } from "@/service/tokenService";
+import api from "@/api/api";
+import { ProdutorInterface } from "@/types/Produtor";
 
 import { Button } from "@/components/Button";
 import Switch from "@mui/material/Switch";
@@ -13,7 +15,50 @@ import Select from "@/components/Select";
 import EscolherArquivoInput from "@/components/EscolherArquivoInput";
 import { Painel } from "@/components/Painel";
 
-export default function Produtor() {
+import { Produtor as ProdutorClass } from "@/classes/Produtor";
+
+const getInformacoesProdutor = async (
+  token: string
+): Promise<ProdutorInterface> => {
+  const id = getId(token);
+  let produtor;
+  await api
+    .get(`/produtor/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      const nome = response.data.nome;
+      const disponivel = response.data.disponivel;
+      const telefone = response.data.telefone;
+      const id = response.data.id;
+      produtor = {
+        nome,
+        disponivel,
+        telefone,
+        id,
+      };
+    });
+
+  if (!produtor) {
+    throw new Error("Erro ao buscar informações do produtor");
+  }
+  return produtor;
+};
+
+export default function Produtor({
+  produtorJSON,
+}: {
+  produtorJSON: ProdutorInterface;
+}) {
+  const produtor = new ProdutorClass(
+    produtorJSON.nome,
+    produtorJSON.disponivel,
+    produtorJSON.telefone,
+    produtorJSON.id
+  );
+
   const [checked, setChecked] = useState(false);
   const [textoSwitch, setTextoSwitch] = useState("Participar da feira");
   const [modalVisivel, setModalVisivel] = useState(false);
@@ -41,7 +86,7 @@ export default function Produtor() {
         <Painel
           img="/img-painel-produtor.jpg"
           alt="Imagem de duas pessoas segurando um pote com tomates cerejas dentro"
-          titulo="Olá, Henrique"
+          titulo={`Olá, ${produtor.nome}!`}
           subTitulo="O que você deseja fazer?"
         >
           <Button
@@ -160,10 +205,8 @@ export default function Produtor() {
 }
 
 export async function getServerSideProps(contexto: GetServerSidePropsContext) {
-  if (
-    contexto.req.cookies.token === undefined ||
-    !temCargo(contexto.req.cookies.token, Cargos.PRODUTOR)
-  ) {
+  const token = contexto.req.cookies.token;
+  if (token === undefined || !temCargo(token, Cargos.PRODUTOR)) {
     return {
       redirect: {
         destination: "/login",
@@ -171,7 +214,13 @@ export async function getServerSideProps(contexto: GetServerSidePropsContext) {
       },
     };
   }
+
+  const produtorJSON = (await getInformacoesProdutor(
+    token
+  )) as ProdutorInterface;
   return {
-    props: {},
+    props: {
+      produtorJSON,
+    },
   };
 }
