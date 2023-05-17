@@ -14,8 +14,11 @@ import Input from "@/components/Input";
 import Select from "@/components/Select";
 import EscolherArquivoInput from "@/components/EscolherArquivoInput";
 import { Painel } from "@/components/Painel";
+import { CardProduto } from "@/components/CardProduto";
 
 import { Produtor as ProdutorClass } from "@/classes/Produtor";
+import { ProdutoInteface } from "@/types/Produto";
+import { Produto } from "@/classes/Produto";
 
 const getInformacoesProdutor = async (
   token: string
@@ -47,10 +50,34 @@ const getInformacoesProdutor = async (
   return produtor;
 };
 
+const getProdutosProdutor = async (
+  token: string
+): Promise<ProdutoInteface[]> => {
+  const id = getId(token);
+  let produtos: ProdutoInteface[] = [];
+  await api
+    .get(`/produto/produtor/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      produtos = response.data;
+    });
+
+  if (!produtos) {
+    return [];
+  }
+
+  return produtos;
+};
+
 export default function Produtor({
   produtorJSON,
+  produtos,
 }: {
   produtorJSON: ProdutorInterface;
+  produtos: ProdutoInteface[];
 }) {
   const produtor = new ProdutorClass(
     produtorJSON.nome,
@@ -58,6 +85,20 @@ export default function Produtor({
     produtorJSON.telefone,
     produtorJSON.id
   );
+
+  const produtosProdutor = produtos.map((produto) => {
+    return new Produto(
+      produto.descricao,
+      produto.preco,
+      produto.medida,
+      produtor,
+      produto.qtdEstoque,
+      produto.categoria,
+      produto.imagem,
+      produto.id,
+      produto.disponivel
+    );
+  });
 
   const [checked, setChecked] = useState(false);
   const [textoSwitch, setTextoSwitch] = useState("Participar da feira");
@@ -108,6 +149,58 @@ export default function Produtor({
           </div>
         </Painel>
       </section>
+      <div className={styles.produtosDiv}>
+        <section className={styles.produtosSection}>
+          <h2>Seus Produtos</h2>
+          <div className={styles.produtosContainer}>
+            <div className={styles.produtosTexto}>
+              <h3>Disponíveis</h3>
+              <div />
+            </div>
+            <div className={styles.produtos}>
+              {produtosProdutor.filter((produto) => {
+                return produto.disponivel === true;
+              }).length > 0 ? (
+                produtosProdutor.map((produto) => {
+                  return produto.disponivel === true ? (
+                    <CardProduto
+                      key={produto.id}
+                      produto={produto}
+                      type="produtor"
+                    />
+                  ) : null;
+                })
+              ) : (
+                <h3 className={styles.nenhumProdutoMsg}>Nenhum produto</h3>
+              )}
+            </div>
+          </div>
+          <div className={styles.produtosContainer}>
+            <div className={styles.produtosTexto}>
+              <h3>Indisponíveis</h3>
+              <div />
+            </div>
+            <div className={styles.produtos}>
+              {produtosProdutor.filter((produto) => {
+                return produto.disponivel === false;
+              }).length > 0 ? (
+                produtosProdutor.map((produto) => {
+                  return produto.disponivel === false ? (
+                    <CardProduto
+                      key={produto.id}
+                      produto={produto}
+                      type="produtor"
+                    />
+                  ) : null;
+                })
+              ) : (
+                <h3 className={styles.nenhumProdutoMsg}>Nenhum produto</h3>
+              )}
+            </div>
+          </div>
+        </section>
+      </div>
+
       <Modal
         onClickBotao={() => {
           console.log(infoProduto);
@@ -218,9 +311,12 @@ export async function getServerSideProps(contexto: GetServerSidePropsContext) {
   const produtorJSON = (await getInformacoesProdutor(
     token
   )) as ProdutorInterface;
+
+  const produtos = (await getProdutosProdutor(token)) as ProdutoInteface[];
   return {
     props: {
       produtorJSON,
+      produtos,
     },
   };
 }

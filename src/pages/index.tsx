@@ -4,6 +4,8 @@ import api from "@/api/api";
 
 import { useEffect, useState } from "react";
 
+import { ProdutoInteface } from "@/types/Produto";
+
 import { Header } from "../components/Header";
 import { Button } from "../components/Button";
 import { Categoria } from "@/components/Categoria";
@@ -40,25 +42,6 @@ interface CategoriaInterface {
   [key: string]: boolean;
 }
 
-interface ProdutoJSONInteface {
-  descricao: string;
-  preco: number;
-  medida: string;
-  produtor: ProdutorJSONInterface;
-  qtdEstoque: number;
-  categoria: string;
-  imagem: string;
-  id: number;
-  disponivel: boolean;
-}
-
-interface ProdutorJSONInterface {
-  nome: string;
-  id: number;
-  disponivel: boolean;
-  telefone: string;
-}
-
 let carrinho = new Carrinho();
 
 export default function Home() {
@@ -69,7 +52,7 @@ export default function Home() {
     api
       .get("/produto")
       .then((response) => {
-        response.data.forEach((produto: ProdutoJSONInteface) => {
+        response.data.forEach((produto: ProdutoInteface) => {
           const produtor = new Produtor(
             produto.produtor.nome,
             produto.produtor.disponivel,
