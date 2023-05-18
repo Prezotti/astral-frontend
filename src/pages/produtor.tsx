@@ -123,7 +123,6 @@ export default function Produtor({
   return (
     <>
       <Header tipo="produtor" />
-      <section className={styles.body}>
         <Painel
           img="/img-painel-produtor.jpg"
           alt="Imagem de duas pessoas segurando um pote com tomates cerejas dentro"
@@ -148,7 +147,6 @@ export default function Produtor({
             <p>{textoSwitch}</p>
           </div>
         </Painel>
-      </section>
       <div className={styles.produtosDiv}>
         <section className={styles.produtosSection}>
           <h2>Seus Produtos</h2>
