@@ -32,13 +32,13 @@ export default function ModalConfirmacao({
           <div className={styles.divBotoes}>
             <Button
               backgroundColor="#FA8001"
-              text= "CANCELAR"
+              text="CANCELAR"
               onClick={() => setConfirmacaoVisivel(false)}
               classType="botaoNegar"
             />
             <Button
               backgroundColor="#72B234"
-              text= "CONFIRMAR"
+              text="CONFIRMAR"
               onClick={onClickBotao}
               classType="botaoConfirmar"
             />

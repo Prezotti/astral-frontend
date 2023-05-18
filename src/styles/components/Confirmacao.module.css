@@ -31,8 +31,12 @@
     color: #72b234;
     text-transform: capitalize;
     padding-left: 30px;
+    text-align: left;
+
   }
 
+
+  
   .divUnderline {
     height: 2px;
     width: 30px;

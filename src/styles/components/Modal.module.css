@@ -53,6 +53,10 @@
   border-radius: 5px;
 }
 
+.tituloSection h1{
+  font-size: 1.5rem;
+}
+
 .iconeVoltar {
   width: 20px;
   height: 20px;

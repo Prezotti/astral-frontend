@@ -98,6 +98,14 @@
 .desabilitado {
   display: none;
 }
+.divMedida {
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 
 @media (min-width: 768px) {
   .botaoAddItem button:hover {
