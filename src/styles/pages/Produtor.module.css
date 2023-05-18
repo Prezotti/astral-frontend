@@ -1,42 +1,113 @@
 .body {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+  width: 100vw;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.botaoSwitch{
-    display: flex;
-    align-items: center;
+.botaoSwitch {
+  display: flex;
+  align-items: center;
 }
 
-.botaoSwitch p{
-    color: #FA8001;
+.botaoSwitch p {
+  color: #fa8001;
 }
 
-.divMedida{
-    width: 250px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
+.divMedida {
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.produtosDiv {
+  margin-top: 15px;
+  background-color: #f5f5f5;
+  min-height: 30vh;
+}
+
+.produtosDiv h2 {
+  color: #72b234;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+  padding-top: 20px;
+}
+
+.produtosSection {
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  gap: 30px;
+  padding-bottom: 30px;
+}
+
+.produtosContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.produtosTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 60px;
+  text-align: left;
+}
+
+.produtosTexto h3 {
+  color: #fa8001;
+  font-size: 1.2rem;
+}
+
+.produtosTexto div {
+  height: 2px;
+  width: 40px;
+  background-color: #72b234;
+}
+
+.produtos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 50px;
+  row-gap: 30px;
+  justify-items: center;
+  min-height: 20vh;
+}
+
+.nenhumProdutoMsg {
+  display: flex;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #72b234;
+  text-align: center;
+  align-items: center;
 }
 
 @media (max-width: 1440px) {
-    .botaoSwitch{
-        width: 230px;
-    }
+  .botaoSwitch {
+    width: 230px;
+  }
 }
 
 @media (max-width: 670px) {
-    .botaoSwitch{
-        width: 220px;
-    }
+  .botaoSwitch {
+    width: 220px;
+  }
 }
 
 @media (max-width: 560px) {
-    .botaoSwitch{
-        width: 190px;
-    }
+  .botaoSwitch {
+    width: 190px;
+  }
 }
