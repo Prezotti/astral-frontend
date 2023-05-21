@@ -1,110 +1,105 @@
-.modalConfirmacaoBlur{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(3px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.modalConfirmacaoBlur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modalConfirmacao {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 100;
-    transform: translate(-50%, -50%);
-    overflow: auto;
-    background-color: #fff;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 45%;
-  }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 60%;
+}
 
-  .modalConfirmacao h2 {
-    color: #72b234;
-    text-transform: capitalize;
-    padding-left: 30px;
-    text-align: left;
+.modalConfirmacao h2 {
+  color: #72b234;
+  text-transform: capitalize;
+  padding-left: 30px;
+  text-align: left;
+}
 
-  }
+.divUnderline {
+  height: 2px;
+  width: 30px;
+  background-color: #fa8001;
+  border-radius: 5px;
+  margin-left: 30px;
+}
 
-
-  
-  .divUnderline {
-    height: 2px;
-    width: 30px;
-    background-color: #fa8001;
-    border-radius: 5px;
-    margin-left: 30px;
-
-  }
-
-.divTextos{
+.divTextos {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
 }
 
-.divTextos p{
-  color: #ACACAC;
+.divTextos p {
+  color: #acacac;
 }
 
-.divTextos h3{
+.divTextos h3 {
   font-weight: 600;
 }
 
-  .divBotoes{
-    display: flex;
-    justify-content: space-between;
-    gap: 50px;
+.divBotoes {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+@media (max-width: 1440px) {
+  .modalConfirmacao {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1150px) {
+  .modalConfirmacao {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .modalConfirmacao {
+    width: 90%;
+  }
+}
+
+@media (max-width: 450px) {
+  .modalConfirmacao {
+    width: 100%;
+  }
+  .divBotoes {
+    gap: 15px;
   }
 
-  @media (max-width: 1440px) {
-    .modalConfirmacao{
-      width: 60%;
-    }
+  .divTextos p {
+    font-size: 0.8rem;
   }
 
-  @media (max-width: 1150px) {
-    .modalConfirmacao{
-      width: 80%;
-    }
+  .divTextos h3 {
+    font-size: 1rem;
   }
+}
 
-  @media (max-width: 768px) {
-    .modalConfirmacao{
-      width: 90%;
-    }
+@media (max-width: 380px) {
+  .divTextos {
+    text-align: center;
   }
-
-  @media (max-width: 450px) {
-    .modalConfirmacao{
-      width: 100%;
-    }
-    .divBotoes{
-      gap: 15px;
-    }
-
-    .divTextos p{
-      font-size: 0.8rem;
-    }
-    
-    .divTextos h3{
-      font-size: 1rem;
-    }
-  }
-
-  @media (max-width: 380px) {
-    .divTextos{   
-      text-align: center;
-     }
-  }
-  
+}

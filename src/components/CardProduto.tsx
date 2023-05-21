@@ -10,6 +10,9 @@ import Modal from "./Modal";
 import Input from "./Input";
 import Select from "./Select";
 import EscolherArquivoInput from "./EscolherArquivoInput";
+import api from "@/api/api";
+
+import cookie from "js-cookie";
 
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -31,15 +34,18 @@ export function CardProduto({
   const [modalEditarVisivel, setModalEditarVisivel] = useState(false);
   const [modalExcluirVisivel, setModalExcluirVisivel] = useState(false);
   const [modalDisponivelVisivel, setModalDisponivelVisivel] = useState(false);
+  const [mostrarMensagemSucesso, setmostrarMensagemSucesso] = useState(false);
+  const [mostrarMensagemErro, setmostrarMensagemErro] = useState(false);
   const [infoProduto, setInfoProduto] = useState({
-    descricao: "",
-    preco: "",
-    qtdEstoque: "",
-    qtdMedida: "",
-    unMedida: "",
-    categoria: "",
+    descricao: produto.descricao,
+    preco: produto.preco,
+    qtdEstoque: produto.qtdEstoque,
+    qtdMedida: produto.medida.match(/\d+/g)?.join("") || "1",
+    unidadeMedida: produto.medida.match(/[a-zA-Z]+/g)?.join("") || "",
+    categoria: produto.categoria,
     imagem: "",
   });
+  const [mensagem, setMensagem] = useState("");
 
   const item = new ItemCompra(quantidade, produto);
 
@@ -82,6 +88,104 @@ export function CardProduto({
       botaoComprar.classList.remove(styles.desabilitado);
       setQuantidade(0);
     }
+  };
+
+  const mudarDisponibilidade = async () => {
+    setmostrarMensagemErro(false);
+    setmostrarMensagemSucesso(false);
+    await api
+      .put(
+        `/produto/${produto.id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${cookie.get("token")}`,
+          },
+        }
+      )
+      .then((response) => {
+        setDisponivel(!disponivel);
+        setMensagem("Disponibilidade alterada com sucesso!");
+        setmostrarMensagemSucesso(true);
+        produto.toggleDisponivel();
+      })
+      .catch((error) => {
+        console.log(error);
+        setMensagem(
+          "Não foi possível trocar a disponibilidade agora. Tente mais tarde"
+        );
+        setmostrarMensagemErro(true);
+      });
+    console.log(produto.id);
+    console.log(cookie.get("token"));
+    setModalDisponivelVisivel(false);
+  };
+
+  const deletarProduto = async () => {
+    setmostrarMensagemErro(false);
+    setmostrarMensagemSucesso(false);
+    await api
+      .delete(`/produto/${produto.id}`, {
+        headers: {
+          Authorization: `Bearer ${cookie.get("token")}`,
+        },
+      })
+      .then((response) => {
+        setMensagem("Produto excluído com sucesso!");
+        setmostrarMensagemSucesso(true);
+      })
+      .catch((error) => {
+        setMensagem(
+          "Não foi possível excluir o produto agora. Tente mais tarde"
+        );
+        setmostrarMensagemErro(true);
+      });
+
+    setModalExcluirVisivel(false);
+  };
+
+  const editarProduto = async () => {
+    setmostrarMensagemErro(false);
+    setmostrarMensagemSucesso(false);
+
+    const jsonBlob = new Blob(
+      [
+        JSON.stringify({
+          id: produto.id,
+          descricao: infoProduto.descricao,
+          preco: infoProduto.preco,
+          qtdEstoque: infoProduto.qtdEstoque,
+          medida: `${infoProduto.qtdMedida}${infoProduto.unidadeMedida}`,
+          categoria: infoProduto.categoria,
+        }),
+      ],
+      {
+        type: "application/json",
+      }
+    );
+
+    const formData = new FormData();
+    formData.append("dados", jsonBlob, "dados.json");
+
+    await api
+      .put(`/produto`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${cookie.get("token")}`,
+        },
+      })
+      .then((response) => {
+        setMensagem("Produto editado com sucesso!");
+        setmostrarMensagemSucesso(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setMensagem(
+          "Não foi possível editar o produto agora. Tente mais tarde"
+        );
+        setmostrarMensagemErro(true);
+      });
+    setModalEditarVisivel(false);
   };
 
   return (
@@ -162,7 +266,7 @@ export function CardProduto({
                 classType="botaoOpcao"
                 text=""
                 onClick={() => {
-                  setDisponivel(true);
+                  mudarDisponibilidade();
                   //colocar função para mudar disponibilidade no banco
                 }}
               />
@@ -184,25 +288,32 @@ export function CardProduto({
         setConfirmacaoVisivel={() => {
           setModalExcluirVisivel(false);
         }}
-        onClickBotao={() => {}}
+        onClickBotao={() => {
+          deletarProduto();
+        }}
       />
 
       <ModalConfirmacao
-        aviso="Tem certeza que deseja deixar este produto fora da feira desta semana??"
+        aviso="Tem certeza que deseja deixar este produto indisponível?"
         mensagem="Ele não poderá ser comprado por outras pessoas!"
         visivel={modalDisponivelVisivel}
         setConfirmacaoVisivel={() => {
           setModalDisponivelVisivel(false);
         }}
         onClickBotao={() => {
-          setDisponivel(false);
-          setModalDisponivelVisivel(false);
+          mudarDisponibilidade();
         }}
       />
 
-<Modal
+      {mostrarMensagemErro && <Mensagem mensagem={mensagem} tipo="erro" />}
+
+      {mostrarMensagemSucesso && (
+        <Mensagem mensagem={mensagem} tipo="sucesso" />
+      )}
+
+      <Modal
         onClickBotao={() => {
-          console.log(infoProduto);
+          editarProduto();
         }}
         setVisivel={() => {
           setModalEditarVisivel(false);
@@ -224,18 +335,21 @@ export function CardProduto({
           label="Preço"
           placeholder=""
           type="number"
-          value={infoProduto.preco}
+          value={infoProduto.preco.toString()}
           onChange={(e) => {
-            setInfoProduto({ ...infoProduto, preco: e.target.value });
+            setInfoProduto({ ...infoProduto, preco: Number(e.target.value) });
           }}
         />
         <Input
           label="Estoque"
           placeholder=""
           type="number"
-          value={infoProduto.qtdEstoque}
+          value={infoProduto.qtdEstoque.toString()}
           onChange={(e) => {
-            setInfoProduto({ ...infoProduto, qtdEstoque: e.target.value });
+            setInfoProduto({
+              ...infoProduto,
+              qtdEstoque: Number(e.target.value),
+            });
           }}
         />
         <Select
@@ -262,21 +376,23 @@ export function CardProduto({
             type="number"
             value={infoProduto.qtdMedida}
             onChange={(e) => {
-              setInfoProduto({ ...infoProduto, qtdMedida: e.target.value });
+              infoProduto.qtdMedida == "1"
+                ? setInfoProduto({ ...infoProduto, qtdMedida: "" })
+                : setInfoProduto({ ...infoProduto, qtdMedida: e.target.value });
             }}
           />
           <Select
             largura="120px"
-            value={infoProduto.unMedida}
+            value={infoProduto.unidadeMedida}
             onChange={(e) => {
-              setInfoProduto({ ...infoProduto, unMedida: e.target.value });
+              setInfoProduto({ ...infoProduto, unidadeMedida: e.target.value });
             }}
           >
-            <option value="Un.">Unidade</option>
+            <option value="Un">Unidade</option>
             <option value="Dúzia">Dúzia</option>
             <option value="Crivo">Crivo</option>
-            <option value="g.">Grama</option>
-            <option value="Kg.">Quilo</option>
+            <option value="g">Grama</option>
+            <option value="Kg">Quilo</option>
             <option value="Maço">Maço</option>
             <option value="Penca">Penca</option>
             <option value="Pacote">Pacote</option>
