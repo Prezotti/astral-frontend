@@ -158,7 +158,28 @@ export default function Carrinho() {
           <h2 className={styles.titulo}>Meu Carrinho</h2>
           <div className={styles.detalheTitulo}></div>
         </div>
-        <section className={styles.card}></section>
+        <section className={styles.card}>
+          <div className={styles.titulos}>
+            <p>Produto</p>
+            <p>Qtd.</p>
+            <p>Subtotal</p>
+          </div>
+          <div className={styles.linhaDivisaoCarrinho}></div>
+          <section className={styles.produtosCarrinho}>
+            <div className={styles.linhaProduto}>
+              <p>Alface</p>
+              <div className={styles.qtdProduto}>
+                <div className={styles.botaoAddItem}>
+                  <button onClick={() => {}}>-</button>
+                  <p>2</p>
+                  <button onClick={() => {}}>+</button>
+                </div>
+                <p className={styles.removerItem}>Remover</p>
+              </div>
+              <p>R$16,00</p>
+            </div>
+          </section>
+        </section>
       </section>
     </>
   );
