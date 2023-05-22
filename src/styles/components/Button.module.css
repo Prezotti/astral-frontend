@@ -87,6 +87,11 @@
   width: 200px;
 }
 
+.botaoFinalizar{
+  padding: 7px;
+  border-radius: 7px;
+}
+
 .iconeCarregamento {
   position: absolute;
   width: 20px;
