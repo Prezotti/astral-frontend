@@ -15,6 +15,7 @@ import Select from "@/components/Select";
 import EscolherArquivoInput from "@/components/EscolherArquivoInput";
 import { Painel } from "@/components/Painel";
 import { CardProduto } from "@/components/CardProduto";
+import Cookies from "js-cookie";
 
 import { Produtor as ProdutorClass } from "@/classes/Produtor";
 import { ProdutoInteface } from "@/types/Produto";
@@ -51,10 +52,12 @@ const getInformacoesProdutor = async (
 };
 
 const getProdutosProdutor = async (
-  token: string
+  token: string,
+  id: number
 ): Promise<ProdutoInteface[]> => {
-  const id = getId(token);
   let produtos: ProdutoInteface[] = [];
+  console.log(id);
+  console.log(token);
   await api
     .get(`/produto/produtor/${id}`, {
       headers: {
@@ -65,6 +68,7 @@ const getProdutosProdutor = async (
       produtos = response.data;
     });
 
+  console.log(produtos);
   if (!produtos) {
     return [];
   }
@@ -79,14 +83,14 @@ export default function Produtor({
   produtorJSON: ProdutorInterface;
   produtos: ProdutoInteface[];
 }) {
-  const produtor = new ProdutorClass(
+  let produtor = new ProdutorClass(
     produtorJSON.nome,
     produtorJSON.disponivel,
     produtorJSON.telefone,
     produtorJSON.id
   );
 
-  const produtosProdutor = produtos.map((produto) => {
+  let produtosProdutor = produtos.map((produto) => {
     return new Produto(
       produto.descricao,
       produto.preco,
@@ -112,6 +116,8 @@ export default function Produtor({
     categoria: "",
     imagem: "",
   });
+  const [produtosProdutorState, setProdutosProdutorState] =
+    useState(produtosProdutor);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -120,33 +126,60 @@ export default function Produtor({
     );
   };
 
+  const atualizarProdutos = async () => {
+    const token = Cookies.get("token");
+    if (!token) {
+      throw new Error("Token não encontrado");
+    }
+    console.log(produtor);
+    let produtosProdutorJSON = await getProdutosProdutor(token, produtor.id);
+    console.log(produtosProdutorJSON);
+    let produtosProdutor = produtosProdutorJSON.map((produto) => {
+      return new Produto(
+        produto.descricao,
+        produto.preco,
+        produto.medida,
+        produtor,
+        produto.qtdEstoque,
+        produto.categoria,
+        produto.imagem,
+        produto.id,
+        produto.disponivel
+      );
+    });
+
+    console.log(produtosProdutor);
+
+    setProdutosProdutorState(produtosProdutor);
+  };
+
   return (
     <>
       <Header tipo="produtor" />
-        <Painel
-          img="/img-painel-produtor.jpg"
-          alt="Imagem de duas pessoas segurando um pote com tomates cerejas dentro"
-          titulo={`Olá, ${produtor.nome}!`}
-          subTitulo="O que você deseja fazer?"
-        >
-          <Button
-            text="CADASTRAR PRODUTO"
-            onClick={() => {
-              setModalVisivel(true);
-            }}
-            classType="botaoBannerPainel"
-          />
-          <Button
-            backgroundColor="#72B234"
-            text="CONSULTAR VENDAS"
-            onClick={() => {}}
-            classType="botaoBannerPainel"
-          />
-          <div className={styles.botaoSwitch}>
-            <Switch color="warning" checked={checked} onChange={handleChange} />
-            <p>{textoSwitch}</p>
-          </div>
-        </Painel>
+      <Painel
+        img="/img-painel-produtor.jpg"
+        alt="Imagem de duas pessoas segurando um pote com tomates cerejas dentro"
+        titulo={`Olá, ${produtor.nome}!`}
+        subTitulo="O que você deseja fazer?"
+      >
+        <Button
+          text="CADASTRAR PRODUTO"
+          onClick={() => {
+            setModalVisivel(true);
+          }}
+          classType="botaoBannerPainel"
+        />
+        <Button
+          backgroundColor="#72B234"
+          text="CONSULTAR VENDAS"
+          onClick={() => {}}
+          classType="botaoBannerPainel"
+        />
+        <div className={styles.botaoSwitch}>
+          <Switch color="warning" checked={checked} onChange={handleChange} />
+          <p>{textoSwitch}</p>
+        </div>
+      </Painel>
       <div className={styles.produtosDiv}>
         <section className={styles.produtosSection}>
           <h2>Seus Produtos</h2>
@@ -159,12 +192,16 @@ export default function Produtor({
               {produtosProdutor.filter((produto) => {
                 return produto.disponivel === true;
               }).length > 0 ? (
-                produtosProdutor.map((produto) => {
+                produtosProdutorState.map((produto) => {
                   return produto.disponivel === true ? (
                     <CardProduto
                       key={produto.id}
                       produto={produto}
                       type="produtor"
+                      onEdit={() => {
+                        atualizarProdutos();
+                        console.log("Atualizou");
+                      }}
                     />
                   ) : null;
                 })
@@ -182,12 +219,15 @@ export default function Produtor({
               {produtosProdutor.filter((produto) => {
                 return produto.disponivel === false;
               }).length > 0 ? (
-                produtosProdutor.map((produto) => {
+                produtosProdutorState.map((produto) => {
                   return produto.disponivel === false ? (
                     <CardProduto
                       key={produto.id}
                       produto={produto}
                       type="produtor"
+                      onEdit={() => {
+                        atualizarProdutos();
+                      }}
                     />
                   ) : null;
                 })
@@ -310,7 +350,10 @@ export async function getServerSideProps(contexto: GetServerSidePropsContext) {
     token
   )) as ProdutorInterface;
 
-  const produtos = (await getProdutosProdutor(token)) as ProdutoInteface[];
+  const produtos = (await getProdutosProdutor(
+    token,
+    getId(token)
+  )) as ProdutoInteface[];
   return {
     props: {
       produtorJSON,

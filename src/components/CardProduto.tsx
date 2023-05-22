@@ -21,11 +21,13 @@ interface CardProdutoProps {
   produto: Produto;
   type?: "cliente" | "produtor";
   retornaItem?: (item: ItemCompra) => void;
+  onEdit?: () => void;
 }
 
 export function CardProduto({
   produto,
   retornaItem = () => {},
+  onEdit = () => {},
   type = "cliente",
 }: CardProdutoProps) {
   const [quantidade, setQuantidade] = useState(0);
@@ -43,9 +45,10 @@ export function CardProduto({
     qtdMedida: produto.medida.match(/\d+/g)?.join("") || "1",
     unidadeMedida: produto.medida.match(/[a-zA-Z]+/g)?.join("") || "",
     categoria: produto.categoria,
-    imagem: "",
+    imagem: produto.imagem,
   });
   const [mensagem, setMensagem] = useState("");
+  const [display, setDisplay] = useState(true);
 
   const item = new ItemCompra(quantidade, produto);
 
@@ -108,6 +111,7 @@ export function CardProduto({
         setMensagem("Disponibilidade alterada com sucesso!");
         setmostrarMensagemSucesso(true);
         produto.toggleDisponivel();
+        onEdit();
       })
       .catch((error) => {
         console.log(error);
@@ -116,8 +120,7 @@ export function CardProduto({
         );
         setmostrarMensagemErro(true);
       });
-    console.log(produto.id);
-    console.log(cookie.get("token"));
+
     setModalDisponivelVisivel(false);
   };
 
@@ -133,6 +136,7 @@ export function CardProduto({
       .then((response) => {
         setMensagem("Produto excluído com sucesso!");
         setmostrarMensagemSucesso(true);
+        setDisplay(false);
       })
       .catch((error) => {
         setMensagem(
@@ -155,7 +159,9 @@ export function CardProduto({
           descricao: infoProduto.descricao,
           preco: infoProduto.preco,
           qtdEstoque: infoProduto.qtdEstoque,
-          medida: `${infoProduto.qtdMedida}${infoProduto.unidadeMedida}`,
+          medida: `${
+            infoProduto.qtdMedida == "1" ? "" : infoProduto.qtdMedida
+          }${infoProduto.unidadeMedida}`,
           categoria: infoProduto.categoria,
         }),
       ],
@@ -189,7 +195,10 @@ export function CardProduto({
   };
 
   return (
-    <section className={styles.cardProduto}>
+    <section
+      className={styles.cardProduto}
+      style={display ? {} : { display: "none" }}
+    >
       <img src={produto.imagem} alt="Imagem do produto" />
       <div className={styles.conteudo}>
         <div
@@ -267,6 +276,7 @@ export function CardProduto({
                 text=""
                 onClick={() => {
                   mudarDisponibilidade();
+
                   //colocar função para mudar disponibilidade no banco
                 }}
               />
@@ -376,9 +386,7 @@ export function CardProduto({
             type="number"
             value={infoProduto.qtdMedida}
             onChange={(e) => {
-              infoProduto.qtdMedida == "1"
-                ? setInfoProduto({ ...infoProduto, qtdMedida: "" })
-                : setInfoProduto({ ...infoProduto, qtdMedida: e.target.value });
+              setInfoProduto({ ...infoProduto, qtdMedida: e.target.value });
             }}
           />
           <Select
