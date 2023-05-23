@@ -86,14 +86,14 @@ export default function Carrinho() {
                 type="text"
                 placeholder="Digite sua rua"
                 value=""
-                largura="280px"
+                largura="100%"
               />
               <Input
                 label="Nº"
                 type="text"
-                placeholder="Nº da residência"
+                placeholder="Nº da casa"
                 value=""
-                largura="140px"
+                largura="100%"
               />
             </div>
             <div className={styles.bairroComplemento}>
@@ -102,14 +102,14 @@ export default function Carrinho() {
                 type="text"
                 placeholder="Digite seu bairro"
                 value=""
-                largura="210px"
+                largura="100%"
               />
               <Input
                 label="Complemento"
                 type="text"
                 placeholder="Complemento"
                 value=""
-                largura="210px"
+                largura="100%"
               />
             </div>
             <Input
@@ -121,18 +121,74 @@ export default function Carrinho() {
             />
           </section>
         </section>
-        <section className={styles.observacoesResumo}>
-          <section className={styles.observacoes}>
-            <div className={styles.divTitulo}>
-              <h2 className={styles.titulo}>Observação e Comentários</h2>
-              <div className={styles.detalheTitulo}></div>
-            </div>
-            <section className={styles.card}>
-              <textarea
-                name="observacoes"
-                id="observacoes"
-                placeholder="Digite uma observação, comentário ou sugestão aqui!"
-              ></textarea>
+        <section className={styles.resumoTotal}>
+          <section className={styles.observacoesCarrinho}>
+            <section className={styles.observacoes}>
+              <div className={styles.divTitulo}>
+                <h2 className={styles.titulo}>Observação e Comentários</h2>
+                <div className={styles.detalheTitulo}></div>
+              </div>
+              <section className={styles.card}>
+                <textarea
+                  name="observacoes"
+                  id="observacoes"
+                  placeholder="Digite uma observação, comentário ou sugestão aqui!"
+                ></textarea>
+              </section>
+            </section>
+            <section className={styles.carrinho}>
+              <div className={styles.divTitulo}>
+                <h2 className={styles.titulo}>Meu Carrinho</h2>
+                <div className={styles.detalheTitulo}></div>
+              </div>
+              <section className={styles.card}>
+                <div className={styles.titulos}>
+                  <p className={styles.descricaoProdutoTitulo}>Produto</p>
+                  <p>Qtd.</p>
+                  <p>Subtotal</p>
+                </div>
+                <div className={styles.linhaDivisaoCarrinho}></div>
+                <section className={styles.produtosCarrinho}>
+                  <div className={styles.linhaProduto}>
+                    <p className={styles.descricaoProduto}>Alface</p>
+                    <div className={styles.qtdProduto}>
+                      <div className={styles.botaoAddItem}>
+                        <button onClick={() => {}}>-</button>
+                        <p>2</p>
+                        <button onClick={() => {}}>+</button>
+                      </div>
+                      <p className={styles.removerItem}>Remover</p>
+                    </div>
+                    <p>R$16,00</p>
+                  </div>
+                  <div className={styles.linhaProduto}>
+                    <p className={styles.descricaoProduto}>
+                      Alface Chinês com muito tempeiro verde cheiroso
+                    </p>
+                    <div className={styles.qtdProduto}>
+                      <div className={styles.botaoAddItem}>
+                        <button onClick={() => {}}>-</button>
+                        <p>2</p>
+                        <button onClick={() => {}}>+</button>
+                      </div>
+                      <p className={styles.removerItem}>Remover</p>
+                    </div>
+                    <p>R$16,00</p>
+                  </div>
+                  <div className={styles.linhaProduto}>
+                    <p className={styles.descricaoProduto}>Alface</p>
+                    <div className={styles.qtdProduto}>
+                      <div className={styles.botaoAddItem}>
+                        <button onClick={() => {}}>-</button>
+                        <p>2</p>
+                        <button onClick={() => {}}>+</button>
+                      </div>
+                      <p className={styles.removerItem}>Remover</p>
+                    </div>
+                    <p>R$16,00</p>
+                  </div>
+                </section>
+              </section>
             </section>
           </section>
           <section className={styles.resumoPedido}>
@@ -176,60 +232,6 @@ export default function Carrinho() {
                   </a>
                 </section>
               </section>
-            </section>
-          </section>
-        </section>
-        <section className={styles.carrinho}>
-          <div className={styles.divTitulo}>
-            <h2 className={styles.titulo}>Meu Carrinho</h2>
-            <div className={styles.detalheTitulo}></div>
-          </div>
-          <section className={styles.card}>
-            <div className={styles.titulos}>
-              <p className={styles.descricaoProdutoTitulo}>Produto</p>
-              <p>Qtd.</p>
-              <p>Subtotal</p>
-            </div>
-            <div className={styles.linhaDivisaoCarrinho}></div>
-            <section className={styles.produtosCarrinho}>
-              <div className={styles.linhaProduto}>
-                <p className={styles.descricaoProduto}>Alface</p>
-                <div className={styles.qtdProduto}>
-                  <div className={styles.botaoAddItem}>
-                    <button onClick={() => {}}>-</button>
-                    <p>2</p>
-                    <button onClick={() => {}}>+</button>
-                  </div>
-                  <p className={styles.removerItem}>Remover</p>
-                </div>
-                <p>R$16,00</p>
-              </div>
-              <div className={styles.linhaProduto}>
-                <p className={styles.descricaoProduto}>
-                  Alface Chinês com muito tempeiro verde cheiroso
-                </p>
-                <div className={styles.qtdProduto}>
-                  <div className={styles.botaoAddItem}>
-                    <button onClick={() => {}}>-</button>
-                    <p>2</p>
-                    <button onClick={() => {}}>+</button>
-                  </div>
-                  <p className={styles.removerItem}>Remover</p>
-                </div>
-                <p>R$16,00</p>
-              </div>
-              <div className={styles.linhaProduto}>
-                <p className={styles.descricaoProduto}>Alface</p>
-                <div className={styles.qtdProduto}>
-                  <div className={styles.botaoAddItem}>
-                    <button onClick={() => {}}>-</button>
-                    <p>2</p>
-                    <button onClick={() => {}}>+</button>
-                  </div>
-                  <p className={styles.removerItem}>Remover</p>
-                </div>
-                <p>R$16,00</p>
-              </div>
             </section>
           </section>
         </section>

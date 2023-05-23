@@ -62,10 +62,22 @@
     justify-content: space-between;
 }
 
+.logradouro div:first-child {
+    width: 66%;
+  }
+
+.logradouro div{
+    width: 30%;
+}
+
 .bairroComplemento{
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+.bairroComplemento div{
+    width: 48%;
 }
 
 .informacoes .cardLargo{
@@ -74,18 +86,28 @@
     column-gap: 20px;
 }
 
-/* Observações e Comentários e Resumo do pedido */
-
-.observacoesResumo{
+/* Observações e Comentários e Carrinho e Resumo*/
+.resumoTotal{
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Observações e Comentários e Carrinho */
+
+.observacoesCarrinho{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 
 /* Observações e Comentários */
 
 .observacoes{
-    width: 45%;
+    width: 83%;
 }
 
 .observacoes .card{
@@ -105,7 +127,7 @@
 /* Resumo do pedido */
 
 .resumoPedido{
-    width: 45%;
+    width: 70%;
 }
 
 .resumo .linhaResumo{
@@ -144,6 +166,7 @@
 
 .resumo .finalizacaoResumo p{
     font-size: 0.8em;
+    text-align: center;
 }
 
 .resumo .finalizacaoResumo span{
@@ -158,11 +181,7 @@
 
 /* Meu carrinho */
 .carrinho{
-    width: 100%;
-}
-
-.carrinho .card{
-    width: 45%;
+    width: 83%;
 }
 
 .carrinho .titulos{
@@ -196,6 +215,7 @@
 .carrinho .linhaProduto p{
     text-align: center;
     width: 30%;
+    padding: 0 5px;
 }
 
 .carrinho .linhaProduto .descricaoProduto{
@@ -242,4 +262,94 @@
     cursor: pointer;
     transition: 0.2s;
     user-select: none;
+  }
+
+  @media (max-width: 940px) {
+    .pagina{
+        width: 670px;
+    }
+
+    .titulo{
+        font-size: 1.3em;
+    }
+
+    .informacoes .cardLargo{
+        grid-template-columns: 1fr;
+    }
+
+    .resumoPedido{
+        width: 100%;
+    }
+
+    .carrinho .linhaProduto{
+        font-size: 0.8em;
+    }
+
+    .carrinho .qtdProduto p{
+        font-size: 0.7em;
+    }
+
+    .observacoes{
+        width: 95%;
+    }
+
+    .carrinho{
+        width: 95%;
+    }
+
+  }
+
+  @media (max-width: 770px) {
+    .acaoSolidaria{
+        margin-top: 100px;
+    }
+  } 
+
+  @media (max-width: 680px) {
+
+    .acaoSolidaria p{
+        font-size: 0.8em;
+    }
+
+    .pagina{
+        width: 400px;
+    }
+
+    .resumoTotal{
+        flex-direction: column;
+
+    }
+
+    .observacoes{
+        width: 100%;
+    }
+
+    .carrinho{
+        width: 100%;
+    }
+  } 
+
+  @media (max-width: 680px) {
+    .titulo{
+        font-size: 1em;
+    }
+
+    .resumoPedido .linhaResumo p{
+        font-size: 0.8em;
+    }
+
+    @media (max-width: 420px) {
+        .acaoSolidaria label{
+            font-size: 0.8em;
+        }
+
+        .pagina{
+            width: 300px;
+        }
+
+        .informacoes input, .informacoes select{
+            font-size: 0.7em;
+        }
+    }
+
   }
