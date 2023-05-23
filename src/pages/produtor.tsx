@@ -305,6 +305,7 @@ export async function getServerSideProps(contexto: GetServerSidePropsContext) {
       },
     };
   }
+  
 
   const produtorJSON = (await getInformacoesProdutor(
     token
