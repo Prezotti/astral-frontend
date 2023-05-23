@@ -1,0 +1,355 @@
+.pagina{
+    width: 940px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Titulo */
+.titulo{
+    color: #fa8001;
+    font-size: 1.5rem;
+  }
+
+  .detalheTitulo{
+    height: 2px;
+    width: 40px;
+    background-color: #72B234;
+    border-radius: 5px;
+  }
+
+/* Card */
+
+.card{
+    width: 100%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 10px 0;
+    padding: 20px;
+}
+
+/* Ação solidária */
+
+.acaoSolidaria{
+    margin-top: 50px;
+}
+
+.acaoSolidaria .cardLargo p{
+    text-align: justify;
+}
+
+.valorDoacao{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.valorDoacao label{
+    color: #72B234;
+    font-weight: 500;
+}
+
+/* Informações */
+
+.informacoes{
+    width: 100%;
+}
+
+.logradouro{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logradouro div:first-child {
+    width: 66%;
+  }
+
+.logradouro div{
+    width: 30%;
+}
+
+.bairroComplemento{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bairroComplemento div{
+    width: 48%;
+}
+
+.informacoes .cardLargo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+}
+
+/* Observações e Comentários e Carrinho e Resumo*/
+.resumoTotal{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Observações e Comentários e Carrinho */
+
+.observacoesCarrinho{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Observações e Comentários */
+
+.observacoes{
+    width: 83%;
+}
+
+.observacoes .card{
+    padding: 0;
+    height: 150px;
+}
+
+.observacoes .card textarea{
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 10px;
+}
+
+/* Resumo do pedido */
+
+.resumoPedido{
+    width: 70%;
+}
+
+.resumo .linhaResumo{
+    display: flex;
+    font-weight: 400;
+    padding: 5px 0;
+}
+
+.resumo .col1Resumo{
+    width: 75%;
+}
+
+.resumo .col2Resumo{
+    width: 25%;
+}
+
+.linhaDivisaoResumo{
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+}
+
+.totalResumo{
+    color: #72B234;
+    font-weight: 600;
+}
+
+.resumo .finalizacaoResumo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.resumo .finalizacaoResumo p{
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.resumo .finalizacaoResumo span{
+    color:#72B234;
+    font-weight: 500;
+}
+
+.resumo .finalizacaoResumo a{
+    font-size: 0.9em;
+    color: #72B234;
+}
+
+/* Meu carrinho */
+.carrinho{
+    width: 83%;
+}
+
+.carrinho .titulos{
+    display: flex;
+}
+
+.carrinho .titulos p{
+    color: #72B234;
+    font-weight: 600;
+    text-align: center;
+    width: 30%;
+}
+
+.carrinho .linhaDivisaoCarrinho{
+    background-color: #000;
+    width: 100%;
+    height: 1px;
+    margin: 7px 0;
+}
+
+.carrinho .titulos .descricaoProdutoTitulo{
+    text-align: left;
+    width: 40%;
+}
+
+.carrinho .linhaProduto{
+    display: flex;
+    padding: 5px 0;
+}
+
+.carrinho .linhaProduto p{
+    text-align: center;
+    width: 30%;
+    padding: 0 5px;
+}
+
+.carrinho .linhaProduto .descricaoProduto{
+    text-align: left;
+    width: 40%;
+}
+
+.carrinho .qtdProduto{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carrinho .qtdProduto p{
+    font-size: 0.6em;
+    cursor: pointer;
+    padding: 2px 0;
+    width: 100%;
+}
+/* Botão adicionar/remover item */
+
+.botaoAddItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90px;
+    height: 30px;
+    border-radius: 7.5px;
+    background-color: white;
+    color: #fa8001;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0 10px;
+    border: 1px solid #fa8001;
+  }
+  
+  .botaoAddItem button {
+    background-color: transparent;
+    border: none;
+    color: #fa8001;
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+    user-select: none;
+  }
+
+  @media (max-width: 940px) {
+    .pagina{
+        width: 670px;
+    }
+
+    .titulo{
+        font-size: 1.3em;
+    }
+
+    .informacoes .cardLargo{
+        grid-template-columns: 1fr;
+    }
+
+    .resumoPedido{
+        width: 100%;
+    }
+
+    .carrinho .linhaProduto{
+        font-size: 0.8em;
+    }
+
+    .carrinho .qtdProduto p{
+        font-size: 0.7em;
+    }
+
+    .observacoes{
+        width: 95%;
+    }
+
+    .carrinho{
+        width: 95%;
+    }
+
+  }
+
+  @media (max-width: 770px) {
+    .acaoSolidaria{
+        margin-top: 100px;
+    }
+  } 
+
+  @media (max-width: 680px) {
+
+    .acaoSolidaria p{
+        font-size: 0.8em;
+    }
+
+    .pagina{
+        width: 400px;
+    }
+
+    .resumoTotal{
+        flex-direction: column;
+
+    }
+
+    .observacoes{
+        width: 100%;
+    }
+
+    .carrinho{
+        width: 100%;
+    }
+  } 
+
+  @media (max-width: 680px) {
+    .titulo{
+        font-size: 1em;
+    }
+
+    .resumoPedido .linhaResumo p{
+        font-size: 0.8em;
+    }
+
+    @media (max-width: 420px) {
+        .acaoSolidaria label{
+            font-size: 0.8em;
+        }
+
+        .pagina{
+            width: 300px;
+        }
+
+        .informacoes input, .informacoes select{
+            font-size: 0.7em;
+        }
+    }
+
+  }
