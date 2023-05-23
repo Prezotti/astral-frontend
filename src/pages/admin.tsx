@@ -15,7 +15,11 @@ import { Cargos, temCargo } from "@/service/tokenService";
 export default function Admin() {
   const [checked, setChecked] = useState(true);
   const [textoSwitch, setTextoSwitch] = useState("Feira aberta!");
-  const [modalVisivel, setModalVisivel] = useState(false);
+  const [modalProdutor, setModalProdutor] = useState(false);
+  const [modalFeira, setModalFeira] = useState(false);
+  const [infoFeira, setInfoFeira] = useState({
+    taxaEntrega: "",
+  });
   const [infoProdutor, setInfoProdutor] = useState({
     nome: "",
     telefone: "",
@@ -41,14 +45,16 @@ export default function Admin() {
         >
           <Button
             text="NOVA FEIRA"
-            onClick={() => {}}
+            onClick={() => {
+              setModalFeira(true);
+            }}
             classType="botaoBannerPainel"
           />
           <Button
             backgroundColor="#72B234"
             text="CADASTRAR PRODUTOR"
             onClick={() => {
-              setModalVisivel(true);
+              setModalProdutor(true);
             }}
             classType="botaoBannerPainel"
           />
@@ -75,16 +81,40 @@ export default function Admin() {
           </section>
         </div>
       </section>
+
+      <Modal
+        onClickBotao={() => {
+          console.log(infoFeira);
+        }}
+        setVisivel={() => {
+          setModalFeira(false);
+        }}
+        textoBotao="NOVA FEIRA"
+        titulo="Cadastro de Feira"
+        visivel={modalFeira}
+      >
+        <Input
+          label="Taxa de Entrega"
+          placeholder="R$00,00"
+          type="number"
+          value={infoFeira.taxaEntrega}
+          onChange={(e) => {
+            setInfoFeira({ ...infoFeira, taxaEntrega: e.target.value });
+          }}
+        />
+      </Modal>
+
+
       <Modal
         onClickBotao={() => {
           console.log(infoProdutor);
         }}
         setVisivel={() => {
-          setModalVisivel(false);
+          setModalProdutor(false);
         }}
         textoBotao="CADASTRAR PRODUTOR"
         titulo="Cadastro de Produtor"
-        visivel={modalVisivel}
+        visivel={modalProdutor}
       >
         <Input
           label="Nome"
@@ -139,6 +169,7 @@ export default function Admin() {
     </>
   );
 }
+
 export async function getServerSideProps(contexto: GetServerSidePropsContext) {
   if (
     contexto.req.cookies.token === undefined ||
