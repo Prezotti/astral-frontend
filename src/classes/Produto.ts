@@ -60,4 +60,13 @@ export class Produto {
   get disponivel() {
     return this._disponivel;
   }
+
+  set disponivel(disponivel: boolean) {
+    this._disponivel = disponivel;
+  }
+
+  toggleDisponivel() {
+    this._disponivel = !this._disponivel;
+  }
+
 }
