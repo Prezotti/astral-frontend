@@ -20,6 +20,7 @@ import Cookies from "js-cookie";
 import { Produtor as ProdutorClass } from "@/classes/Produtor";
 import { ProdutoInteface } from "@/types/Produto";
 import { Produto } from "@/classes/Produto";
+import { Mensagem } from "@/components/Mensagem";
 
 const getInformacoesProdutor = async (
   token: string
@@ -119,6 +120,9 @@ export default function Produtor({
   const [produtosProdutorState, setProdutosProdutorState] =
     useState(produtosProdutor);
 
+  const [mostrarMensagemSucesso, setmostrarMensagemSucesso] = useState(false);
+  const [mensagem, setMensagem] = useState("");
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     setTextoSwitch(
@@ -189,25 +193,26 @@ export default function Produtor({
               <div />
             </div>
             <div className={styles.produtos}>
-              {produtosProdutor.filter((produto) => {
-                return produto.disponivel === true;
-              }).length > 0 ? (
-                produtosProdutorState.map((produto) => {
-                  return produto.disponivel === true ? (
-                    <CardProduto
-                      key={produto.id}
-                      produto={produto}
-                      type="produtor"
-                      onEdit={() => {
-                        atualizarProdutos();
-                        console.log("Atualizou");
-                      }}
-                    />
-                  ) : null;
-                })
-              ) : (
-                <h3 className={styles.nenhumProdutoMsg}>Nenhum produto</h3>
-              )}
+              {produtosProdutorState.map((produto) => {
+                return produto.disponivel === true ? (
+                  <CardProduto
+                    key={produto.id}
+                    produto={produto}
+                    type="produtor"
+                    onEdit={(mensagem) => {
+                      setMensagem(mensagem);
+
+                      setmostrarMensagemSucesso(true);
+
+                      atualizarProdutos();
+
+                      setTimeout(() => {
+                        setmostrarMensagemSucesso(false);
+                      }, 7000);
+                    }}
+                  />
+                ) : null;
+              })}
             </div>
           </div>
           <div className={styles.produtosContainer}>
@@ -216,24 +221,25 @@ export default function Produtor({
               <div />
             </div>
             <div className={styles.produtos}>
-              {produtosProdutor.filter((produto) => {
-                return produto.disponivel === false;
-              }).length > 0 ? (
-                produtosProdutorState.map((produto) => {
-                  return produto.disponivel === false ? (
-                    <CardProduto
-                      key={produto.id}
-                      produto={produto}
-                      type="produtor"
-                      onEdit={() => {
-                        atualizarProdutos();
-                      }}
-                    />
-                  ) : null;
-                })
-              ) : (
-                <h3 className={styles.nenhumProdutoMsg}>Nenhum produto</h3>
-              )}
+              {produtosProdutorState.map((produto) => {
+                return produto.disponivel === false ? (
+                  <CardProduto
+                    key={produto.id}
+                    produto={produto}
+                    type="produtor"
+                    onEdit={(mensagem) => {
+                      setMensagem(mensagem);
+                      setmostrarMensagemSucesso(true);
+
+                      atualizarProdutos();
+
+                      setTimeout(() => {
+                        setmostrarMensagemSucesso(false);
+                      }, 7000);
+                    }}
+                  />
+                ) : null;
+              })}
             </div>
           </div>
         </section>
@@ -331,6 +337,9 @@ export default function Produtor({
           }}
         />
       </Modal>
+      {mostrarMensagemSucesso && (
+        <Mensagem mensagem={mensagem} tipo="sucesso" />
+      )}
     </>
   );
 }

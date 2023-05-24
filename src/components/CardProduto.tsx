@@ -21,7 +21,7 @@ interface CardProdutoProps {
   produto: Produto;
   type?: "cliente" | "produtor";
   retornaItem?: (item: ItemCompra) => void;
-  onEdit?: () => void;
+  onEdit?: (mensagem: string) => void;
 }
 
 export function CardProduto({
@@ -36,7 +36,6 @@ export function CardProduto({
   const [modalEditarVisivel, setModalEditarVisivel] = useState(false);
   const [modalExcluirVisivel, setModalExcluirVisivel] = useState(false);
   const [modalDisponivelVisivel, setModalDisponivelVisivel] = useState(false);
-  const [mostrarMensagemSucesso, setmostrarMensagemSucesso] = useState(false);
   const [mostrarMensagemErro, setmostrarMensagemErro] = useState(false);
   const [infoProduto, setInfoProduto] = useState({
     descricao: produto.descricao,
@@ -95,7 +94,6 @@ export function CardProduto({
 
   const mudarDisponibilidade = async () => {
     setmostrarMensagemErro(false);
-    setmostrarMensagemSucesso(false);
     await api
       .put(
         `/produto/${produto.id}`,
@@ -108,10 +106,8 @@ export function CardProduto({
       )
       .then((response) => {
         setDisponivel(!disponivel);
-        setMensagem("Disponibilidade alterada com sucesso!");
-        setmostrarMensagemSucesso(true);
         produto.toggleDisponivel();
-        onEdit();
+        onEdit("Disponibilidade alterada com sucesso!");
       })
       .catch((error) => {
         console.log(error);
@@ -126,7 +122,6 @@ export function CardProduto({
 
   const deletarProduto = async () => {
     setmostrarMensagemErro(false);
-    setmostrarMensagemSucesso(false);
     await api
       .delete(`/produto/${produto.id}`, {
         headers: {
@@ -134,9 +129,7 @@ export function CardProduto({
         },
       })
       .then((response) => {
-        setMensagem("Produto excluído com sucesso!");
-        setmostrarMensagemSucesso(true);
-        setDisplay(false);
+        onEdit("Produto excluído com sucesso!");
       })
       .catch((error) => {
         setMensagem(
@@ -150,8 +143,6 @@ export function CardProduto({
 
   const editarProduto = async () => {
     setmostrarMensagemErro(false);
-    setmostrarMensagemSucesso(false);
-
     const jsonBlob = new Blob(
       [
         JSON.stringify({
@@ -181,8 +172,7 @@ export function CardProduto({
         },
       })
       .then((response) => {
-        setMensagem("Produto editado com sucesso!");
-        setmostrarMensagemSucesso(true);
+        onEdit("Produto editado com sucesso!");
       })
       .catch((error) => {
         console.log(error);
@@ -317,10 +307,6 @@ export function CardProduto({
 
       {mostrarMensagemErro && <Mensagem mensagem={mensagem} tipo="erro" />}
 
-      {mostrarMensagemSucesso && (
-        <Mensagem mensagem={mensagem} tipo="sucesso" />
-      )}
-
       <Modal
         onClickBotao={() => {
           editarProduto();
@@ -410,7 +396,7 @@ export function CardProduto({
         <EscolherArquivoInput
           label="Alterar Imagem"
           tipoArquivo="img"
-          value={infoProduto.imagem}
+          value={""}
           onChange={(e) => {
             setInfoProduto({ ...infoProduto, imagem: e.target.value });
           }}
