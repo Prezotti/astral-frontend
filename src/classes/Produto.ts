@@ -69,4 +69,36 @@ export class Produto {
     this._disponivel = !this._disponivel;
   }
 
+  toJson() {
+    return JSON.stringify(this);
+  }
+
+  fromJSON(json: string) {
+    
+    let produtor = new Produtor("", false, "", 0);
+    produtor = produtor.fromJSON(JSON.stringify(JSON.parse(json)._produtor));
+
+    let produto = new Produto(
+      "",
+      0,
+      "",
+      produtor,
+      0,
+      "",
+      "",
+      0,
+      false
+    );
+    produto._descricao = JSON.parse(json)._descricao;
+    produto._preco = JSON.parse(json)._preco;
+    produto._medida = JSON.parse(json)._medida;
+    produto._produtor = JSON.parse(json)._produtor;
+    produto._qtdEstoque = JSON.parse(json)._qtdEstoque;
+    produto._categoria = JSON.parse(json)._categoria;
+    produto._imagem = JSON.parse(json)._imagem;
+    produto._id = JSON.parse(json)._id;
+    produto._disponivel = JSON.parse(json)._disponivel;
+    return produto;
+  }
+
 }

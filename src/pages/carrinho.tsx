@@ -3,12 +3,26 @@ import styles from "../styles/pages/Carrinho.module.css";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import { Button } from "@/components/Button";
+import { Carrinho as CarrinhoClass } from "@/classes/Carrinho";
+import { useEffect, useState } from "react";
 
 export default function Carrinho() {
+  const [valorCarrinho, setValorCarrinho] = useState(0);
+  const [carrinho, setCarrinho] = useState<CarrinhoClass>(new CarrinhoClass());
+  useEffect(() => {
+    let carrinho = new CarrinhoClass();
+    const carrinhoJSON = localStorage.getItem("carrinho");
+    if (carrinhoJSON) {
+      carrinho = carrinho.fromJSON(carrinhoJSON);
+    }
+    setValorCarrinho(carrinho.calcularTotal());
+    setCarrinho(carrinho);
+  }, []);
+
   return (
     <>
       <section className={styles.pagina}>
-        <Header tipo="cliente" />;
+        <Header tipo="cliente" valorCarrinho={valorCarrinho} />;
         <section className={styles.acaoSolidaria}>
           <div className={styles.divTitulo}>
             <h2 className={styles.titulo}>Ação Solidária</h2>
@@ -149,44 +163,29 @@ export default function Carrinho() {
                 </div>
                 <div className={styles.linhaDivisaoCarrinho}></div>
                 <section className={styles.produtosCarrinho}>
-                  <div className={styles.linhaProduto}>
-                    <p className={styles.descricaoProduto}>Alface</p>
-                    <div className={styles.qtdProduto}>
-                      <div className={styles.botaoAddItem}>
-                        <button onClick={() => {}}>-</button>
-                        <p>2</p>
-                        <button onClick={() => {}}>+</button>
+                  {carrinho.itens.map((item) => {
+                    return (
+                      <div className={styles.linhaProduto}>
+                        <p className={styles.descricaoProduto}>
+                          {item.produto.descricao}
+                        </p>
+                        <div className={styles.qtdProduto}>
+                          <div className={styles.botaoAddItem}>
+                            <button onClick={() => {}}>-</button>
+                            <p>{item.quantidade}</p>
+                            <button onClick={() => {}}>+</button>
+                          </div>
+                          <p className={styles.removerItem}>Remover</p>
+                        </div>
+                        <p>
+                          R$
+                          {(item.produto.preco * item.quantidade)
+                            .toFixed(2)
+                            .replace(".", ",")}
+                        </p>
                       </div>
-                      <p className={styles.removerItem}>Remover</p>
-                    </div>
-                    <p>R$16,00</p>
-                  </div>
-                  <div className={styles.linhaProduto}>
-                    <p className={styles.descricaoProduto}>
-                      Alface Chinês com muito tempeiro verde cheiroso
-                    </p>
-                    <div className={styles.qtdProduto}>
-                      <div className={styles.botaoAddItem}>
-                        <button onClick={() => {}}>-</button>
-                        <p>2</p>
-                        <button onClick={() => {}}>+</button>
-                      </div>
-                      <p className={styles.removerItem}>Remover</p>
-                    </div>
-                    <p>R$16,00</p>
-                  </div>
-                  <div className={styles.linhaProduto}>
-                    <p className={styles.descricaoProduto}>Alface</p>
-                    <div className={styles.qtdProduto}>
-                      <div className={styles.botaoAddItem}>
-                        <button onClick={() => {}}>-</button>
-                        <p>2</p>
-                        <button onClick={() => {}}>+</button>
-                      </div>
-                      <p className={styles.removerItem}>Remover</p>
-                    </div>
-                    <p>R$16,00</p>
-                  </div>
+                    );
+                  })}
                 </section>
               </section>
             </section>

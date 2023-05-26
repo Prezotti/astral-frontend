@@ -119,6 +119,7 @@ export default function Home() {
 
   const colocaCarrinho = (item: ItemCompra) => {
     carrinho.adicionarItem(item);
+    localStorage.setItem("carrinho", carrinho.toJson());
     setValorCarrinho(carrinho.calcularTotal());
   };
 

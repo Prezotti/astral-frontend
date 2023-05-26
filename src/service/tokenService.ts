@@ -13,7 +13,6 @@ export const temCargo = (token: string, requiredRole: string) => {
 
 export const getId = (token: string) => {
     const tokenDecodificado = jwt.decode(token) as JwtPayload;
-    console.log(tokenDecodificado);
     const userId = tokenDecodificado.id;
     return userId;
   }

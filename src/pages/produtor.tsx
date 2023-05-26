@@ -57,8 +57,6 @@ const getProdutosProdutor = async (
   id: number
 ): Promise<ProdutoInteface[]> => {
   let produtos: ProdutoInteface[] = [];
-  console.log(id);
-  console.log(token);
   await api
     .get(`/produto/produtor/${id}`, {
       headers: {
@@ -69,7 +67,6 @@ const getProdutosProdutor = async (
       produtos = response.data;
     });
 
-  console.log(produtos);
   if (!produtos) {
     return [];
   }
@@ -135,9 +132,7 @@ export default function Produtor({
     if (!token) {
       throw new Error("Token não encontrado");
     }
-    console.log(produtor);
     let produtosProdutorJSON = await getProdutosProdutor(token, produtor.id);
-    console.log(produtosProdutorJSON);
     let produtosProdutor = produtosProdutorJSON.map((produto) => {
       return new Produto(
         produto.descricao,
@@ -151,8 +146,6 @@ export default function Produtor({
         produto.disponivel
       );
     });
-
-    console.log(produtosProdutor);
 
     setProdutosProdutorState(produtosProdutor);
   };
