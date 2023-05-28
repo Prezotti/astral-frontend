@@ -1,0 +1,66 @@
+.linhaProduto {
+  display: flex;
+  padding: 5px 0;
+}
+
+.linhaProduto p {
+  text-align: center;
+  width: 30%;
+  padding: 0 5px;
+}
+
+.linhaProduto .descricaoProduto {
+  text-align: left;
+  width: 40%;
+}
+
+.qtdProduto {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qtdProduto p {
+  font-size: 0.6em;
+  cursor: pointer;
+  padding: 2px 0;
+  width: 100%;
+}
+/* Botão adicionar/remover item */
+
+.botaoAddItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90px;
+  height: 30px;
+  border-radius: 7.5px;
+  background-color: white;
+  color: #fa8001;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0 10px;
+  border: 1px solid #fa8001;
+  user-select: none;
+}
+
+.botaoAddItem button {
+  background-color: transparent;
+  border: none;
+  color: #fa8001;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  user-select: none;
+}
+@media (max-width: 940px) {
+  .linhaProduto {
+    font-size: 0.8em;
+  }
+
+  .qtdProduto p {
+    font-size: 0.7em;
+  }
+}

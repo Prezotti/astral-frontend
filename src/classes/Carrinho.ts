@@ -32,6 +32,10 @@ export class Carrinho{
             this._itens.splice(indice, 1);
     }
 
+    qtdProdutos(){
+        return this._itens.length;
+    }
+
     calcularTotal(){
         let total = 0;
         this._itens.forEach(item => {

@@ -42,11 +42,10 @@ interface CategoriaInterface {
   [key: string]: boolean;
 }
 
-let carrinho = new Carrinho();
-
 export default function Home() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [valorCarrinho, setValorCarrinho] = useState(0);
+  const [carrinho, setCarrinho] = useState<Carrinho>(new Carrinho());
 
   const getProdutos = async () => {
     api
@@ -79,6 +78,18 @@ export default function Home() {
   };
 
   useEffect(() => {
+    let carrinho = new Carrinho();
+    if (localStorage.getItem("carrinho") === null)
+      localStorage.setItem("carrinho", carrinho.toJson());
+    else {
+      const carrinhoJSON = localStorage.getItem("carrinho");
+      if (carrinhoJSON) {
+        carrinho = carrinho.fromJSON(carrinhoJSON);
+      }
+    }
+    setValorCarrinho(carrinho.calcularTotal());
+    setCarrinho(carrinho);
+
     getProdutos();
   }, []);
 
