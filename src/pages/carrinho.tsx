@@ -7,6 +7,10 @@ import { Carrinho as CarrinhoClass } from "@/classes/Carrinho";
 import { useEffect, useState } from "react";
 import ItemCarrinho from "@/components/ItemCarrinho";
 import { InformacoesCompra, Endereco } from "@/types/InformacoesCompra";
+import { useRouter } from "next/router";
+import api from "@/api/api";
+import { Mensagem } from "@/components/Mensagem";
+import { setCommentRange } from "typescript";
 
 export default function Carrinho() {
   const [valorCarrinho, setValorCarrinho] = useState(0);
@@ -17,7 +21,6 @@ export default function Carrinho() {
       telefone: "",
       formaPagamento: "",
       valorDoacao: 0,
-      endereco: "",
       localEntrega: "",
       observacoes: "",
     }
@@ -30,6 +33,11 @@ export default function Carrinho() {
     referencia: "",
   });
   const [pediuEntrega, setPediuEntrega] = useState(false);
+  const [valorFrete, setValorFrete] = useState(0);
+  const [feiraId, setFeiraId] = useState(0);
+  const [mostrarMensagemErro, setMostrarMensagemErro] = useState(false);
+  const [mensagemErro, setMensagemErro] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     let carrinho = new CarrinhoClass();
@@ -39,6 +47,10 @@ export default function Carrinho() {
     }
     setValorCarrinho(carrinho.calcularTotal());
     setCarrinho(carrinho);
+    api.get("/feira/aberta").then((response) => {
+      setValorFrete(response.data.taxaEntrega);
+      setFeiraId(response.data.id);
+    });
   }, []);
 
   function formatarTelefone(numeroTelefone: string) {
@@ -55,8 +67,94 @@ export default function Carrinho() {
 
   function valorTotal() {
     return (
-      informacoesCompra.valorDoacao + valorCarrinho + (pediuEntrega ? 4 : 0)
+      informacoesCompra.valorDoacao +
+      valorCarrinho +
+      (pediuEntrega ? valorFrete : 0)
     );
+  }
+
+  function validaCompra() {
+    if (carrinho.itens.length == 0) {
+      setMensagemErro("O carrinho está vazio");
+      setMostrarMensagemErro(true);
+      return false;
+    }
+    if (informacoesCompra.nome == "") {
+      setMensagemErro("O campo nome é obrigatório");
+      setMostrarMensagemErro(true);
+      return false;
+    }
+    if (
+      informacoesCompra.telefone == "" ||
+      informacoesCompra.telefone.length != 11
+    ) {
+      setMensagemErro("O campo telefone está inválido");
+      setMostrarMensagemErro(true);
+      return false;
+    }
+    if (informacoesCompra.formaPagamento == "") {
+      setMensagemErro("O campo forma de pagamento é obrigatório");
+      setMostrarMensagemErro(true);
+      return false;
+    }
+    if (informacoesCompra.localEntrega == "") {
+      setMostrarMensagemErro(true);
+      setMensagemErro("O campo Opção de recebimento é obrigatório");
+      return false;
+    }
+    if (pediuEntrega) {
+      if (endereco.bairro == "") {
+        setMensagemErro("O campo bairro é obrigatório");
+        setMostrarMensagemErro(true);
+        return false;
+      }
+      if (endereco.rua == "") {
+        setMensagemErro("O campo rua é obrigatório");
+        setMostrarMensagemErro(true);
+        return false;
+      }
+      if (endereco.numero == "") {
+        setMensagemErro("O campo número é obrigatório");
+        setMostrarMensagemErro(true);
+        return false;
+      }
+    }
+    return true;
+  }
+
+  async function finalizarCompra() {
+    if (validaCompra())
+      api
+        .post("/compra", {
+          cliente: informacoesCompra.nome,
+          telefone: informacoesCompra.telefone,
+          endereco:
+            endereco.rua +
+            ", " +
+            endereco.numero +
+            " - " +
+            endereco.bairro +
+            " - " +
+            endereco.complemento +
+            " - " +
+            endereco.referencia,
+          itens: carrinho.itens.map((item) => {
+            return item.toItemCarrinho();
+          }),
+          formaPagamento: informacoesCompra.formaPagamento,
+          opcaoRecebimento: informacoesCompra.localEntrega,
+          doacao: informacoesCompra.valorDoacao,
+          observacoes: informacoesCompra.observacoes,
+          feiraId: feiraId,
+        })
+        .then((response) => {
+          localStorage.removeItem("carrinho");
+          router.push("/");
+        });
+    else
+      setTimeout(() => {
+        setMostrarMensagemErro(false);
+      }, 7000);
   }
 
   return (
@@ -108,12 +206,12 @@ export default function Carrinho() {
               type="text"
               placeholder="Digite seu nome"
               value={informacoesCompra.nome}
-              onChange={(e) =>
+              onChange={(e) => {
                 setInformacoesCompra({
                   ...informacoesCompra,
                   nome: e.target.value,
-                })
-              }
+                });
+              }}
               largura="100%"
             />
             <Input
@@ -311,7 +409,9 @@ export default function Carrinho() {
                 {pediuEntrega && (
                   <div className={styles.linhaResumo}>
                     <p className={styles.col1Resumo}>Frete</p>
-                    <p className={styles.col2Resumo}>R$ 4,00</p>
+                    <p className={styles.col2Resumo}>
+                      R$ {valorFrete.toFixed(2).replace(".", ",")}
+                    </p>
                   </div>
                 )}
                 {informacoesCompra.valorDoacao != 0 && (
@@ -342,7 +442,7 @@ export default function Carrinho() {
                   <Button
                     text="FINALIZAR PEDIDO"
                     classType="botaoFinalizar"
-                    onClick={() => {}}
+                    onClick={finalizarCompra}
                   />
                   <a className={styles.adicionarMais} href="/">
                     Adicionar mais produtos
@@ -353,6 +453,7 @@ export default function Carrinho() {
           </section>
         </section>
       </section>
+      {mostrarMensagemErro && <Mensagem tipo="erro" mensagem={mensagemErro} />}
     </>
   );
 }

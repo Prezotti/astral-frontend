@@ -23,6 +23,13 @@ export class ItemCompra{
         return this._produto;
     }
 
+    toItemCarrinho(){
+        return {
+            produtoId: this._produto.id,
+            quantidade: this._quantidade
+        }
+    }
+
     toJson(){
         return JSON.stringify(this);
     }

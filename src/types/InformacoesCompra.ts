@@ -4,7 +4,6 @@ export interface InformacoesCompra {
     telefone: string;
     formaPagamento: "" | "PICPAY" | "PIX" | "DINHEIRO";
     localEntrega: "" |"ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES";
-    endereco: string;
     observacoes: string;
 }
 
