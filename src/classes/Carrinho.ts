@@ -1,4 +1,6 @@
 import { ItemCompra } from "./ItemCompra";
+import { Produto } from "./Produto";
+import { Produtor } from "./Produtor";
 export class Carrinho{
     private _itens : ItemCompra[];
 
@@ -30,12 +32,34 @@ export class Carrinho{
             this._itens.splice(indice, 1);
     }
 
+    qtdProdutos(){
+        return this._itens.length;
+    }
+
     calcularTotal(){
         let total = 0;
-        console.log(this._itens);
         this._itens.forEach(item => {
             total += item.produto.preco * item.quantidade;
         });
         return total;
     }
+
+    toJson(){
+        return JSON.stringify(this);
+    }
+    
+    fromJSON(json : string){
+        let carrinho = new Carrinho();
+        let itens = JSON.parse(json)._itens;
+        itens.forEach((item : string) => {
+            let produtor = new Produtor("", false, "", 0);
+            let produto = new Produto("", 0, "", produtor, 0, "", "", 0, false);
+            let itemCompra = new ItemCompra(0, produto)
+            itemCompra = itemCompra.fromJSON(JSON.stringify(item));
+            carrinho.adicionarItem(itemCompra);
+        });
+       
+        return carrinho;
+    }
+    
 }

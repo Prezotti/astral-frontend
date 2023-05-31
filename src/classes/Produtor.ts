@@ -24,5 +24,18 @@ export class Produtor{
         return this._id;
     }
 
+    toJson(){
+        return JSON.stringify(this);
+    }
+
+    fromJSON(json : string){
+        let produtor = new Produtor("", false, "", 0);
+        produtor._nome = JSON.parse(json)._nome;
+        produtor._disponivel = JSON.parse(json)._disponivel;
+        produtor._telefone = JSON.parse(json)._telefone;
+        produtor._id = JSON.parse(json)._id;
+        return produtor;
+    }
+
 
 }
