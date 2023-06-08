@@ -221,6 +221,7 @@ export default function Home() {
                     key={produto.id}
                     produto={produto}
                     retornaItem={(item) => colocaCarrinho(item)}
+                    qtd={carrinho.getQtdItem(produto.id)}
                   />
                 );
               }

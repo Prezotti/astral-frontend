@@ -9,6 +9,7 @@ interface ButtonProps {
   loading?: boolean;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   classType: string;
+  id?: string;
 }
 
 export function Button({
@@ -19,12 +20,14 @@ export function Button({
   onClick,
   icon,
   loading = false,
+  id,
 }: ButtonProps) {
   let Icon: IconType = () => <></>;
   if (icon) Icon = icon;
 
   return (
     <button
+      id={id}
       style={{
         backgroundColor: backgroundColor,
         color,
