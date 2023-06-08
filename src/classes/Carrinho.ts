@@ -26,6 +26,14 @@ export class Carrinho{
         }
     }
 
+    getQtdItem(id: number){
+        let indice = this._itens.findIndex(itemCarrinho => itemCarrinho.produto.id == id);
+        if(indice >= 0)
+            return this._itens[indice].quantidade;
+        else
+            return 0;
+    }
+
     removerItem(item : ItemCompra){
         let indice = this._itens.findIndex(itemCarrinho => itemCarrinho.produto.id == item.produto.id);
         if(indice >= 0)

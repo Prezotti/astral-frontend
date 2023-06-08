@@ -1,7 +1,7 @@
 import styles from "../styles/components/CardProduto.module.css";
 import { Button } from "./Button";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Mensagem } from "./Mensagem";
 import { ItemCompra } from "@/classes/ItemCompra";
 import { Produto } from "@/classes/Produto";
@@ -22,6 +22,7 @@ interface CardProdutoProps {
   type?: "cliente" | "produtor";
   retornaItem?: (item: ItemCompra) => void;
   onEdit?: (mensagem: string) => void;
+  qtd?: number;
 }
 
 export function CardProduto({
@@ -29,8 +30,9 @@ export function CardProduto({
   retornaItem = () => {},
   onEdit = () => {},
   type = "cliente",
+  qtd = 0,
 }: CardProdutoProps) {
-  const [quantidade, setQuantidade] = useState(0);
+  const [quantidade, setQuantidade] = useState(qtd);
   const [mostrarMensagem, setMostrarMensagem] = useState(false);
   const [disponivel, setDisponivel] = useState(produto.disponivel);
   const [modalEditarVisivel, setModalEditarVisivel] = useState(false);
@@ -50,6 +52,24 @@ export function CardProduto({
   const [display, setDisplay] = useState(true);
 
   const item = new ItemCompra(quantidade, produto);
+  console.log(item);
+
+  useEffect(() => {
+    if (qtd > 0) {
+      const botaoAddItem = document.getElementById(
+        `btnAddItem${produto.id}`
+      ) as HTMLDivElement;
+      const botaoInicial = document.getElementById(
+        `btComprar${produto.id}`
+      ) as HTMLButtonElement;
+      botaoInicial.classList.add(styles.desabilitado);
+      botaoAddItem.classList.add(styles.ativoDiv);
+      botaoAddItem.classList.remove(styles.desabilitado);
+      console.log(botaoAddItem);
+      console.log(botaoInicial);
+      setQuantidade(qtd);
+    }
+  }, []);
 
   const mudarBotao = (event: React.MouseEvent<HTMLButtonElement>) => {
     const botaoAddItem = event.currentTarget.parentElement?.querySelector(
@@ -221,8 +241,9 @@ export function CardProduto({
               text="COMPRAR"
               onClick={mudarBotao}
               classType="botaoProduto"
+              id={`btComprar${produto.id}`}
             />
-            <div className={styles.botaoAddItem}>
+            <div className={styles.botaoAddItem} id={`btnAddItem${produto.id}`}>
               <button onClick={removerItem}>-</button>
               <p>{quantidade}</p>
               <button onClick={adicionarItem}>+</button>
