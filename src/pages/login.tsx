@@ -11,8 +11,11 @@ import cookie from "js-cookie";
 import isEmail from "validator/lib/isEmail";
 
 import { IoIosArrowBack } from "react-icons/io";
+import { AiFillEyeInvisible } from "react-icons/ai";
+import { AiFillEye } from "react-icons/ai";
 import { Button } from "@/components/Button";
 import { Mensagem } from "@/components/Mensagem";
+import { KeyObject } from "crypto";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -25,6 +28,12 @@ export default function Login() {
     useState(false);
   const [carregando, setCarregando] = useState(false);
 
+  const [iconVerSenha, setIconVerSenha] = useState(true);
+
+  const clicarIconSenha = () => {
+    setIconVerSenha(!iconVerSenha);
+  };
+
   const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMostrarMensagemEmailInvalido(false);
     setEmail(event.target.value);
@@ -36,6 +45,12 @@ export default function Login() {
   };
 
   const router = useRouter();
+
+  const testarEnter = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      fazerLogin();
+    }
+  };
 
   const fazerLogin = () => {
     setMostrarMensagemLoginInvalido(false);
@@ -98,12 +113,26 @@ export default function Login() {
               Senha
             </label>
             <input
-              type="password"
+              type={iconVerSenha ? "password" : "text"}
               id="senha"
               className={styles.input}
               value={senha}
               onChange={onChangeSenha}
+              onKeyDown={testarEnter}
             />
+            {iconVerSenha && (
+              <AiFillEyeInvisible
+                className={styles.iconVerSenha}
+                onClick={clicarIconSenha}
+              />
+            )}
+
+            {!iconVerSenha && (
+              <AiFillEye
+                className={styles.iconNaoVerSenha}
+                onClick={clicarIconSenha}
+              />
+            )}
           </div>
 
           <Button
