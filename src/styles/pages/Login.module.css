@@ -75,6 +75,13 @@
     padding: 0 5px;
 }
 
+.iconVerSenha, .iconNaoVerSenha{
+  position: absolute;
+  right: -70px;
+  top: 10px;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .containerLogin{
     width: 500px;
@@ -128,6 +135,10 @@
   .label{
     font-size: 0.9rem;
   }
+  .iconVerSenha, .iconNaoVerSenha{
+    right: -60px;
+  }
+
 }
 
 @media (max-width: 400px) {
@@ -176,6 +187,10 @@
   }
   .containerLogin p{
     font-size: 0.9rem;
+  }
+
+  .iconVerSenha, .iconNaoVerSenha{
+    right: -50px;
   }
  
 }
