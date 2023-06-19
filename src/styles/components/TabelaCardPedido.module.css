@@ -1,0 +1,33 @@
+.tabela{
+    grid-row-start: 3;
+    margin: 20px auto;
+}
+
+.tabela table{
+    width: 500px;
+    border: 1px solid #72B234;
+    text-align: center;
+    border-collapse: collapse; 
+}
+
+.tabela table th{
+    color: #72B234;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-right: 1px solid #72B234;
+    border-bottom: 1px solid #72B234;;
+    padding: 5px;
+}
+
+.tabela table .thQuantidade{
+    width: 110px;
+
+}
+
+.tabela table td{
+    color: #A5A5A5;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid #72B234;
+    padding: 5px;
+}
