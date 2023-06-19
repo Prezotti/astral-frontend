@@ -52,7 +52,6 @@ export function CardProduto({
   const [display, setDisplay] = useState(true);
 
   const item = new ItemCompra(quantidade, produto);
-  console.log(item);
 
   useEffect(() => {
     if (qtd > 0) {
@@ -65,8 +64,6 @@ export function CardProduto({
       botaoInicial.classList.add(styles.desabilitado);
       botaoAddItem.classList.add(styles.ativoDiv);
       botaoAddItem.classList.remove(styles.desabilitado);
-      console.log(botaoAddItem);
-      console.log(botaoInicial);
       setQuantidade(qtd);
     }
   }, []);
