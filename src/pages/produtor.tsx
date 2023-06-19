@@ -102,8 +102,6 @@ export default function Produtor({
     );
   });
 
-  const [checked, setChecked] = useState(false);
-  const [textoSwitch, setTextoSwitch] = useState("Participar da feira");
   const [modalVisivel, setModalVisivel] = useState(false);
   const [infoProduto, setInfoProduto] = useState({
     descricao: "",
@@ -119,12 +117,48 @@ export default function Produtor({
 
   const [mostrarMensagemSucesso, setmostrarMensagemSucesso] = useState(false);
   const [mensagem, setMensagem] = useState("");
+  const [mostrarMensagemErro, setmostrarMensagemErro] = useState(false);
+  const [mostrarMensagem, setMostrarMensagem] = useState(false);
+  const [checked, setChecked] = useState(produtor.disponivel);
+  const [textoSwitch, setTextoSwitch] = useState(
+    checked ? "Participando!" : "Participar da feira"
+  );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-    setTextoSwitch(
-      event.target.checked ? "Participando!" : "Participar da feira"
-    );
+  const alterarParticipacaoFeira = async (token: string, id: number) => {
+    setmostrarMensagemErro(false);
+    await api
+      .put(
+        `/produtor/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setChecked(!checked);
+        setTextoSwitch(
+          textoSwitch != "Participando!"
+            ? "Participando!"
+            : "Participar da feira"
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+        setMensagem(
+          "Não foi possível trocar a disponibilidade agora. Tente mais tarde"
+        );
+        setmostrarMensagemErro(true);
+      });
+  };
+
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const token = Cookies.get("token");
+    if (!token) {
+      throw new Error("Token não encontrado");
+    }
+    alterarParticipacaoFeira(token, produtor.id);
   };
 
   const atualizarProdutos = async () => {
@@ -333,6 +367,7 @@ export default function Produtor({
       {mostrarMensagemSucesso && (
         <Mensagem mensagem={mensagem} tipo="sucesso" />
       )}
+      {mostrarMensagemErro && <Mensagem mensagem={mensagem} tipo="erro" />}
     </>
   );
 }
