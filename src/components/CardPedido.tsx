@@ -17,11 +17,9 @@ interface CardPedidoProps {
 
 export function CardPedido({ compra }: CardPedidoProps) {
   const [expandeContainer, setExpandeContainer] = useState(false);
-  const [mostraTabela, setMostraTabela] = useState(false);
 
   const handleExpandeContainer = () => {
     setExpandeContainer(!expandeContainer);
-    setMostraTabela(!mostraTabela);
   };
 
   const produtores: string[] = [];
@@ -42,10 +40,11 @@ export function CardPedido({ compra }: CardPedidoProps) {
           expandeContainer ? styles.expandeContainer : ""
         }`}
       >
-        {" "}
         <div className={styles.infoPedido}>
           <div className={styles.pedido}>
-            <a href=""> <BsExclamation className={styles.iconeExclamacao} /></a>
+            <a href="">
+              <BsExclamation className={styles.iconeExclamacao} />
+            </a>
             <h3>Pedido #{compra.id}</h3>
           </div>
           <div className={styles.icones}>
@@ -67,11 +66,12 @@ export function CardPedido({ compra }: CardPedidoProps) {
             <p>Telefone: {compra.telefone}</p>
           </div>
         </div>
-        {mostraTabela && (
+        {expandeContainer && (
           <section className={styles.tabelas}>
             {produtores.map((produtor) => {
               return (
                 <TabelaCardPedido
+                  key={produtor}
                   vetItensCompra={formatarListaProdutos(produtor)}
                 />
               );

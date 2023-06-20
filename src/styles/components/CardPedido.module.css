@@ -1,87 +1,105 @@
 .cardPedido {
-    width: 700px;
-    background-color: #FFF;
-    border-radius: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-    height: fit-content;
-    margin: 5% auto;
-    padding: 15px;
+  width: 700px;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  margin: 5% auto;
+  padding: 15px;
 }
 
-.infoPedido{
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: 30px 50px auto 1fr;
-    justify-items: stretch;
+.infoPedido {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 30px 50px auto 1fr;
+  justify-items: stretch;
 }
 
-.expandeContainer{
-    height: fit-content;
+.expandeContainer {
+  height: fit-content;
+}
+
+.cardPedido h3 {
+  color: #000;
+  font-size: 1.2rem;
+}
+
+.pedido {
+  grid-row-start: 1;
+  display: flex;
+  align-items: center;
+}
+
+.iconeExclamacao {
+  background-color: #72B234;
+  color: #FFF;
+  border-radius: 10px;
+  margin: 2px 30px 0 0;
+}
+
+.icones {
+  grid-row-start: 1;
+  display: flex;
+  color: #FA8001;
+  font-weight: 600;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.icones .icone {
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.dadosComprador p {
+  margin: 5px 0;
+  color: #A5A5A5;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-left: 15%;
+}
+
+.verMais {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.verMais p {
+  cursor: pointer;
+  color: #A5A5A5;
+  font-size: 0.8rem;
+  margin-top: 6px;
+}
+
+.iconeSeta {
+  cursor: pointer;
+  color: #72B234;
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+
+.tabelas {
+  display: flex;
+  flex-direction: column;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s;
+}
+
+.expandeContainer .tabelas {
+  max-height: 1000px;
+  animation-name: expand;
+  animation-duration: 1s;
+}
+
+@keyframes expand {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 1000px;
+  }
 }
 
 
-.cardPedido h3{
-    color: #000;
-    font-size: 1.2rem;
-}
-
-.pedido{
-    grid-row-start: 1;
-    display: flex;
-    align-items: center;
-}
-
-.iconeExclamacao{
-    background-color: #72B234;
-    color: #FFF;
-    border-radius: 10px;
-    margin: 2px 30px 0 0;
-}
-
-.icones{
-    grid-row-start: 1;
-    display: flex;
-    color: #FA8001;
-    font-weight: 600;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 0.9rem;
-}
-
-.icones .icone{
-    margin-right: 10px;
-    margin-top: 5px;
-}
-
-.dadosComprador p{
-    margin: 5px 0;
-    color: #A5A5A5;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-left: 15%;
-}
-
-.verMais{
-    display: flex;
-    width: fit-content;
-    margin: 0 auto;
-}
-
-.verMais p{
-    cursor: pointer;
-    color: #A5A5A5;
-    font-size: 0.8rem;
-    margin-top: 6px;
-}
-
-.iconeSeta{
-    cursor: pointer;
-    color: #72B234;
-    font-size: 1.9rem;
-    font-weight: 600;
-}
-
-.tabelas{
-    display: flex;
-    flex-direction: column;
-}
