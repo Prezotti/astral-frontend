@@ -31,3 +31,41 @@
     border: 1px solid #72B234;
     padding: 5px;
 }
+
+
+
+@media (max-width: 720px) {
+.tabela table{
+    width: 450px;
+}
+}
+
+@media (max-width: 610px) {
+    .tabela{ 
+        margin: 15px auto;
+    }
+    .tabela table{
+        width: 400px;
+    }
+}
+
+@media (max-width: 460px) {
+    .tabela{
+        margin: 10px auto;
+    }
+    .tabela table{
+        width: 350px;
+    }
+    .tabela table th{
+        font-size: 0.8em;
+    }
+    .tabela table td{
+        font-size: 0.7em;
+    }
+}
+
+@media (max-width: 400px) {
+    .tabela table{
+        width: 300px;
+    }
+}

@@ -103,3 +103,64 @@
 }
 
 
+@media (max-width: 720px) {
+  .cardPedido{
+    width: 600px;
+  }
+  .icones{
+    height: fit-content;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 610px) {
+  .cardPedido{
+    width: 500px;
+  }
+}
+
+@media (max-width: 510px) {
+  .cardPedido{
+    width: 450px;
+    padding: 5px;
+  }
+
+}
+
+@media (max-width: 460px) {
+  .cardPedido{
+    width: 400px;
+  }
+  .infoPedido {
+    grid-template-columns: 250px 140px;
+  }
+  .cardPedido h3{
+    font-size: 1em;
+  }
+  .icones{
+    font-size: 0.7em;
+  }
+  .icone{
+    font-size: 1em;
+  }
+  .dadosComprador p{
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 400px) {
+  .cardPedido{
+    width: 320px;
+  }
+  .infoPedido {
+    grid-template-columns: 200px 100px;
+  }
+  .cardPedido h3{
+    font-size: 0.8em;
+  }
+  .dadosComprador p{
+    font-size: 0.6em;
+  }
+}
+
+
