@@ -16,10 +16,10 @@ interface CardPedidoProps {
 }
 
 export function CardPedido({ compra }: CardPedidoProps) {
-  const [expandeContainer, setExpandeContainer] = useState(false);
+  const [containerExpandido, setcontainerExpandido] = useState(false);
 
-  const handleExpandeContainer = () => {
-    setExpandeContainer(!expandeContainer);
+  const handlecontainerExpandido = () => {
+    setcontainerExpandido(!containerExpandido);
   };
 
   const produtores: string[] = [];
@@ -37,14 +37,12 @@ export function CardPedido({ compra }: CardPedidoProps) {
     <>
       <div
         className={`${styles.cardPedido} ${
-          expandeContainer ? styles.expandeContainer : ""
+          containerExpandido ? styles.cardExpandido : ""
         }`}
       >
         <div className={styles.infoPedido}>
           <div className={styles.pedido}>
-            <a href="">
-              <BsExclamation className={styles.iconeExclamacao} />
-            </a>
+            <BsExclamation className={styles.iconeExclamacao} />
             <h3>Pedido #{compra.id}</h3>
           </div>
           <div className={styles.icones}>
@@ -66,21 +64,21 @@ export function CardPedido({ compra }: CardPedidoProps) {
             <p>Telefone: {compra.telefone}</p>
           </div>
         </div>
-        {expandeContainer && (
-          <section className={styles.tabelas}>
-            {produtores.map((produtor) => {
-              return (
-                <TabelaCardPedido
-                  key={produtor}
-                  vetItensCompra={formatarListaProdutos(produtor)}
-                />
-              );
-            })}
-          </section>
-        )}
-        <div className={styles.verMais} onClick={handleExpandeContainer}>
-          <p>{expandeContainer ? "Ver Menos" : "Ver Mais"}</p>
-          {expandeContainer ? (
+
+        <section className={styles.tabelas}>
+          {produtores.map((produtor) => {
+            return (
+              <TabelaCardPedido
+                key={produtor}
+                vetItensCompra={formatarListaProdutos(produtor)}
+              />
+            );
+          })}
+        </section>
+
+        <div className={styles.verMais} onClick={handlecontainerExpandido}>
+          <p>{containerExpandido ? "Ver Menos" : "Ver Mais"}</p>
+          {containerExpandido ? (
             <MdKeyboardArrowUp className={styles.iconeSeta} />
           ) : (
             <MdKeyboardArrowDown className={styles.iconeSeta} />
