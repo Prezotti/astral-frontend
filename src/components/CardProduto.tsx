@@ -39,6 +39,7 @@ export function CardProduto({
   const [modalExcluirVisivel, setModalExcluirVisivel] = useState(false);
   const [modalDisponivelVisivel, setModalDisponivelVisivel] = useState(false);
   const [mostrarMensagemErro, setmostrarMensagemErro] = useState(false);
+  const [carregando, setCarregando] = useState(false);
   const [infoProduto, setInfoProduto] = useState({
     descricao: produto.descricao,
     preco: produto.preco,
@@ -132,13 +133,14 @@ export function CardProduto({
           "Não foi possível trocar a disponibilidade agora. Tente mais tarde"
         );
         setmostrarMensagemErro(true);
+        setCarregando(false);
       });
-
     setModalDisponivelVisivel(false);
   };
 
   const deletarProduto = async () => {
     setmostrarMensagemErro(false);
+    setCarregando(true);
     await api
       .delete(`/produto/${produto.id}`, {
         headers: {
@@ -153,8 +155,9 @@ export function CardProduto({
           "Não foi possível excluir o produto agora. Tente mais tarde"
         );
         setmostrarMensagemErro(true);
+        setCarregando(false);
       });
-
+    setCarregando(false);
     setModalExcluirVisivel(false);
   };
 
@@ -180,7 +183,7 @@ export function CardProduto({
 
     const formData = new FormData();
     formData.append("dados", jsonBlob, "dados.json");
-
+    setCarregando(true);
     await api
       .put(`/produto`, formData, {
         headers: {
@@ -196,8 +199,10 @@ export function CardProduto({
         setMensagem(
           "Não foi possível editar o produto agora. Tente mais tarde"
         );
+        setCarregando(false);
         setmostrarMensagemErro(true);
       });
+    setCarregando(false);
     setModalEditarVisivel(false);
   };
 
@@ -262,7 +267,7 @@ export function CardProduto({
               classType="botaoOpcao"
               text=""
               onClick={() => {
-                setModalExcluirVisivel(true); //feitoo
+                setModalExcluirVisivel(true);
               }}
             />
 
@@ -309,6 +314,7 @@ export function CardProduto({
         onClickBotao={() => {
           deletarProduto();
         }}
+        loadingBotao={carregando}
       />
 
       <ModalConfirmacao
@@ -329,6 +335,7 @@ export function CardProduto({
         onClickBotao={() => {
           editarProduto();
         }}
+        loadingBotao={carregando}
         setVisivel={() => {
           setModalEditarVisivel(false);
         }}

@@ -22,14 +22,14 @@
 }
 
 .botaoModal {
-  padding: 7px;
+  padding: 7px 40px;
   border-radius: 7.5px;
   font-size: 0.9rem;
   font-weight: 600;
 }
 
 .botaoConfirmar {
-  padding: 13px 35px;
+  padding: 13px 50px;
   border-radius: 9px;
   font-size: 0.9rem;
   font-weight: 600;
@@ -87,7 +87,7 @@
   width: 200px;
 }
 
-.botaoFinalizar{
+.botaoFinalizar {
   padding: 7px;
   border-radius: 7px;
 }
@@ -188,13 +188,13 @@
   .botaoLogin {
     font-size: 0.8rem;
   }
-  
-  .botaoConfirmar{
+
+  .botaoConfirmar {
     height: 35px;
     font-size: 0.8rem;
     border-radius: 4.5px;
   }
-  .botaoNegar{
+  .botaoNegar {
     height: 35px;
     font-size: 0.8rem;
     border-radius: 5px;
@@ -219,12 +219,12 @@
   .botaoCardFeira {
     width: 100px;
   }
-  .botaoConfirmar{
+  .botaoConfirmar {
     height: 25px;
     font-size: 0.7rem;
     border-radius: 4.5px;
   }
-  .botaoNegar{
+  .botaoNegar {
     height: 25px;
     font-size: 0.7rem;
     border-radius: 5px;

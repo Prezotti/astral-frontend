@@ -11,6 +11,7 @@ interface ModalInterface {
   visivel: boolean;
   setVisivel: React.Dispatch<React.SetStateAction<boolean>>;
   textoBotao: string;
+  loadingBotao?: boolean;
   onClickBotao: () => void;
 }
 
@@ -20,6 +21,7 @@ export default function Modal({
   visivel,
   setVisivel,
   textoBotao,
+  loadingBotao = false,
   onClickBotao,
 }: ModalInterface) {
   if (!visivel) return null;
@@ -44,6 +46,7 @@ export default function Modal({
           text={textoBotao}
           onClick={onClickBotao}
           classType="botaoModal"
+          loading={loadingBotao}
         />
       </div>
     </div>

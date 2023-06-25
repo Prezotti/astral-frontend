@@ -9,6 +9,7 @@ interface ConfirmacaoIterface {
   visivel: boolean;
   setConfirmacaoVisivel: React.Dispatch<React.SetStateAction<boolean>>;
   onClickBotao: () => void;
+  loadingBotao?: boolean;
 }
 
 export default function ModalConfirmacao({
@@ -17,6 +18,7 @@ export default function ModalConfirmacao({
   visivel,
   setConfirmacaoVisivel,
   onClickBotao,
+  loadingBotao = false,
 }: ConfirmacaoIterface) {
   if (!visivel) return null;
   return (
@@ -40,6 +42,7 @@ export default function ModalConfirmacao({
               backgroundColor="#72B234"
               text="CONFIRMAR"
               onClick={onClickBotao}
+              loading={loadingBotao}
               classType="botaoConfirmar"
             />
           </div>
