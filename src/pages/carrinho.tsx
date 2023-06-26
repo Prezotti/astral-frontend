@@ -37,6 +37,7 @@ export default function Carrinho() {
   const [feiraId, setFeiraId] = useState(0);
   const [mostrarMensagemErro, setMostrarMensagemErro] = useState(false);
   const [mensagemErro, setMensagemErro] = useState("");
+  const [carregando, setCarregando] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -123,8 +124,9 @@ export default function Carrinho() {
   }
 
   async function finalizarCompra() {
-    if (validaCompra())
-      api
+    if (validaCompra()) {
+      setCarregando(true);
+      await api
         .post("/compra", {
           cliente: informacoesCompra.nome,
           telefone: informacoesCompra.telefone,
@@ -151,7 +153,8 @@ export default function Carrinho() {
           localStorage.removeItem("carrinho");
           router.push("/");
         });
-    else
+      setCarregando(false);
+    } else
       setTimeout(() => {
         setMostrarMensagemErro(false);
       }, 7000);
@@ -443,6 +446,7 @@ export default function Carrinho() {
                     text="FINALIZAR PEDIDO"
                     classType="botaoFinalizar"
                     onClick={finalizarCompra}
+                    loading={carregando}
                   />
                   <a className={styles.adicionarMais} href="/">
                     Adicionar mais produtos
