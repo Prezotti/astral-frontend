@@ -1,6 +1,11 @@
+import styles from "../styles/pages/Compras.module.css";
+
 import { CardPedido } from "@/components/CardPedido";
 import { Compra } from "@/classes/Compra";
 import { ListagemProduto } from "@/classes/ListagemProduto";
+import { Header } from "@/components/Header";
+import { SearchBar } from "@/components/SearchBar";
+import { Footer } from "@/components/Footer";
 
 export default function Compras() {
   const compras = [
@@ -88,11 +93,54 @@ export default function Compras() {
     ),
   ];
 
+  const handleSearch = (busca: string): void => {
+    console.log(busca);
+  };
+
   return (
-    <>
-      {compras.map((compra) => (
-        <CardPedido compra={compra} key={compra.id} />
-      ))}
-    </>
+    <section className={styles.body}>
+      <Header tipo="admin" />
+      <h1 className={styles.tituloPagina}>Feira 4</h1>
+      <section className={styles.resumo}>
+        <div className={styles.divTitulo}>
+          <h2 className={styles.titulo}>Resumo</h2>
+          <div className={styles.detalheTitulo}></div>
+        </div>
+        <div className={styles.estatisticas}>
+          <div className={styles.totalPedidos}>
+            <h2>Total de pedidos:</h2>
+            <p>6 pedidos</p>
+          </div>
+          <div className={styles.totalVendas}>
+            <h2>Total em vendas:</h2>
+            <p>R$230,15</p>
+          </div>
+        </div>
+      </section>
+      <section className={styles.pedidos}>
+        <h2 className={styles.tituloVendas}>Vendas</h2>
+        <div className={styles.pesquisa}>
+          <SearchBar
+            placeholder="Pesquisar pedido ou comprador..."
+            retornaBusca={(busca) => handleSearch(busca)}
+          />
+        </div>
+        <div className={styles.cardsPedidos}>
+          {compras.map((compra) => (
+            <CardPedido compra={compra} key={compra.id} />
+          ))}
+        </div>
+      </section>
+      <div className={styles.paginas}>
+        <button style={{ fontWeight: "bold" }}>&lt;</button>
+        <button>1</button>
+        <button>2</button>
+        <button className={styles.active}>3</button>
+        <button>4</button>
+        <button>5</button>
+        <button style={{ fontWeight: "bold" }}>&gt;</button>
+      </div>
+      <Footer />
+    </section>
   );
 }

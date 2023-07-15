@@ -3,8 +3,10 @@ import { useState } from "react";
 
 export function SearchBar({
   retornaBusca,
+  placeholder = "Pesquisar produtos...",
 }: {
   retornaBusca: (busca: string) => void;
+  placeholder?: string;
 }) {
   const [busca, setBusca] = useState("");
 
@@ -18,7 +20,7 @@ export function SearchBar({
     <div className={styles.searchBarContainer}>
       <input
         type="text"
-        placeholder="Pesquisar Produtos..."
+        placeholder={placeholder}
         value={busca}
         onChange={handleBuscaChange}
       />
