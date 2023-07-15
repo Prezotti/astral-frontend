@@ -4,9 +4,11 @@ import { useState } from "react";
 export function SearchBar({
   retornaBusca,
   placeholder = "Pesquisar produtos...",
+  backgroudColor = "#fcf9f9",
 }: {
   retornaBusca: (busca: string) => void;
   placeholder?: string;
+  backgroudColor?: string;
 }) {
   const [busca, setBusca] = useState("");
 
@@ -23,6 +25,7 @@ export function SearchBar({
         placeholder={placeholder}
         value={busca}
         onChange={handleBuscaChange}
+        style={{ backgroundColor: backgroudColor }}
       />
       <button type="submit">
         <img src="/botao-pesquisar.png" alt="Search" />
