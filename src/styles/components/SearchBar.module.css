@@ -3,14 +3,14 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  width: 300px;
 }
 
 .searchBarContainer input {
-  width: 300px;
+  width: 100%;
   height: 30px;
   border-radius: 8px;
   border: none;
-  background-color: #fcf9f9;
   padding-left: 20px;
 }
 

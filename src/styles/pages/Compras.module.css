@@ -37,7 +37,7 @@
 .estatisticas{
     padding: 20px 0;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .estatisticas h2{
@@ -70,11 +70,6 @@
     width: 400px;
 } 
 
-.pesquisa input{
-    width: 400px;
-    background-color: white;
-}
-
 /*paginas*/
 
 .paginas{
@@ -90,6 +85,7 @@
     border: none;
     background: none;
     cursor: pointer;
+    color: black;
 }
 
 .paginas .active{
@@ -97,4 +93,55 @@
     padding: 3px 6px;
     border-radius: 5px;
     font-weight: bold;
+}
+
+@media (max-width: 950px) {
+    .resumo{
+        width: 740px;
+    }
+}
+
+@media (max-width: 768px) {
+    .resumo{
+        width: 680px;
+    }
+}
+
+@media (max-width: 690px) {
+    .resumo{
+        width: 540px;
+    }
+    .estatisticas h2{
+        font-size: 0.8rem;
+    }
+    .estatisticas p{
+        font-size: 0.8rem;
+    }
+    .titulo{
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .resumo{
+        width: 450px;
+    }
+}
+
+@media (max-width: 460px) {
+    .resumo{
+        width: 350px;
+    }
+    .estatisticas h2{
+        text-align: left;
+    }
+    .estatisticas p{
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 360px) {
+    .resumo{
+        width: 320px;
+    }
 }

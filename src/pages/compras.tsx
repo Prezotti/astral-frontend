@@ -108,11 +108,11 @@ export default function Compras() {
         </div>
         <div className={styles.estatisticas}>
           <div className={styles.totalPedidos}>
-            <h2>Total de pedidos:</h2>
+            <h2>Pedidos:</h2>
             <p>6 pedidos</p>
           </div>
           <div className={styles.totalVendas}>
-            <h2>Total em vendas:</h2>
+            <h2>Vendas:</h2>
             <p>R$230,15</p>
           </div>
         </div>
@@ -123,6 +123,7 @@ export default function Compras() {
           <SearchBar
             placeholder="Pesquisar pedido ou comprador..."
             retornaBusca={(busca) => handleSearch(busca)}
+            backgroudColor="#fff"
           />
         </div>
         <div className={styles.cardsPedidos}>
