@@ -21,6 +21,7 @@ import { Produtor as ProdutorClass } from "@/classes/Produtor";
 import { ProdutoInteface } from "@/types/Produto";
 import { Produto } from "@/classes/Produto";
 import { Mensagem } from "@/components/Mensagem";
+import { ImageCropper } from "@/components/ImageCropper";
 
 const getInformacoesProdutor = async (
   token: string
@@ -112,6 +113,7 @@ export default function Produtor({
     categoria: "",
     imagem: "",
   });
+  const [imagem, setImagem] = useState<File | null>();
   const [produtosProdutorState, setProdutosProdutorState] =
     useState(produtosProdutor);
 
@@ -123,6 +125,8 @@ export default function Produtor({
   const [textoSwitch, setTextoSwitch] = useState(
     checked ? "Participando!" : "Participar da feira"
   );
+  const [mostrarImageCropper, setMostrarImageCropper] = useState(false);
+  const [carregando, setCarregando] = useState(false);
 
   const alterarParticipacaoFeira = async (token: string, id: number) => {
     setmostrarMensagemErro(false);
@@ -183,6 +187,56 @@ export default function Produtor({
 
     setProdutosProdutorState(produtosProdutor);
   };
+
+  const cadastrarProduto = async () => {
+    //setmostrarMensagemErro(false);
+    const jsonBlob = new Blob(
+      [
+        JSON.stringify({
+          descricao: infoProduto.descricao,
+          preco: infoProduto.preco,
+          qtdEstoque: infoProduto.qtdEstoque,
+          medida: `${
+            infoProduto.qtdMedida == "1" ? "" : infoProduto.qtdMedida
+          }${infoProduto.unMedida}`,
+          categoria: infoProduto.categoria,
+          produtorId: produtor.id,
+        }),
+      ],
+      {
+        type: "application/json",
+      }
+    );
+
+    const formData = new FormData();
+    formData.append("dados", jsonBlob, "dados.json");
+    if(imagem)
+    formData.append("file", imagem);
+    setCarregando(true);
+    await api
+      .post(`/produto`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      })
+      .then((response) => {
+        setMensagem("Produto cadastrado com sucesso!");
+        setmostrarMensagemSucesso(true);
+        setCarregando(false);
+        atualizarProdutos();
+      })
+      .catch((error) => {
+        console.log(error);
+        setMensagem(
+          "Não foi possível cadastrar o produto agora. Tente mais tarde"
+        );
+        setCarregando(false);
+        setmostrarMensagemErro(true);
+      });
+    setModalVisivel(false);
+    setCarregando(false);
+  }
 
   return (
     <>
@@ -275,6 +329,8 @@ export default function Produtor({
       <Modal
         onClickBotao={() => {
           console.log(infoProduto);
+          console.log(imagem)
+          cadastrarProduto();
         }}
         setVisivel={() => {
           setModalVisivel(false);
@@ -282,6 +338,7 @@ export default function Produtor({
         textoBotao="CADASTRAR PRODUTO"
         titulo="Cadastro de Produto"
         visivel={modalVisivel}
+        loadingBotao={carregando}
       >
         <Input
           label="Descrição"
@@ -361,6 +418,10 @@ export default function Produtor({
           value={infoProduto.imagem}
           onChange={(e) => {
             setInfoProduto({ ...infoProduto, imagem: e.target.value });
+            setImagem(e.target.files? e.target.files[0] : null);
+            if(e.target.files !== null && e.target.files.length > 0){
+              setMostrarImageCropper(true);
+            }
           }}
         />
       </Modal>
@@ -368,6 +429,10 @@ export default function Produtor({
         <Mensagem mensagem={mensagem} tipo="sucesso" />
       )}
       {mostrarMensagemErro && <Mensagem mensagem={mensagem} tipo="erro" />}
+      {mostrarImageCropper && (
+        <ImageCropper src={imagem} closeCropper={()=>setMostrarImageCropper(false)} returnFile={(file)=> setImagem(file)}/>
+        )
+      }
     </>
   );
 }

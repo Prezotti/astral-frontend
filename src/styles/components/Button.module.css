@@ -230,3 +230,10 @@
     border-radius: 5px;
   }
 }
+
+.botaoEnviarImagem {
+  height: 30px;
+  width: 150px;
+  border-radius: 7.5px;
+  font-size: 0.9rem;
+}

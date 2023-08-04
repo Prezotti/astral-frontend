@@ -1,0 +1,39 @@
+.cropperBlur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.sectionCropper{
+    position: fixed;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: 500px;
+    width: 500px;
+}
+
+.divRecorte{
+    height: 400px;
+    width: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
