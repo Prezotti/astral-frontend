@@ -210,8 +210,7 @@ export default function Produtor({
 
     const formData = new FormData();
     formData.append("dados", jsonBlob, "dados.json");
-    if(imagem)
-    formData.append("file", imagem);
+    if (imagem) formData.append("file", imagem);
     setCarregando(true);
     await api
       .post(`/produto`, formData, {
@@ -236,7 +235,7 @@ export default function Produtor({
       });
     setModalVisivel(false);
     setCarregando(false);
-  }
+  };
 
   return (
     <>
@@ -329,7 +328,7 @@ export default function Produtor({
       <Modal
         onClickBotao={() => {
           console.log(infoProduto);
-          console.log(imagem)
+          console.log(imagem);
           cadastrarProduto();
         }}
         setVisivel={() => {
@@ -342,7 +341,7 @@ export default function Produtor({
       >
         <Input
           label="Descrição"
-          placeholder="Descrição do produtor"
+          placeholder="Descrição do produto"
           type="text"
           value={infoProduto.descricao}
           onChange={(e) => {
@@ -351,7 +350,7 @@ export default function Produtor({
         />
         <Input
           label="Preço"
-          placeholder="Preço do produtor"
+          placeholder="Preço do produto"
           type="number"
           value={infoProduto.preco}
           onChange={(e) => {
@@ -418,8 +417,8 @@ export default function Produtor({
           value={infoProduto.imagem}
           onChange={(e) => {
             setInfoProduto({ ...infoProduto, imagem: e.target.value });
-            setImagem(e.target.files? e.target.files[0] : null);
-            if(e.target.files !== null && e.target.files.length > 0){
+            setImagem(e.target.files ? e.target.files[0] : null);
+            if (e.target.files !== null && e.target.files.length > 0) {
               setMostrarImageCropper(true);
             }
           }}
@@ -430,9 +429,12 @@ export default function Produtor({
       )}
       {mostrarMensagemErro && <Mensagem mensagem={mensagem} tipo="erro" />}
       {mostrarImageCropper && (
-        <ImageCropper src={imagem} closeCropper={()=>setMostrarImageCropper(false)} returnFile={(file)=> setImagem(file)}/>
-        )
-      }
+        <ImageCropper
+          src={imagem}
+          closeCropper={() => setMostrarImageCropper(false)}
+          returnFile={(file) => setImagem(file)}
+        />
+      )}
     </>
   );
 }

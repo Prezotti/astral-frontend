@@ -10,7 +10,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
+
+.divCabecalho{
+  width: 100%;
+  position: relative;
+}
+
+.iconeVoltar{
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translate(0, -50%);
+  cursor: pointer;
+}
+
+.titulo{
+  color: #72b234;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 10px 0;
+  text-align: center;
+}
 
 .sectionCropper{
     position: fixed;
@@ -25,8 +46,13 @@
     flex-direction: column;
     align-items: center;
 
-    height: 500px;
+    height: 550px;
     width: 500px;
+}
+
+.iconGirar{
+  flex-grow: 1;
+  cursor: pointer;
 }
 
 .divRecorte{
