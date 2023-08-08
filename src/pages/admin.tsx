@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GetServerSidePropsContext } from "next";
 
 import { Button } from "@/components/Button";
@@ -11,6 +11,10 @@ import Modal from "@/components/Modal";
 import Input from "@/components/Input";
 import { Painel } from "@/components/Painel";
 import { Cargos, temCargo } from "@/service/tokenService";
+import Cookies from "js-cookie";
+import api from "@/api/api";
+import { Mensagem } from "@/components/Mensagem";
+import {Feira} from "@/types/Feira";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
@@ -27,11 +31,66 @@ export default function Admin() {
     senha: "",
     senhaRepetida: "",
   });
+  const [mostrarMensagem, setMostrarMensagem] = useState(false);
+  const [mensagem, setMensagem] = useState("");
+  const [tipoMensagem, setTipoMensagem] = useState<"sucesso"|"erro"|"aviso">("sucesso");
+  const [feiras, setFeiras] = useState<[Feira]|[]>([]);
+  const [carregando, setCarregando] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     setTextoSwitch(event.target.checked ? "Feira aberta!" : "Abrir feira");
   };
+
+  const getInformacoesFeiras = () => {
+    const token = Cookies.get("token");
+    
+    api.get("/feira", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      response.data.reverse();
+      setFeiras(response.data);
+    }
+    ).catch((error) => {
+      console.log(error);
+    }
+    );
+  }
+
+  const cadastrarFeira = () => {
+    setMostrarMensagem(false)
+    const token = Cookies.get("token");
+    setCarregando(true);
+
+    api.post("/feira", 
+      {
+        taxaEntrega: infoFeira.taxaEntrega,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((response) => {
+        setMensagem("Feira cadastrada com sucesso!");
+        setTipoMensagem("sucesso");
+        setMostrarMensagem(true);
+        setModalFeira(false);
+      }
+    ).catch((error) => {
+      setMensagem("Erro ao cadastrar feira!");
+      setTipoMensagem("erro");
+      setMostrarMensagem(true);
+      setModalFeira(false);
+    });
+    setCarregando(false);
+
+  }
+
+  useEffect(() => {
+    getInformacoesFeiras();
+  }, []);
 
   return (
     <>
@@ -66,29 +125,37 @@ export default function Admin() {
         <div className={styles.divFeira}>
           <section className={styles.sectionFeira}>
             <h1>Feiras</h1>
-            <CardFeira
-              id={2}
-              aberta={true}
-              valorFinal={910.15}
-              data="20/04/2023"
-            />
-            <CardFeira
-              id={1}
-              aberta={false}
-              valorFinal={910.15}
-              data="20/04/2023"
-            />
+            { 
+              feiras.length > 0 ?
+                feiras.map((feira) => {
+                  feira.dataAbertura = new Date(feira.dataAbertura).toLocaleDateString("pt-BR");
+                  return (
+                    <CardFeira
+                      key={feira.id}
+                      id={feira.id}
+                      valorFinal={feira.valorTotal}
+                      data={feira.dataAbertura}
+                      aberta={feira.aberta}
+                  />
+                )
+              })
+              : <p>Não há feiras cadastradas</p>
+            }
+            
+
           </section>
         </div>
       </section>
 
       <Modal
         onClickBotao={() => {
-          console.log(infoFeira);
+          cadastrarFeira();
+          getInformacoesFeiras();
         }}
         setVisivel={() => {
           setModalFeira(false);
         }}
+        loadingBotao={carregando}
         textoBotao="NOVA FEIRA"
         titulo="Cadastro de Feira"
         visivel={modalFeira}
@@ -97,9 +164,11 @@ export default function Admin() {
           label="Taxa de Entrega"
           placeholder="R$00,00"
           type="number"
-          value={infoFeira.taxaEntrega}
+          value={Number(infoFeira.taxaEntrega).toFixed(2)}
           onChange={(e) => {
-            setInfoFeira({ ...infoFeira, taxaEntrega: e.target.value });
+            const inputValue = e.target.value.replace(/\D/g, ""); // Remove qualquer caractere não numérico
+            const formattedValue = (Number(inputValue) / 100).toFixed(2); // Divide o valor por 100 para obter o valor decimal e formata com duas casas decimais
+            setInfoFeira({ ...infoFeira, taxaEntrega: formattedValue });
           }}
         />
       </Modal>
@@ -165,6 +234,9 @@ export default function Admin() {
           }}
         />
       </Modal>
+      {mostrarMensagem && (
+        <Mensagem mensagem={mensagem} tipo={tipoMensagem}/>
+      )}
       <Footer />
     </>
   );
