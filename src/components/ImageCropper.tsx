@@ -5,16 +5,21 @@ import { IoArrowBack } from "react-icons/io5";
 import { useState } from "react";
 import "cropperjs/dist/cropper.css";
 import styles from "../styles/components/ImageCropper.module.css";
+import Resizer from "react-image-file-resizer";
 
 interface ImageCropperProps {
   src: File | undefined | null;
   returnFile: (file: File) => void;
+  fileName?: string;
+  goBack?: () => void;
   closeCropper?: () => void;
 }
 
 export function ImageCropper({
   src,
   returnFile,
+  fileName="unknown",
+  goBack,
   closeCropper,
 }: ImageCropperProps) {
   const [cropper, setCropper] = useState<Cropper | undefined>(undefined);
@@ -23,12 +28,31 @@ export function ImageCropper({
     cropper?.rotate(90);
   };
 
+  const resizeFile = (file: Blob) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        800,
+        450,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "blob"
+      );
+    });
+
   const getCropData = async () => {
     if (cropper) {
       const file = await fetch(cropper.getCroppedCanvas().toDataURL())
         .then((res) => res.blob())
-        .then((blob) => {
-          const file2 = new File([blob], "teste.jpg", { type: "image/jpeg" });
+        .then(async (blob) => {
+          const resizedFile = await resizeFile(blob);
+          if(fileName === "") fileName = "unknown";
+          else fileName = fileName.replaceAll(" ", "_");
+          const file2 = new File([resizedFile as BlobPart], fileName+".jpg", { type: "image/jpeg" });
           returnFile(file2);
           if (closeCropper) closeCropper();
           return file2;
@@ -43,7 +67,7 @@ export function ImageCropper({
           <div className={styles.divCabecalho}>
             <IoArrowBack
               onClick={() => {
-                if (closeCropper) closeCropper();
+                if (goBack) goBack();
               }}
               size={20}
               color="#72b234"
