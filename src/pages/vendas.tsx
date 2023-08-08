@@ -1,4 +1,6 @@
-import styles from "../styles/pages/Compras.module.css";
+import styles from "../styles/pages/Vendas.module.css";
+
+import { GetServerSidePropsContext } from "next";
 
 import { CardPedido } from "@/components/CardPedido";
 import { Compra } from "@/classes/Compra";
@@ -6,8 +8,33 @@ import { ListagemProduto } from "@/classes/ListagemProduto";
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { Footer } from "@/components/Footer";
+import { Cargos, temCargo } from "@/service/tokenService";
+import api from "@/api/api";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 export default function Compras() {
+
+  const getInformacoesFeiras = () => {
+    const token = Cookies.get("token");
+    
+    api.get("/feira", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      console.log(response.data);
+    }
+    ).catch((error) => {
+      console.log(error);
+    }
+    );
+  }
+
+  useEffect(() => {
+    getInformacoesFeiras();
+  }, []);
+
   const compras = [
     new Compra(
       1,
@@ -107,13 +134,21 @@ export default function Compras() {
           <div className={styles.detalheTitulo}></div>
         </div>
         <div className={styles.estatisticas}>
-          <div className={styles.totalPedidos}>
+          <div>
             <h2>Pedidos:</h2>
             <p>6 pedidos</p>
           </div>
-          <div className={styles.totalVendas}>
+          <div>
             <h2>Vendas:</h2>
             <p>R$230,15</p>
+          </div>
+          <div>
+            <h2>Doações:</h2>
+            <p>$50,00</p>
+          </div>
+          <div>
+            <h2>Entregas:</h2>
+            <p>$50,00</p>
           </div>
         </div>
       </section>
@@ -144,4 +179,21 @@ export default function Compras() {
       <Footer />
     </section>
   );
+}
+
+export async function getServerSideProps(contexto: GetServerSidePropsContext) {
+  if (
+    contexto.req.cookies.token === undefined ||
+    !temCargo(contexto.req.cookies.token, Cargos.ADMINISTRADOR)
+  ) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }
