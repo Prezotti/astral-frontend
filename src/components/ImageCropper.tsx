@@ -32,8 +32,8 @@ export function ImageCropper({
     new Promise((resolve) => {
       Resizer.imageFileResizer(
         file,
-        800,
-        450,
+        640,
+        360,
         "JPEG",
         100,
         0,
