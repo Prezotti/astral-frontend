@@ -21,6 +21,7 @@ import { Produtor as ProdutorClass } from "@/classes/Produtor";
 import { ProdutoInteface } from "@/types/Produto";
 import { Produto } from "@/classes/Produto";
 import { Mensagem } from "@/components/Mensagem";
+import { ImageCropper } from "@/components/ImageCropper";
 
 const getInformacoesProdutor = async (
   token: string
@@ -112,6 +113,7 @@ export default function Produtor({
     categoria: "",
     imagem: "",
   });
+  const [imagem, setImagem] = useState<File | null>();
   const [produtosProdutorState, setProdutosProdutorState] =
     useState(produtosProdutor);
 
@@ -123,6 +125,9 @@ export default function Produtor({
   const [textoSwitch, setTextoSwitch] = useState(
     checked ? "Participando!" : "Participar da feira"
   );
+  const [mostrarImageCropper, setMostrarImageCropper] = useState(false);
+  const [carregando, setCarregando] = useState(false);
+  const [labelMessage, setLabelMessage] = useState("Escolher imagem");
 
   const alterarParticipacaoFeira = async (token: string, id: number) => {
     setmostrarMensagemErro(false);
@@ -145,7 +150,6 @@ export default function Produtor({
         );
       })
       .catch((error) => {
-        console.log(error);
         setMensagem(
           "Não foi possível trocar a disponibilidade agora. Tente mais tarde"
         );
@@ -182,6 +186,120 @@ export default function Produtor({
     });
 
     setProdutosProdutorState(produtosProdutor);
+  };
+
+  const validaCampos = () => {
+    if(!infoProduto.descricao){
+      setMensagem("Preencha a descrição do produto");
+      setmostrarMensagemErro(true);
+      setModalVisivel(false);
+      return false;
+    }
+    if(!infoProduto.preco){
+      setMensagem("Preencha o preço do produto");
+      setmostrarMensagemErro(true);
+      setModalVisivel(false);
+      return false;
+    }
+    if(!infoProduto.qtdEstoque){
+      setMensagem("Preencha a quantidade em estoque do produto");
+      setmostrarMensagemErro(true);
+      setModalVisivel(false);
+      return false;
+    }
+    if(!infoProduto.categoria){
+      setMensagem("Escolha a categoria do produto");
+      setmostrarMensagemErro(true);
+      setModalVisivel(false);
+      return false;
+    }
+    if(!infoProduto.qtdMedida){
+      setMensagem("Preencha a quantidade de medida do produto");
+      setmostrarMensagemErro(true);
+      setModalVisivel(false);
+      return false;
+    }
+    if(!infoProduto.unMedida){
+      setMensagem("Escolha a unidade de medida do produto");
+      setmostrarMensagemErro(true);
+      setModalVisivel(false);
+      return false;
+    }
+    if(!imagem){
+      setMensagem("Selecione uma imagem para o produto");
+      setmostrarMensagemErro(true);
+      setModalVisivel(false);
+      return false;
+    }
+    return true;
+  }
+
+  const cadastrarProduto = async () => {
+    if(!validaCampos()){
+      setTimeout(() => {
+        setmostrarMensagemErro(false);
+      }, 7000);
+      return;
+    }
+
+    const jsonBlob = new Blob(
+      [
+        JSON.stringify({
+          descricao: infoProduto.descricao,
+          preco: infoProduto.preco,
+          qtdEstoque: infoProduto.qtdEstoque,
+          medida: `${
+            infoProduto.qtdMedida == "1" ? "" : infoProduto.qtdMedida
+          }${infoProduto.unMedida}`,
+          categoria: infoProduto.categoria,
+          produtorId: produtor.id,
+        }),
+      ],
+      {
+        type: "application/json",
+      }
+    );
+
+    const formData = new FormData();
+    formData.append("dados", jsonBlob, "dados.json");
+    if (imagem) formData.append("file", imagem);
+    setCarregando(true);
+    await api
+      .post(`/produto`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      })
+      .then((response) => {
+        setMensagem("Produto cadastrado com sucesso!");
+        setmostrarMensagemSucesso(true);
+        setCarregando(false);
+        atualizarProdutos();
+      })
+      .catch((error) => {
+        if(error.response.status == 413){
+          setMensagem("A imagem é muito grande. Tente uma imagem menor");
+        }
+        else
+          setMensagem(
+            "Não foi possível cadastrar o produto agora. Tente mais tarde"
+          );
+        setCarregando(false);
+        setmostrarMensagemErro(true);
+      });
+    setModalVisivel(false);
+    setCarregando(false);
+    setImagem(null);
+    setInfoProduto({
+      descricao: "",
+      preco: "",
+      qtdEstoque: "",
+      qtdMedida: "",
+      unMedida: "",
+      categoria: "",
+      imagem: "",
+    });
   };
 
   return (
@@ -230,7 +348,7 @@ export default function Produtor({
                       setMensagem(mensagem);
 
                       setmostrarMensagemSucesso(true);
-
+                      
                       atualizarProdutos();
 
                       setTimeout(() => {
@@ -274,18 +392,25 @@ export default function Produtor({
 
       <Modal
         onClickBotao={() => {
-          console.log(infoProduto);
+          cadastrarProduto();
         }}
         setVisivel={() => {
+          setImagem(null);
+          setInfoProduto({
+            ...infoProduto,
+            imagem: "",
+          });
+          setLabelMessage("Escolher Imagem");
           setModalVisivel(false);
         }}
         textoBotao="CADASTRAR PRODUTO"
         titulo="Cadastro de Produto"
         visivel={modalVisivel}
+        loadingBotao={carregando}
       >
         <Input
           label="Descrição"
-          placeholder="Descrição do produtor"
+          placeholder="Descrição do produto"
           type="text"
           value={infoProduto.descricao}
           onChange={(e) => {
@@ -294,11 +419,13 @@ export default function Produtor({
         />
         <Input
           label="Preço"
-          placeholder="Preço do produtor"
+          placeholder="Preço do produto"
           type="number"
-          value={infoProduto.preco}
+          value={Number(infoProduto.preco)? Number(infoProduto.preco).toFixed(2): ""}
           onChange={(e) => {
-            setInfoProduto({ ...infoProduto, preco: e.target.value });
+            const inputValue = e.target.value.replace(/\D/g, ""); // Remove qualquer caractere não numérico
+            const formattedValue = (Number(inputValue) / 100).toFixed(2); // Divide o valor por 100 para obter o valor decimal e formata com duas casas decimais
+            setInfoProduto({ ...infoProduto, preco: formattedValue });
           }}
         />
         <Input
@@ -307,7 +434,14 @@ export default function Produtor({
           type="number"
           value={infoProduto.qtdEstoque}
           onChange={(e) => {
-            setInfoProduto({ ...infoProduto, qtdEstoque: e.target.value });
+            const inputValue = e.target.value.replace(/\D/g, ""); // Remove qualquer caractere não numérico
+            const numericValue = parseInt(inputValue, 10);
+            if(inputValue === ""){
+              setInfoProduto({ ...infoProduto, qtdEstoque: "" });
+            }
+            if (!isNaN(numericValue) && numericValue >= 0) {
+              setInfoProduto({ ...infoProduto, qtdEstoque: numericValue.toString() });
+            }
           }}
         />
         <Select
@@ -317,6 +451,7 @@ export default function Produtor({
             setInfoProduto({ ...infoProduto, categoria: e.target.value });
           }}
         >
+          <option value="">Selecione</option>
           <option value="FRUTAS">Fruta</option>
           <option value="LEGUMES">Legume</option>
           <option value="VERDURAS">Verdura</option>
@@ -334,7 +469,14 @@ export default function Produtor({
             type="number"
             value={infoProduto.qtdMedida}
             onChange={(e) => {
-              setInfoProduto({ ...infoProduto, qtdMedida: e.target.value });
+              const inputValue = e.target.value.replace(/\D/g, ""); // Remove qualquer caractere não numérico
+              const numericValue = parseInt(inputValue, 10);
+              if(inputValue === ""){
+                setInfoProduto({ ...infoProduto, qtdMedida: "" });
+              }
+              else if (!isNaN(numericValue) && numericValue >= 0) {
+                setInfoProduto({ ...infoProduto, qtdMedida: numericValue.toString() });
+              }
             }}
           />
           <Select
@@ -344,6 +486,7 @@ export default function Produtor({
               setInfoProduto({ ...infoProduto, unMedida: e.target.value });
             }}
           >
+            <option value="">Selecione</option>
             <option value="Un.">Unidade</option>
             <option value="Dúzia">Dúzia</option>
             <option value="Crivo">Crivo</option>
@@ -356,11 +499,17 @@ export default function Produtor({
           </Select>
         </div>
         <EscolherArquivoInput
-          label="Escolher imagem"
+
+          label={labelMessage}
           tipoArquivo="img"
           value={infoProduto.imagem}
           onChange={(e) => {
             setInfoProduto({ ...infoProduto, imagem: e.target.value });
+            setImagem(e.target.files ? e.target.files[0] : null);
+            setLabelMessage("Alterar imagem");
+            if (e.target.files !== null && e.target.files.length > 0) {
+              setMostrarImageCropper(true);
+            }
           }}
         />
       </Modal>
@@ -368,6 +517,21 @@ export default function Produtor({
         <Mensagem mensagem={mensagem} tipo="sucesso" />
       )}
       {mostrarMensagemErro && <Mensagem mensagem={mensagem} tipo="erro" />}
+      {mostrarImageCropper && (
+        <ImageCropper
+          src={imagem}
+          closeCropper={() => {
+            setMostrarImageCropper(false)
+          }}
+          fileName={infoProduto.descricao}
+          goBack={() => {
+            setImagem(null)
+            setLabelMessage("Escolher Imagem")
+            setMostrarImageCropper(false)
+          }}
+          returnFile={(file) => setImagem(file)}
+        />
+      )}
     </>
   );
 }
