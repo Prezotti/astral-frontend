@@ -10,29 +10,56 @@ import { SearchBar } from "@/components/SearchBar";
 import { Footer } from "@/components/Footer";
 import { Cargos, temCargo } from "@/service/tokenService";
 import api from "@/api/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Feira } from "@/types/Feira";
 import Cookies from "js-cookie";
+import { get } from "http";
 
 export default function Compras() {
 
-  const getInformacoesFeiras = () => {
+  const [idFeira, setIdFeira] = useState<number>(0);
+  const [feiraRecente, setFeiraRecente] = useState<Feira|null>(null);
+
+  const getIdRecente = async (): Promise<number> => {
     const token = Cookies.get("token");
-    
-    api.get("/feira", {
+    let id=0;
+    await api.get("/feira/recente", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
+      id = response.data.id;
+    }
+    ).catch((error) => {
+      console.log(error);
+    });
+    console.log(id);
+    return id;
+  }
+
+  const getInformacoesFeiras = (id: number) => {
+    const token = Cookies.get("token");
+    api.get(`/compra/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      setFeiraRecente(response.data);
       console.log(response.data);
     }
     ).catch((error) => {
       console.log(error);
     }
     );
-  }
+  } 
 
   useEffect(() => {
-    getInformacoesFeiras();
+    let id=0;
+    const wait = async () => {
+      id = await getIdRecente();
+      getInformacoesFeiras(id);
+    }
+    wait();
   }, []);
 
   const compras = [
