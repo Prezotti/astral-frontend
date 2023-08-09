@@ -1,6 +1,5 @@
 import styles from "../styles/pages/ConfirmacaoCompra.module.css";
 
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
 import { IoIosArrowBack } from "react-icons/io";
@@ -8,8 +7,12 @@ import { BsCartCheck } from "react-icons/bs";
 
 export default function confirmacaoCompra() {
   return (
-    <>
-      <Header />
+    <section className={styles.body}>
+      <header className={styles.headerContainer}>
+        <div className={styles.headerConteudo}>
+          <img src="/icone-astral.png" alt="Astral logo" />
+        </div>
+      </header>
       <section className={styles.sectionConfirm}>
         <div className={styles.containerConfirm}>
           <div className={styles.containerMsgImagens}>
@@ -41,6 +44,6 @@ export default function confirmacaoCompra() {
         </div>
       </section>
       <Footer />
-    </>
+    </section>
   );
 }
