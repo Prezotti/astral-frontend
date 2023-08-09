@@ -1,0 +1,301 @@
+.body{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+/*Header*/
+.headerContainer {
+  width: 100vw;
+  background-color: #fff;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
+.headerConteudo img {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+  height: 42px;
+}
+
+.headerConteudo > img{
+  margin-top: 3px;
+}
+
+
+/*Section confirmação*/
+
+.sectionConfirm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  flex-grow: 1;
+}
+
+.containerConfirm {
+  width: 1000px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  height: 380px;
+}
+
+.containerMsgImagens{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 3% auto 6% auto;
+}
+
+.mensagem{
+  width: 60%;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+}
+
+.titulo{
+  color: #fa8001;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.mensagem p{
+  margin-top: 35px;
+  color: #A5A5A5;
+  font-weight: 600;
+  text-align: center;
+}
+
+.imagensProdutos{
+  display: grid;
+  width: fit-content;
+  height: fit-content;
+  grid-gap: 3px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.imagensProdutos img{
+  width: 150px;
+}
+
+.voltar{
+  color: #72B234;
+  font-weight: 500;
+  margin: 25px 30px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+
+@media (max-width: 1044px){
+  .containerConfirm{
+    width: 900px;
+    padding: 10px 30px;
+  }
+}
+
+@media (max-width: 969px){
+  .containerConfirm{
+    width: 800px;
+  }
+
+  .containerMsgImagens{
+    padding: 15px 30px;
+  }
+}
+
+@media (max-width: 880px){
+  .containerConfirm{
+    width: 700px;
+  }
+
+  .containerMsgImagens{
+    margin: 3% auto 4% auto;
+    padding: 0px 30px;
+  }
+
+  .voltar{
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 770px){
+  .sectionConfirm{
+    margin-top: 150px;
+  }
+
+  .containerConfirm{
+    width: 620px;
+  }
+
+  .containerMsgImagens{
+    padding: 30px 10px;
+  }
+
+  .titulo{
+    font-size: 1.6rem;
+  }
+
+  .imagensProdutos img{
+    width: 120px;
+  }
+
+  .iconeCarrinho{
+    width: 4rem;
+  }
+
+  .mensagem p{
+    font-size: 0.9rem;
+  }
+
+  .voltar{
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 700px){
+  .containerConfirm{
+    width: 600px;
+  }
+}
+
+@media (max-width: 650px){
+  .containerConfirm{
+    width: 550px;
+  }
+
+  .containerMsgImagens{
+    padding: 10px 10px;
+  }
+
+  .mensagem{
+    margin: 10px;
+    padding-right: 15px;
+  }
+
+  .titulo{
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 590px){
+  .containerConfirm{
+    width: 500px;
+    height: fit-content;
+  }
+
+  .containerMsgImagens{
+    padding: 1px 10px;
+  }
+
+  .titulo{
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .iconeCarrinho{
+    width: 3.4rem;
+  }
+
+  .mensagem p{
+    font-size: 0.8rem;
+    margin-top: 25px;
+  }
+
+  .imagensProdutos img{
+    width: 105px;
+  }
+}
+
+@media (max-width: 535px){
+  .containerConfirm{
+    width: 450px;
+  }
+
+  .imagensProdutos img{
+    width: 100px;
+  }
+}
+
+@media (max-width: 490px){
+  .containerConfirm{
+    width: 400px;
+  }
+
+  .containerMsgImagens{
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 475px){
+  .containerConfirm{
+    width: 380px;
+  }
+
+  .titulo{
+    font-size: 1.3rem;
+  }
+
+  .mensagem p{
+    margin-bottom: 7px;
+    width: 200px;
+  }
+
+  .iconeCarrinho{
+    width: 3.2rem;
+  }
+}
+
+@media (max-width: 450px){
+  .containerConfirm{
+    width: 320px;
+  }
+
+  .imagensProdutos img{
+    width: 85px;
+  }
+  .mensagem {
+    padding: 0;
+  }
+
+  .iconeCarrinho{
+    width: 3.2rem;
+  }
+}
+
+@media(max-width: 400px){
+  .containerConfirm{
+    width: 300px;
+  }
+}
+
+@media (max-width: 350px){
+  .containerConfirm{
+    width: 280px;
+  }
+
+  .voltar{
+    font-size: 0.8rem;
+  }
+
+}

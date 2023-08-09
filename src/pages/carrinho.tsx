@@ -151,7 +151,7 @@ export default function Carrinho() {
         })
         .then((response) => {
           localStorage.removeItem("carrinho");
-          router.push("/");
+          router.push("/confirmacao-compra");
         });
       setCarregando(false);
     } else
