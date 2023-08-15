@@ -9,7 +9,6 @@ import { useState } from "react";
 import { TabelaCardPedido } from "./TabelaCardPedido";
 import { Compra } from "@/classes/Compra";
 import { ListagemProduto } from "@/classes/ListagemProduto";
-import { Button } from "./Button";
 
 interface CardPedidoProps {
   compra: Compra;
@@ -52,11 +51,11 @@ export function CardPedido({ compra }: CardPedidoProps) {
             </span>
             <span>
               <BsTruck className={styles.icone} />
-              {compra.localEntrega}
+              {compra.opcaoRecebimento}
             </span>
             <span>
               <RiCoinsLine className={styles.icone} />
-              Valor: R${compra.valorTotal}
+              Valor: R${compra.valorTotal.toFixed(2).replace(".", ",")}
             </span>
           </div>
           <div className={styles.dadosComprador}>

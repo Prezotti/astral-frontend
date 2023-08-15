@@ -1,6 +1,6 @@
 .cardPedido {
   width: 700px;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
@@ -30,8 +30,8 @@
 }
 
 .iconeExclamacao {
-  background-color: #72B234;
-  color: #FFF;
+  background-color: #72b234;
+  color: #fff;
   border-radius: 10px;
   margin: 2px 30px 0 0;
 }
@@ -39,21 +39,22 @@
 .icones {
   grid-row-start: 1;
   display: flex;
-  color: #FA8001;
+  color: #fa8001;
   font-weight: 600;
   justify-content: space-around;
   align-items: flex-start;
   font-size: 0.9rem;
 }
 
-.icones .icone {
-  margin-right: 10px;
-  margin-top: 5px;
+.icones span {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .dadosComprador p {
   margin: 5px 0;
-  color: #A5A5A5;
+  color: #a5a5a5;
   font-size: 0.9rem;
   font-weight: 600;
   margin-left: 15%;
@@ -67,14 +68,14 @@
 
 .verMais p {
   cursor: pointer;
-  color: #A5A5A5;
+  color: #a5a5a5;
   font-size: 0.8rem;
   margin-top: 6px;
 }
 
 .iconeSeta {
   cursor: pointer;
-  color: #72B234;
+  color: #72b234;
   font-size: 1.9rem;
   font-weight: 600;
 }
@@ -92,7 +93,7 @@
   animation-duration: 4s;
 }
 
- @keyframes expand {
+@keyframes expand {
   0% {
     max-height: 0;
   }
@@ -101,69 +102,65 @@
   }
 }
 
-
 @media (max-width: 720px) {
-  .cardPedido{
+  .cardPedido {
     width: 600px;
   }
   .infoPedido {
     justify-content: space-between;
     grid-template-columns: 300px 150px;
   }
-  .icones{
+  .icones {
     height: fit-content;
     flex-direction: column;
   }
 }
 
 @media (max-width: 610px) {
-  .cardPedido{
+  .cardPedido {
     width: 500px;
   }
 }
 
 @media (max-width: 510px) {
-  .cardPedido{
+  .cardPedido {
     width: 450px;
     padding: 5px;
   }
-
 }
 
 @media (max-width: 460px) {
-  .cardPedido{
+  .cardPedido {
     width: 400px;
   }
   .infoPedido {
     grid-template-columns: 250px 120px;
   }
-  .cardPedido h3{
+  .cardPedido h3 {
     font-size: 1em;
   }
-  .icones{
+  .icones {
     font-size: 0.7em;
   }
-  .icone{
+  .icone {
     font-size: 1em;
   }
-  .dadosComprador p{
+  .dadosComprador p {
     font-size: 0.8em;
   }
 }
 
 @media (max-width: 400px) {
-  .cardPedido{
+  .cardPedido {
     width: 320px;
   }
   .infoPedido {
     grid-template-columns: 200px 100px;
   }
-  .cardPedido h3{
+  .cardPedido h3 {
     font-size: 0.8em;
   }
-  .dadosComprador p{
+  .dadosComprador p {
     font-size: 0.6em;
   }
 }
-
-

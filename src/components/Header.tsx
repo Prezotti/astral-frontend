@@ -10,6 +10,7 @@ import { CgProfile } from "react-icons/cg";
 
 import { useEffect, useState } from "react";
 import { Produtor } from "@/classes/Produtor";
+import Cookies from "js-cookie";
 
 interface HeaderProps {
   retornaBusca?: (busca: string) => void;
@@ -36,6 +37,7 @@ export function Header({
 }: HeaderProps) {
   const [produtoresAtivos, setProdutoresAtivos] = useState<string[]>([]);
   const [produtores, setProdutores] = useState<ProdutorInterface[]>([]);
+  const [idFeiraRecente, setIdFeiraRecente] = useState<number>(0);
 
   const getProdutores = async () => {
     try {
@@ -46,8 +48,35 @@ export function Header({
     }
   };
 
+  const getIdRecente = async (): Promise<number> => {
+    const token = Cookies.get("token");
+    let id = 0;
+    await api
+      .get("/feira/recente", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        id = response.data.id;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return id;
+  };
+
   useEffect(() => {
     getProdutores();
+    if (tipo == "admin" || tipo == "produtor") {
+      let idRecente = 0;
+      const wait = async () => {
+        idRecente = await getIdRecente();
+      };
+      wait().then(() => {
+        setIdFeiraRecente(idRecente);
+      });
+    }
   }, []);
 
   const abrirMenuProdutores = () => {
@@ -101,7 +130,7 @@ export function Header({
           <img src="/icone-astral.png" alt="Astral logo" />
           <a href="/">Início</a>
           <a href="/produtos">Produtos</a>
-          <a href="/vendas">Vendas</a>
+          <a href={`/vendas/${idFeiraRecente}`}>Vendas</a>
           <CgProfile className={styles.fotoProdutor} />
         </div>
       </header>
@@ -112,7 +141,7 @@ export function Header({
         <div className={styles.headerConteudo}>
           <img src="/icone-astral.png" alt="Astral logo" />
           <a href="/">Início</a>
-          <a href="/vendas">Vendas</a>
+          <a href={`/vendas/${idFeiraRecente}`}>Vendas</a>
           <a href="/produtores">Produtores</a>
         </div>
       </header>
@@ -144,7 +173,11 @@ export function Header({
           </section>
           <div className={styles.divCarrinho}>
             <a href="/carrinho">
-              <TiShoppingCart size={24} color="#000" className={styles.iconeCarrinho}/>
+              <TiShoppingCart
+                size={24}
+                color="#000"
+                className={styles.iconeCarrinho}
+              />
               <p className={styles.precoCarrinho}>
                 <span>R$</span> {valorCarrinho?.toFixed(2).replace(".", ",")}
               </p>

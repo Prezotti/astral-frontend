@@ -9,12 +9,12 @@ export class Compra{
     private _endereco: string;
     private _itens: ListagemProduto[];
     private _formaPagamento: "" | "PICPAY" | "PIX" | "DINHEIRO";
-    private _localEntrega: "" | "ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES";
+    private _opcaoRecebimento: "" | "ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES";
     private _observacoes: string;
     private _doacao: number;
     private _valorTotal: number;
     
-    constructor(id: number, data: Date, cliente: string, telefone: string, endereco: string, itens: ListagemProduto[], formaPagamento: "" | "PICPAY" | "PIX" | "DINHEIRO", localEntrega: "" |"ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES", observacoes: string, doacao: number, valorTotal: number){
+    constructor(id: number, data: Date, cliente: string, telefone: string, endereco: string, itens: ListagemProduto[], formaPagamento: "" | "PICPAY" | "PIX" | "DINHEIRO", opcaoRecebimento: "" |"ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES", observacoes: string, doacao: number, valorTotal: number){
         this._id = id;
         this._data = data;
         this._cliente = cliente;
@@ -22,7 +22,7 @@ export class Compra{
         this._endereco = endereco;
         this._itens = itens;
         this._formaPagamento = formaPagamento;
-        this._localEntrega = localEntrega;
+        this._opcaoRecebimento = opcaoRecebimento;
         this._observacoes = observacoes;
         this._doacao = doacao;
         this._valorTotal = valorTotal;
@@ -71,11 +71,11 @@ export class Compra{
     public set formaPagamento(value: "" | "PICPAY" | "PIX" | "DINHEIRO") {
         this._formaPagamento = value;
     }
-    public get localEntrega(): "" | "ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES" {
-        return this._localEntrega;
+    public get opcaoRecebimento(): "" | "ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES" {
+        return this._opcaoRecebimento;
     }
-    public set localEntrega(value: "" | "ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES") {
-        this._localEntrega = value;
+    public set opcaoRecebimento(value: "" | "ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES") {
+        this._opcaoRecebimento = value;
     }
     public get observacoes(): string {
         return this._observacoes;
