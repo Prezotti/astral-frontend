@@ -127,7 +127,9 @@ export function Header({
     return (
       <header className={styles.headerContainer}>
         <div className={styles.headerConteudo}>
-          <img src="/icone-astral.png" alt="Astral logo" />
+          <a href="/">
+            <img src="/icone-astral.png" alt="Astral logo" />
+          </a>
           <a href="/">Início</a>
           <a href="/produtos">Produtos</a>
           <a href={`/vendas/${idFeiraRecente}`}>Vendas</a>
@@ -139,7 +141,9 @@ export function Header({
     return (
       <header className={styles.headerContainer}>
         <div className={styles.headerConteudo}>
-          <img src="/icone-astral.png" alt="Astral logo" />
+          <a href="/">
+            <img src="/icone-astral.png" alt="Astral logo" />
+          </a>
           <a href="/">Início</a>
           <a href={`/vendas/${idFeiraRecente}`}>Vendas</a>
           <a href="/produtores">Produtores</a>
@@ -150,7 +154,9 @@ export function Header({
     return (
       <header className={styles.headerContainer}>
         <div className={styles.headerConteudo}>
-          <img src="/icone-astral.png" alt="Astral logo" />
+          <a href="/">
+            <img src="/icone-astral.png" alt="Astral logo" />
+          </a>
           <a href="/">Início</a>
           <a href="/sobre">Sobre</a>
           <SearchBar retornaBusca={(busca) => handleSearch(busca)} />
