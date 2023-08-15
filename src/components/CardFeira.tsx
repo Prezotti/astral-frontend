@@ -3,6 +3,7 @@ import styles from "../styles/components/CardFeira.module.css";
 import { BiCalendar } from "react-icons/bi";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { BsCircleFill } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 interface CardFeiraProps {
   id: number;
@@ -12,6 +13,12 @@ interface CardFeiraProps {
 }
 
 export function CardFeira({ id, aberta, valorFinal, data }: CardFeiraProps) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/vendas/${id}`);
+  };
+
   return (
     <div className={styles.divCard}>
       <div className={styles.linhaUm}>
@@ -28,27 +35,27 @@ export function CardFeira({ id, aberta, valorFinal, data }: CardFeiraProps) {
           </p>
         )}
       </div>
-        <div className={styles.linhaDois}>
-          <p className={styles.centralizar}>
-            <RiMoneyDollarCircleLine /> R${" "}
-            {valorFinal.toFixed(2).replace(".", ",")}
-          </p>
-        </div>
+      <div className={styles.linhaDois}>
+        <p className={styles.centralizar}>
+          <RiMoneyDollarCircleLine /> R${" "}
+          {valorFinal.toFixed(2).replace(".", ",")}
+        </p>
+      </div>
 
-        <div className={styles.linhaTres}>
-          <Button
-            text="Consultar vendas"
-            onClick={() => {}}
-            classType="botaoCardFeira"
-            backgroundColor="#72B234"
-          />
-                  <p className={styles.centralizar}>
+      <div className={styles.linhaTres}>
+        <Button
+          text="Consultar vendas"
+          onClick={() => {
+            handleClick();
+          }}
+          classType="botaoCardFeira"
+          backgroundColor="#72B234"
+        />
+        <p className={styles.centralizar}>
           {" "}
           <BiCalendar /> {data}{" "}
         </p>
-        </div>
-
-
+      </div>
     </div>
   );
 }
