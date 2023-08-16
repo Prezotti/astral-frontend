@@ -14,7 +14,7 @@ import { Cargos, temCargo } from "@/service/tokenService";
 import Cookies from "js-cookie";
 import api from "@/api/api";
 import { Mensagem } from "@/components/Mensagem";
-import {Feira} from "@/types/Feira";
+import { Feira } from "@/types/Feira";
 
 export default function Admin() {
   const [checked, setChecked] = useState(true);
@@ -33,8 +33,10 @@ export default function Admin() {
   });
   const [mostrarMensagem, setMostrarMensagem] = useState(false);
   const [mensagem, setMensagem] = useState("");
-  const [tipoMensagem, setTipoMensagem] = useState<"sucesso"|"erro"|"aviso">("sucesso");
-  const [feiras, setFeiras] = useState<[Feira]|[]>([]);
+  const [tipoMensagem, setTipoMensagem] = useState<
+    "sucesso" | "erro" | "aviso"
+  >("sucesso");
+  const [feiras, setFeiras] = useState<[Feira] | []>([]);
   const [carregando, setCarregando] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,49 +46,146 @@ export default function Admin() {
 
   const getInformacoesFeiras = () => {
     const token = Cookies.get("token");
-    
-    api.get("/feira", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      response.data.reverse();
-      setFeiras(response.data);
-    }
-    ).catch((error) => {
-      console.log(error);
-    }
-    );
-  }
 
-  const cadastrarFeira = () => {
-    setMostrarMensagem(false)
-    const token = Cookies.get("token");
-    setCarregando(true);
-
-    api.post("/feira", 
-      {
-        taxaEntrega: infoFeira.taxaEntrega,
-      },
-      {
+    api
+      .get("/feira", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }).then((response) => {
+      })
+      .then((response) => {
+        response.data.reverse();
+        setFeiras(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const validaCampos = () => {
+    if (!infoProdutor.nome) {
+      setMensagem("Preencha o nome do produtor");
+      setTipoMensagem("erro");
+      setMostrarMensagem(true);
+      setModalProdutor(false);
+      return false;
+    }
+    if (!infoProdutor.telefone) {
+      setMensagem("Preencha o telefone do produtor");
+      setTipoMensagem("erro");
+      setMostrarMensagem(true);
+      setModalProdutor(false);
+      return false;
+    }
+    if (!infoProdutor.email) {
+      setMensagem("Preencha o email do produtor");
+      setTipoMensagem("erro");
+      setMostrarMensagem(true);
+      setModalProdutor(false);
+      return false;
+    }
+    if (!infoProdutor.senha) {
+      setMensagem("Preencha a senha do produtor");
+      setTipoMensagem("erro");
+      setMostrarMensagem(true);
+      setModalProdutor(false);
+      return false;
+    }
+    if (!infoProdutor.senhaRepetida) {
+      setMensagem("Repita a senha do produtor");
+      setTipoMensagem("erro");
+      setMostrarMensagem(true);
+      setModalProdutor(false);
+      return false;
+    }
+    if (infoProdutor.senha !== infoProdutor.senhaRepetida) {
+      setMensagem("As senhas não coincidem");
+      setTipoMensagem("erro");
+      setMostrarMensagem(true);
+      setModalProdutor(false);
+      return false;
+    }
+    return true;
+  };
+
+  const cadastrarProdutor = () => {
+    if (!validaCampos()) {
+      setTimeout(() => {
+        setMostrarMensagem(false);
+      }, 7000);
+      return;
+    }
+    setMostrarMensagem(false);
+    const token = Cookies.get("token");
+    setCarregando(true);
+    api
+      .post(
+        "/produtor",
+        {
+          nome: infoProdutor.nome,
+          telefone: infoProdutor.telefone,
+          email: infoProdutor.email,
+          senha: infoProdutor.senha,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setInfoProdutor({
+          nome: "",
+          telefone: "",
+          email: "",
+          senha: "",
+          senhaRepetida: "",
+        });
+        setMensagem("Produtor cadastrado com sucesso!");
+        setTipoMensagem("sucesso");
+        setMostrarMensagem(true);
+        setModalProdutor(false);
+      })
+      .catch((error) => {
+        setMensagem("Erro ao cadastrar produtor!");
+        setTipoMensagem("erro");
+        setMostrarMensagem(true);
+        setModalProdutor(false);
+      });
+    setCarregando(false);
+  };
+
+  const cadastrarFeira = () => {
+    setMostrarMensagem(false);
+    const token = Cookies.get("token");
+    setCarregando(true);
+
+    api
+      .post(
+        "/feira",
+        {
+          taxaEntrega: infoFeira.taxaEntrega,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
         setMensagem("Feira cadastrada com sucesso!");
         setTipoMensagem("sucesso");
         setMostrarMensagem(true);
         setModalFeira(false);
-      }
-    ).catch((error) => {
-      setMensagem("Erro ao cadastrar feira!");
-      setTipoMensagem("erro");
-      setMostrarMensagem(true);
-      setModalFeira(false);
-    });
+      })
+      .catch((error) => {
+        setMensagem("Erro ao cadastrar feira!");
+        setTipoMensagem("erro");
+        setMostrarMensagem(true);
+        setModalFeira(false);
+      });
     setCarregando(false);
-
-  }
+  };
 
   useEffect(() => {
     getInformacoesFeiras();
@@ -125,24 +224,24 @@ export default function Admin() {
         <div className={styles.divFeira}>
           <section className={styles.sectionFeira}>
             <h1>Feiras</h1>
-            { 
-              feiras.length > 0 ?
-                feiras.map((feira) => {
-                  feira.dataAbertura = new Date(feira.dataAbertura).toLocaleDateString("pt-BR");
-                  return (
-                    <CardFeira
-                      key={feira.id}
-                      id={feira.id}
-                      valorFinal={feira.valorTotal}
-                      data={feira.dataAbertura}
-                      aberta={feira.aberta}
+            {feiras.length > 0 ? (
+              feiras.map((feira) => {
+                feira.dataAbertura = new Date(
+                  feira.dataAbertura
+                ).toLocaleDateString("pt-BR");
+                return (
+                  <CardFeira
+                    key={feira.id}
+                    id={feira.id}
+                    valorFinal={feira.valorTotal}
+                    data={feira.dataAbertura}
+                    aberta={feira.aberta}
                   />
-                )
+                );
               })
-              : <p>Não há feiras cadastradas</p>
-            }
-            
-
+            ) : (
+              <p>Não há feiras cadastradas</p>
+            )}
           </section>
         </div>
       </section>
@@ -173,10 +272,10 @@ export default function Admin() {
         />
       </Modal>
 
-
       <Modal
+        loadingBotao={carregando}
         onClickBotao={() => {
-          console.log(infoProdutor);
+          cadastrarProdutor();
         }}
         setVisivel={() => {
           setModalProdutor(false);
@@ -234,9 +333,7 @@ export default function Admin() {
           }}
         />
       </Modal>
-      {mostrarMensagem && (
-        <Mensagem mensagem={mensagem} tipo={tipoMensagem}/>
-      )}
+      {mostrarMensagem && <Mensagem mensagem={mensagem} tipo={tipoMensagem} />}
       <Footer />
     </>
   );
