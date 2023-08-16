@@ -3,6 +3,7 @@ import styles from "../styles/pages/Home.module.css";
 import api from "@/api/api";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import { ProdutoInteface } from "@/types/Produto";
 
@@ -238,4 +239,30 @@ export default function Home() {
       <Footer />
     </>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const response = await api.get("/feira/aberta");
+
+    if (response.status === 200) {
+      return {
+        props: {},
+      };
+    } else {
+      return {
+        redirect: {
+          destination: "/feira-fechada",
+          permanent: false,
+        },
+      };
+    }
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/feira-fechada",
+        permanent: false,
+      },
+    };
+  }
 }
