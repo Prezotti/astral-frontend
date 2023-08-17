@@ -1,4 +1,4 @@
-import styles from "../../styles/pages/Vendas.module.css";
+import styles from "../../styles/pages/Minhas-vendas.module.css";
 
 import { GetServerSidePropsContext } from "next";
 
@@ -7,7 +7,7 @@ import { Compra } from "@/classes/Compra";
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { Footer } from "@/components/Footer";
-import { Cargos, temCargo } from "@/service/tokenService";
+import { Cargos, getId, temCargo } from "@/service/tokenService";
 import api from "@/api/api";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
@@ -41,15 +41,16 @@ export default function Compras() {
     return id;
   };
 
-  const getInformacoesFeira = (id: number) => {
+  const getInformacoesFeira = (idProdutor: number, id: number) => {
     const token = Cookies.get("token");
     api
-      .get(`/feira/${id}`, {
+      .get(`/feira/${idProdutor}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
+        console.log(response.data);
         setFeira(response.data);
       })
       .catch((error) => {
@@ -57,49 +58,54 @@ export default function Compras() {
       });
   };
 
-  const getInformacoesCompras = (id: number) => {
+  const getInformacoesCompras = (idProdutor: number, id: number) => {
     const token = Cookies.get("token");
     api
-      .get(`/compra/${id}`, {
+      .get(`/compra/${idProdutor}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
+        console.log(response.data);
         setCompras(response.data);
-        //console.log(response.data);
       })
       .catch((error) => {
-        //console.log(error);
+        console.log(error);
       });
   };
 
   useEffect(() => {
-    const { id } = router.query;
-    let idRecente = 0;
-    const wait = async () => {
-      idRecente = await getIdRecente();
-      setIdFeiraAberta(idRecente);
-      if (id) {
-        setIdFeira(Number(id));
-        getInformacoesCompras(Number(id));
-        getInformacoesFeira(Number(id));
-      }
-    };
-    wait();
+    const token = Cookies.get("token");
+    if (!token) router.push("/login");
+    else {
+      const idProdutor = getId(token);
+      const { id } = router.query;
+      let idRecente = 0;
+      const wait = async () => {
+        idRecente = await getIdRecente();
+        setIdFeiraAberta(idRecente);
+        if (id) {
+          setIdFeira(Number(id));
+          getInformacoesCompras(idProdutor, Number(id));
+          getInformacoesFeira(idProdutor, Number(id));
+        }
+      };
+      wait();
+    }
   }, [router.query]);
-
-  const changeFeira = (id: number) => {
-    router.push(`/vendas/${id}`);
-  };
 
   const handleSearch = (busca: string): void => {
     setPesquisa(busca);
   };
 
+  const changeFeira = (id: number) => {
+    router.push(`/minhas-vendas/${id}`);
+  };
+
   return (
     <section className={styles.body}>
-      <Header tipo="admin" />
+      <Header tipo="produtor" />
       <h1 className={styles.tituloPagina}>Feira {idFeira}</h1>
       <section className={styles.resumo}>
         <div className={styles.divTitulo}>
@@ -119,27 +125,7 @@ export default function Compras() {
             <h2>Vendas:</h2>
             <p>
               R$
-              {feira
-                ? (feira.valorTotal - feira.totalDoacoes - feira.totalEntregas)
-                    .toFixed(2)
-                    .replace(".", ",")
-                : "0,00"}
-            </p>
-          </div>
-          <div>
-            <h2>Doações:</h2>
-            <p>
-              R$
-              {feira ? feira.totalDoacoes.toFixed(2).replace(".", ",") : "0,00"}
-            </p>
-          </div>
-          <div>
-            <h2>Entregas:</h2>
-            <p>
-              R$
-              {feira
-                ? feira.totalEntregas.toFixed(2).replace(".", ",")
-                : "0,00"}
+              {feira ? feira.valorTotal.toFixed(2).replace(".", ",") : "0,00"}
             </p>
           </div>
         </div>
@@ -156,13 +142,13 @@ export default function Compras() {
         <div className={styles.cardsPedidos}>
           {compras.map((compra) => {
             if (pesquisa === "") {
-              return <CardPedido compra={compra} />;
+              return <CardPedido compra={compra} key={compra.id} />;
             } else {
               if (
                 compra.id.toString().includes(pesquisa) ||
                 compra.cliente.toLowerCase().includes(pesquisa.toLowerCase())
               ) {
-                return <CardPedido compra={compra} />;
+                return <CardPedido compra={compra} key={compra.id} />;
               }
             }
           })}
@@ -195,7 +181,7 @@ export default function Compras() {
 export async function getServerSideProps(contexto: GetServerSidePropsContext) {
   if (
     contexto.req.cookies.token === undefined ||
-    !temCargo(contexto.req.cookies.token, Cargos.ADMINISTRADOR)
+    !temCargo(contexto.req.cookies.token, Cargos.PRODUTOR)
   ) {
     return {
       redirect: {
