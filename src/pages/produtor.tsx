@@ -301,6 +301,7 @@ export default function Produtor({
         setmostrarMensagemSucesso(true);
         setCarregando(false);
         atualizarProdutos();
+        setLabelMessage("Escolher Imagem");
       })
       .catch((error) => {
         if (error.response.status == 413) {
