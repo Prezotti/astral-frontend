@@ -108,7 +108,7 @@ export default function Admin() {
     return true;
   };
 
-  const cadastrarProdutor = () => {
+  const cadastrarProdutor = async () => {
     if (!validaCampos()) {
       setTimeout(() => {
         setMostrarMensagem(false);
@@ -118,7 +118,7 @@ export default function Admin() {
     setMostrarMensagem(false);
     const token = Cookies.get("token");
     setCarregando(true);
-    api
+    await api
       .post(
         "/produtor",
         {
@@ -155,12 +155,12 @@ export default function Admin() {
     setCarregando(false);
   };
 
-  const cadastrarFeira = () => {
+  const cadastrarFeira = async () => {
     setMostrarMensagem(false);
     const token = Cookies.get("token");
     setCarregando(true);
 
-    api
+    await api
       .post(
         "/feira",
         {

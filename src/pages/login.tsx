@@ -52,7 +52,7 @@ export default function Login() {
     }
   };
 
-  const fazerLogin = () => {
+  const fazerLogin = async () => {
     setMostrarMensagemLoginInvalido(false);
 
     if (!isEmail(email)) {
@@ -64,7 +64,7 @@ export default function Login() {
       return;
     }
     setCarregando(true);
-    api
+    await api
       .post("/login", { email: email, senha: senha })
       .then((response) => {
         if (response.status === 200) {
