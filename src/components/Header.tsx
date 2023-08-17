@@ -1,6 +1,5 @@
 import styles from "../styles/components/Header.module.css";
 
-import axios from "axios";
 import api from "@/api/api";
 
 import { SearchBar } from "./SearchBar";
@@ -9,7 +8,6 @@ import { TiShoppingCart } from "react-icons/ti";
 import { CgProfile } from "react-icons/cg";
 
 import { useEffect, useState } from "react";
-import { Produtor } from "@/classes/Produtor";
 import Cookies from "js-cookie";
 
 interface HeaderProps {
@@ -132,7 +130,7 @@ export function Header({
           </a>
           <a href="/">Início</a>
           <a href="/produtos">Produtos</a>
-          <a href={`/vendas/${idFeiraRecente}`}>Vendas</a>
+          <a href={`/minhas-vendas/${idFeiraRecente}`}>Vendas</a>
           <CgProfile className={styles.fotoProdutor} />
         </div>
       </header>

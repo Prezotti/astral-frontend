@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { GetServerSidePropsContext } from "next";
 import { Cargos, temCargo, getId } from "@/service/tokenService";
@@ -130,6 +130,7 @@ export default function Produtor({
   const [mostrarImageCropper, setMostrarImageCropper] = useState(false);
   const [carregando, setCarregando] = useState(false);
   const [labelMessage, setLabelMessage] = useState("Escolher imagem");
+  const [idFeiraRecente, setIdFeiraRecente] = useState<number>(0);
 
   const alterarParticipacaoFeira = async (token: string, id: number) => {
     setmostrarMensagemErro(false);
@@ -169,6 +170,24 @@ export default function Produtor({
       }
       alterarParticipacaoFeira(token, produtor.id);
     }
+  };
+
+  const getIdRecente = async (): Promise<number> => {
+    const token = Cookies.get("token");
+    let id = 0;
+    await api
+      .get("/feira/recente", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        id = response.data.id;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return id;
   };
 
   const atualizarProdutos = async () => {
@@ -307,6 +326,16 @@ export default function Produtor({
     });
   };
 
+  useEffect(() => {
+    let idRecente = 0;
+    const wait = async () => {
+      idRecente = await getIdRecente();
+    };
+    wait().then(() => {
+      setIdFeiraRecente(idRecente);
+    });
+  }, []);
+
   return (
     <>
       <Header tipo="produtor" />
@@ -326,7 +355,9 @@ export default function Produtor({
         <Button
           backgroundColor="#72B234"
           text="CONSULTAR VENDAS"
-          onClick={() => {}}
+          onClick={() => {
+            window.location.href = `/minhas-vendas/${idFeiraRecente}`;
+          }}
           classType="botaoBannerPainel"
         />
         <div className={styles.botaoSwitch}>
