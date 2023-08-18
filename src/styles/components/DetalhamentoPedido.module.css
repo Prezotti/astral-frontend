@@ -1,0 +1,176 @@
+.modalBlur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cabecalho {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #72b234;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.voltarSection {
+  position: absolute;
+  left: 10px;
+  display: flex;
+  gap: 5px;
+  font-size: 1rem;
+  align-items: center;
+  cursor: pointer;
+}
+.iconeVoltar {
+  width: 20px;
+  height: 20px;
+}
+.tituloSection h1 {
+  font-size: 1.5rem;
+}
+.tituloSection div {
+  height: 2px;
+  width: 40px;
+  background-color: #fa8001;
+  border-radius: 5px;
+}
+.conteudo {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.pedido {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.pedido p {
+  color: #a5a5a5;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.infoEntrega {
+  display: flex;
+  gap: 20px;
+  color: #fa8001;
+  font-weight: 600;
+  font-size: small;
+}
+.infoEntrega span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.icones {
+  grid-row-start: 1;
+  display: flex;
+  color: #fa8001;
+  font-weight: 600;
+  gap: 20px;
+  align-items: flex-start;
+  font-size: 0.9rem;
+}
+
+.icones span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.contentBody {
+  width: 700px;
+  overflow-wrap: break-word;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+}
+.contentBody p {
+  font-size: 0.9rem;
+  color: #a5a5a5;
+  font-weight: 600;
+}
+.contentBody strong {
+  color: black;
+  font-weight: bold;
+}
+
+@media (max-width: 940px) {
+  .icones {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .icones span {
+    display: flex;
+  }
+  .contentBody {
+    width: 600px;
+  }
+}
+
+@media (max-width: 700px) {
+  .contentBody {
+    width: 450px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tituloSection h1 {
+    font-size: 1.2rem;
+  }
+  .pedido h3 {
+    font-size: 1rem;
+  }
+  .contentBody {
+    width: 350px;
+    gap: 10px;
+  }
+  .header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .contentBody {
+    width: 250px;
+  }
+  .tituloSection {
+    margin-top: 20px;
+  }
+  .cabecalho {
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .voltarSection {
+    top: 10px;
+  }
+}

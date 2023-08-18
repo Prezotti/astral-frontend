@@ -13,8 +13,9 @@ export class Compra{
     private _observacoes: string;
     private _doacao: number;
     private _valorTotal: number;
+    private _taxaEntrega: number;
     
-    constructor(id: number, data: Date, cliente: string, telefone: string, endereco: string, itens: ListagemProduto[], formaPagamento: "" | "PICPAY" | "PIX" | "DINHEIRO", opcaoRecebimento: "" |"ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES", observacoes: string, doacao: number, valorTotal: number){
+    constructor(id: number, data: Date, cliente: string, telefone: string, endereco: string, itens: ListagemProduto[], formaPagamento: "" | "PICPAY" | "PIX" | "DINHEIRO", opcaoRecebimento: "" |"ENTREGA" | "SANTA_TERESA" | "PATRIMONIO" | "IFES", observacoes: string, doacao: number, valorTotal: number, taxaEntrega: number){
         this._id = id;
         this._data = data;
         this._cliente = cliente;
@@ -26,6 +27,7 @@ export class Compra{
         this._observacoes = observacoes;
         this._doacao = doacao;
         this._valorTotal = valorTotal;
+        this._taxaEntrega = taxaEntrega;
     }
     
     public get id(): number {
@@ -95,4 +97,11 @@ export class Compra{
     public set valorTotal(value: number) {
         this._valorTotal = value;
     }
+    public get taxaEntrega(): number {
+        return this._taxaEntrega;
+    }
+    public set taxaEntrega(value: number) {
+        this._taxaEntrega = value;
+    }
+    
 }

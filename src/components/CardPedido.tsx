@@ -9,13 +9,16 @@ import { useState } from "react";
 import { TabelaCardPedido } from "./TabelaCardPedido";
 import { Compra } from "@/classes/Compra";
 import { ListagemProduto } from "@/classes/ListagemProduto";
+import DetalhamentoPedido from "./DetalhamentoPedido";
 
 interface CardPedidoProps {
   compra: Compra;
+  isAdmin?: boolean;
 }
 
-export function CardPedido({ compra }: CardPedidoProps) {
+export function CardPedido({ compra, isAdmin = false }: CardPedidoProps) {
   const [containerExpandido, setcontainerExpandido] = useState(false);
+  const [detalhamentoPedido, setdetalhamentoPedido] = useState(false);
 
   const handlecontainerExpandido = () => {
     setcontainerExpandido(!containerExpandido);
@@ -41,7 +44,12 @@ export function CardPedido({ compra }: CardPedidoProps) {
       >
         <div className={styles.infoPedido}>
           <div className={styles.pedido}>
-            <BsExclamation className={styles.iconeExclamacao} />
+            <BsExclamation
+              className={styles.iconeExclamacao}
+              onClick={() => {
+                setdetalhamentoPedido(true);
+              }}
+            />
             <h3>Pedido #{compra.id}</h3>
           </div>
           <div className={styles.icones}>
@@ -84,6 +92,14 @@ export function CardPedido({ compra }: CardPedidoProps) {
           )}
         </div>
       </div>
+      {detalhamentoPedido && (
+        <DetalhamentoPedido
+          compra={compra}
+          setVisivel={setdetalhamentoPedido}
+          titulo="Detalhes do Pedido"
+          isAdmin={isAdmin}
+        />
+      )}
     </>
   );
 }
