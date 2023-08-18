@@ -126,20 +126,24 @@ export default function Carrinho() {
   async function finalizarCompra() {
     if (validaCompra()) {
       setCarregando(true);
+      let enderecoMontado = "";
+      if (pediuEntrega) {
+        enderecoMontado =
+          endereco.rua +
+          ", " +
+          endereco.numero +
+          " - " +
+          endereco.bairro +
+          " - " +
+          endereco.complemento +
+          " - " +
+          endereco.referencia;
+      }
       await api
         .post("/compra", {
           cliente: informacoesCompra.nome,
           telefone: informacoesCompra.telefone,
-          endereco:
-            endereco.rua +
-            ", " +
-            endereco.numero +
-            " - " +
-            endereco.bairro +
-            " - " +
-            endereco.complemento +
-            " - " +
-            endereco.referencia,
+          endereco: enderecoMontado,
           itens: carrinho.itens.map((item) => {
             return item.toItemCarrinho();
           }),
