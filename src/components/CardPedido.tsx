@@ -13,9 +13,10 @@ import DetalhamentoPedido from "./DetalhamentoPedido";
 
 interface CardPedidoProps {
   compra: Compra;
+  isAdmin?: boolean;
 }
 
-export function CardPedido({ compra }: CardPedidoProps) {
+export function CardPedido({ compra, isAdmin = false }: CardPedidoProps) {
   const [containerExpandido, setcontainerExpandido] = useState(false);
   const [detalhamentoPedido, setdetalhamentoPedido] = useState(false);
 
@@ -96,6 +97,7 @@ export function CardPedido({ compra }: CardPedidoProps) {
           compra={compra}
           setVisivel={setdetalhamentoPedido}
           titulo="Detalhes do Pedido"
+          isAdmin={isAdmin}
         />
       )}
     </>

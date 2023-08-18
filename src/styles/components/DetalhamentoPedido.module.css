@@ -83,9 +83,11 @@
   gap: 20px;
   color: #fa8001;
   font-weight: 600;
+  font-size: small;
 }
 .infoEntrega span {
   display: flex;
+  align-items: center;
   gap: 5px;
 }
 .icones {
@@ -107,6 +109,8 @@
   width: 700px;
   overflow-wrap: break-word;
   text-align: justify;
+  display: flex;
+  flex-direction: column;
 }
 .contentBody p {
   font-size: 0.9rem;
@@ -116,4 +120,57 @@
 .contentBody strong {
   color: black;
   font-weight: bold;
+}
+
+@media (max-width: 940px) {
+  .icones {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .icones span {
+    display: flex;
+  }
+  .contentBody {
+    width: 600px;
+  }
+}
+
+@media (max-width: 700px) {
+  .contentBody {
+    width: 450px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tituloSection h1 {
+    font-size: 1.2rem;
+  }
+  .pedido h3 {
+    font-size: 1rem;
+  }
+  .contentBody {
+    width: 350px;
+    gap: 10px;
+  }
+  .header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .contentBody {
+    width: 250px;
+  }
+  .tituloSection {
+    margin-top: 20px;
+  }
+  .cabecalho {
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .voltarSection {
+    top: 10px;
+  }
 }

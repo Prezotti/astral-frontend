@@ -156,13 +156,17 @@ export default function Compras() {
         <div className={styles.cardsPedidos}>
           {compras.map((compra) => {
             if (pesquisa === "") {
-              return <CardPedido compra={compra} />;
+              return (
+                <CardPedido compra={compra} key={compra.id} isAdmin={true} />
+              );
             } else {
               if (
                 compra.id.toString().includes(pesquisa) ||
                 compra.cliente.toLowerCase().includes(pesquisa.toLowerCase())
               ) {
-                return <CardPedido compra={compra} />;
+                return (
+                  <CardPedido compra={compra} key={compra.id} isAdmin={true} />
+                );
               }
             }
           })}

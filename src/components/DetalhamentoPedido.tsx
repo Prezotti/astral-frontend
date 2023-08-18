@@ -9,12 +9,14 @@ interface DetalhamentoPedidoProps {
   titulo: string;
   compra: Compra;
   setVisivel: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdmin?: boolean;
 }
 
 export default function DetalhamentoPedido({
   titulo,
   compra,
   setVisivel,
+  isAdmin = false,
 }: DetalhamentoPedidoProps) {
   return (
     <div className={styles.modalBlur}>
@@ -50,13 +52,13 @@ export default function DetalhamentoPedido({
               </section>
             </div>
             <div className={styles.icones}>
-              {compra.doacao > 0 && (
+              {isAdmin && compra.doacao > 0 && (
                 <span>
                   <RiCoinsLine className={styles.icone} />
                   Doação: R${compra.doacao.toFixed(2).replace(".", ",")}
                 </span>
               )}
-              {compra.taxaEntrega > 0 && (
+              {isAdmin && compra.taxaEntrega > 0 && (
                 <span>
                   <RiCoinsLine className={styles.icone} />
                   Entrega: R${compra.taxaEntrega.toFixed(2).replace(".", ",")}
@@ -69,14 +71,16 @@ export default function DetalhamentoPedido({
             </div>
           </section>
           <section className={styles.contentBody}>
-            {compra.endereco != "" && (
+            {isAdmin && compra.endereco != "" && (
               <p>
                 <strong>Endereço:</strong> {compra.endereco}
               </p>
             )}
-            <p>
-              <strong>Observações do cliente:</strong> {compra.observacoes}
-            </p>
+            {compra.observacoes != "" && (
+              <p>
+                <strong>Observações do cliente:</strong> {compra.observacoes}
+              </p>
+            )}
           </section>
         </div>
       </div>
