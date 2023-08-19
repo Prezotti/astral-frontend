@@ -50,6 +50,10 @@
     width: 500px;
 }
 
+.cropper{
+  width: 450px;
+}
+
 .iconGirar{
   flex-grow: 1;
   cursor: pointer;
@@ -62,4 +66,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  @media (max-width: 600px) {
+    .divRecorte{
+      width: 400px;
+    }
+    .sectionCropper{
+      width: 450px;
+    }
+    .cropper{
+      width: 360px;
+      aspect-ratio: 16/9;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .divRecorte{
+      width: 360px;
+    }
+    .sectionCropper{
+      width: 360px;
+    }
+    .cropper{
+      width: 270px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .divRecorte{
+      width: 300px;
+    }
+    .sectionCropper{
+      width: 300px;
+    }
+    .cropper{
+      width: 270px;
+    }
   }

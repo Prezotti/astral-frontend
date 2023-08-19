@@ -18,7 +18,7 @@ interface ImageCropperProps {
 export function ImageCropper({
   src,
   returnFile,
-  fileName="unknown",
+  fileName = "unknown",
   goBack,
   closeCropper,
 }: ImageCropperProps) {
@@ -50,9 +50,11 @@ export function ImageCropper({
         .then((res) => res.blob())
         .then(async (blob) => {
           const resizedFile = await resizeFile(blob);
-          if(fileName === "") fileName = "unknown";
+          if (fileName === "") fileName = "unknown";
           else fileName = fileName.replaceAll(" ", "_");
-          const file2 = new File([resizedFile as BlobPart], fileName+".jpg", { type: "image/jpeg" });
+          const file2 = new File([resizedFile as BlobPart], fileName + ".jpg", {
+            type: "image/jpeg",
+          });
           returnFile(file2);
           if (closeCropper) closeCropper();
           return file2;
@@ -78,7 +80,7 @@ export function ImageCropper({
           <div className={styles.divRecorte}>
             {src && (
               <Cropper
-                width={450}
+                className={styles.cropper}
                 src={src ? URL.createObjectURL(src) : ""}
                 cropBoxResizable={false}
                 aspectRatio={16 / 9}
