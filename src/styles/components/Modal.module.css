@@ -78,6 +78,12 @@
 }
 
 @media (max-width: 600px) {
+  .tituloSection{
+    text-align: center;
+  }
+  .tituloSection h1{
+    font-size: 1.2rem;
+  }
   .conteudo {
     grid-template-columns: 1fr;
   }
