@@ -15,10 +15,9 @@ import Cookies from "js-cookie";
 import api from "@/api/api";
 import { Mensagem } from "@/components/Mensagem";
 import { Feira } from "@/types/Feira";
+import ModalConfirmacao from "@/components/ModalConfirmacao";
 
 export default function Admin() {
-  const [checked, setChecked] = useState(true);
-  const [textoSwitch, setTextoSwitch] = useState("Feira aberta!");
   const [modalProdutor, setModalProdutor] = useState(false);
   const [modalFeira, setModalFeira] = useState(false);
   const [infoFeira, setInfoFeira] = useState({
@@ -39,11 +38,6 @@ export default function Admin() {
   const [feiras, setFeiras] = useState<[Feira] | []>([]);
   const [carregando, setCarregando] = useState(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-    setTextoSwitch(event.target.checked ? "Feira aberta!" : "Abrir feira");
-  };
-
   const getInformacoesFeiras = () => {
     const token = Cookies.get("token");
 
@@ -56,6 +50,36 @@ export default function Admin() {
       .then((response) => {
         response.data.reverse();
         setFeiras(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const [checked, setChecked] = useState(feiras[0]?.aberta);
+  const [textoSwitch, setTextoSwitch] = useState(
+    feiras[0]?.aberta ? "Feira aberta!" : "Abrir feira"
+  );
+  const [modalConfirmacaoFeira, setModalConfirmacaoFeira] = useState(false);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setModalConfirmacaoFeira(true);
+  };
+
+  const alterarDisponibilidadeFeira = () => {
+    const token = Cookies.get("token");
+    const idFeiraRecente = feiras[0]?.id;
+
+    api
+      .put(`/feira/${idFeiraRecente}`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setChecked(response.data.aberta);
+        setTextoSwitch(response.data.aberta ? "Feira aberta!" : "Abrir feira");
+        getInformacoesFeiras();
+        setModalConfirmacaoFeira(false);
       })
       .catch((error) => {
         console.log(error);
@@ -271,6 +295,14 @@ export default function Admin() {
           }}
         />
       </Modal>
+
+      <ModalConfirmacao
+        aviso="Tem certeza que deseja alterar a disponibilidade da feira?"
+        mensagem="Ao fechar a feira nenhum cliente conseguirá fazer compras!"
+        visivel={modalConfirmacaoFeira}
+        setConfirmacaoVisivel={setModalConfirmacaoFeira}
+        onClickBotao={alterarDisponibilidadeFeira}
+      />
 
       <Modal
         loadingBotao={carregando}
