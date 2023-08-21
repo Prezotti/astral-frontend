@@ -15,10 +15,31 @@ import Cookies from "js-cookie";
 import api from "@/api/api";
 import { Mensagem } from "@/components/Mensagem";
 import { Feira } from "@/types/Feira";
+import ModalConfirmacao from "@/components/ModalConfirmacao";
 
-export default function Admin() {
-  const [checked, setChecked] = useState(true);
-  const [textoSwitch, setTextoSwitch] = useState("Feira aberta!");
+const getInformacoesFeiras = async (token: string) => {
+  let feiras: [Feira] | [] = [];
+  await api
+    .get("/feira", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      feiras = response.data.reverse();
+      feiras.forEach((feira) => {
+        feira.dataAbertura = new Date(feira.dataAbertura).toLocaleDateString(
+          "pt-BR"
+        );
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return feiras;
+};
+
+export default function Admin({ feirasSSR }: { feirasSSR: [Feira] | [] }) {
   const [modalProdutor, setModalProdutor] = useState(false);
   const [modalFeira, setModalFeira] = useState(false);
   const [infoFeira, setInfoFeira] = useState({
@@ -36,30 +57,37 @@ export default function Admin() {
   const [tipoMensagem, setTipoMensagem] = useState<
     "sucesso" | "erro" | "aviso"
   >("sucesso");
-  const [feiras, setFeiras] = useState<[Feira] | []>([]);
+  const [feiras, setFeiras] = useState<[Feira] | []>(feirasSSR);
   const [carregando, setCarregando] = useState(false);
-
+  const [checked, setChecked] = useState(feirasSSR[0]?.aberta);
+  const [textoSwitch, setTextoSwitch] = useState(
+    feiras[0]?.aberta ? "Feira aberta!" : "Abrir feira"
+  );
+  const [modalConfirmacaoFeira, setModalConfirmacaoFeira] = useState(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-    setTextoSwitch(event.target.checked ? "Feira aberta!" : "Abrir feira");
+    setModalConfirmacaoFeira(true);
   };
 
-  const getInformacoesFeiras = () => {
+  const alterarDisponibilidadeFeira = async () => {
     const token = Cookies.get("token");
-
-    api
-      .get("/feira", {
+    const idFeiraRecente = feiras[0]?.id;
+    setCarregando(true);
+    await api
+      .put(`/feira/${idFeiraRecente}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        response.data.reverse();
-        setFeiras(response.data);
+      .then(async (response) => {
+        setChecked(response.data.aberta);
+        setTextoSwitch(response.data.aberta ? "Feira aberta!" : "Abrir feira");
+        if (token) setFeiras(await getInformacoesFeiras(token));
+        setModalConfirmacaoFeira(false);
       })
       .catch((error) => {
         console.log(error);
       });
+    setCarregando(false);
   };
 
   const validaCampos = () => {
@@ -187,10 +215,6 @@ export default function Admin() {
     setCarregando(false);
   };
 
-  useEffect(() => {
-    getInformacoesFeiras();
-  }, []);
-
   return (
     <>
       <Header tipo="admin" />
@@ -226,9 +250,6 @@ export default function Admin() {
             <h1>Feiras</h1>
             {feiras.length > 0 ? (
               feiras.map((feira) => {
-                feira.dataAbertura = new Date(
-                  feira.dataAbertura
-                ).toLocaleDateString("pt-BR");
                 return (
                   <CardFeira
                     key={feira.id}
@@ -248,8 +269,9 @@ export default function Admin() {
 
       <Modal
         onClickBotao={() => {
+          const token = Cookies.get("token");
           cadastrarFeira();
-          getInformacoesFeiras();
+          if (token) getInformacoesFeiras(token);
         }}
         setVisivel={() => {
           setModalFeira(false);
@@ -271,6 +293,15 @@ export default function Admin() {
           }}
         />
       </Modal>
+
+      <ModalConfirmacao
+        aviso="Tem certeza que deseja alterar a disponibilidade da feira?"
+        mensagem="Ao fechar a feira nenhum cliente conseguirá fazer compras!"
+        visivel={modalConfirmacaoFeira}
+        setConfirmacaoVisivel={setModalConfirmacaoFeira}
+        onClickBotao={alterarDisponibilidadeFeira}
+        loadingBotao={carregando}
+      />
 
       <Modal
         loadingBotao={carregando}
@@ -340,10 +371,8 @@ export default function Admin() {
 }
 
 export async function getServerSideProps(contexto: GetServerSidePropsContext) {
-  if (
-    contexto.req.cookies.token === undefined ||
-    !temCargo(contexto.req.cookies.token, Cargos.ADMINISTRADOR)
-  ) {
+  const token = contexto.req.cookies.token;
+  if (token === undefined || !temCargo(token, Cargos.ADMINISTRADOR)) {
     return {
       redirect: {
         destination: "/login",
@@ -351,7 +380,9 @@ export async function getServerSideProps(contexto: GetServerSidePropsContext) {
       },
     };
   }
+  const feirasSSR = (await getInformacoesFeiras(token)) as [Feira] | [];
+
   return {
-    props: {},
+    props: { feirasSSR },
   };
 }
