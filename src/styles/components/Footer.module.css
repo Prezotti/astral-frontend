@@ -42,6 +42,10 @@
   flex-direction: column;
   gap: 15px;
 }
+.divLinha{
+height: 1.5px;
+background-color: #72b234;
+}
 .redessociais h3 {
   color: #72b234;
   font-size: 20px;
