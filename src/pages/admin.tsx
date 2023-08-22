@@ -15,7 +15,9 @@ import Cookies from "js-cookie";
 import api from "@/api/api";
 import { Mensagem } from "@/components/Mensagem";
 import { Feira } from "@/types/Feira";
+import { ProdutorInterface } from "@/types/Produtor";
 import ModalConfirmacao from "@/components/ModalConfirmacao";
+import Toggle from "@/components/Toggle";
 
 const getInformacoesFeiras = async (token: string) => {
   let feiras: [Feira] | [] = [];
@@ -37,6 +39,23 @@ const getInformacoesFeiras = async (token: string) => {
       console.log(error);
     });
   return feiras;
+};
+
+const getInformacoesProdutores = async (token: string) => {
+  let produtores: [ProdutorInterface] | [] = [];
+  await api
+    .get("/produtor", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      produtores = response.data.reverse();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return produtores;
 };
 
 export default function Admin({ feirasSSR }: { feirasSSR: [Feira] | [] }) {
@@ -64,6 +83,7 @@ export default function Admin({ feirasSSR }: { feirasSSR: [Feira] | [] }) {
     feiras[0]?.aberta ? "Feira aberta!" : "Abrir feira"
   );
   const [modalConfirmacaoFeira, setModalConfirmacaoFeira] = useState(false);
+  const [itemSelecionado, setItemSelecionado] = useState(1);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setModalConfirmacaoFeira(true);
   };
@@ -247,6 +267,16 @@ export default function Admin({ feirasSSR }: { feirasSSR: [Feira] | [] }) {
         </Painel>
         <div className={styles.divFeira}>
           <section className={styles.sectionFeira}>
+            <section className={styles.headerAdmin}>
+              <Toggle
+                item1="Feiras"
+                item2="Produtores"
+                selected={1}
+                onToggle={(item) => {
+                  setItemSelecionado(item);
+                }}
+              />
+            </section>
             <h1>Feiras</h1>
             {feiras.length > 0 ? (
               feiras.map((feira) => {
@@ -381,8 +411,11 @@ export async function getServerSideProps(contexto: GetServerSidePropsContext) {
     };
   }
   const feirasSSR = (await getInformacoesFeiras(token)) as [Feira] | [];
+  const produtoresSSR = (await getInformacoesProdutores(token)) as
+    | [ProdutorInterface]
+    | [];
 
   return {
-    props: { feirasSSR },
+    props: { feirasSSR, produtoresSSR },
   };
 }
