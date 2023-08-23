@@ -30,12 +30,20 @@
 }
 
 .iconeExclamacao {
-  background-color: #72b234;
   color: #fff;
+
   border-radius: 10px;
   margin: 2px 30px 0 0;
   cursor: pointer;
   transition: 0.2s;
+}
+
+.iconeComObservacao{
+  background-color: #FFB800;
+}
+
+.iconeSemObservacao{
+  background-color: #72b234;
 }
 
 .iconeExclamacao:hover {
