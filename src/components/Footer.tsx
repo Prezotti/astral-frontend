@@ -45,9 +45,7 @@ export function Footer() {
             <div>
               <FaSignInAlt color="#72B234" />
               <p>
-                <a href="/login" target="_blank">
-                  Fazer login
-                </a>
+                <a href="/login">Fazer login</a>
               </p>
             </div>
           </section>

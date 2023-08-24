@@ -224,13 +224,22 @@ export function CardProduto({
             </p>
           )}
           {type === "produtor" && (
-            <section
-              className={styles.texto}
-              style={!disponivel ? { color: "#b0b0b0" } : {}}
-            >
-              <p>R$ {produto.preco.toFixed(2).replace(".", ",")}</p>
-              <p className={styles.medida}>{produto.medida}</p>
-            </section>
+            <>
+              <section
+                className={styles.texto}
+                style={!disponivel ? { color: "#b0b0b0" } : {}}
+              >
+                <p className={styles.preco}>
+                  R$ {produto.preco.toFixed(2).replace(".", ",")}
+                </p>
+                <p className={styles.medida}>{produto.medida}</p>
+              </section>
+              <p className={styles.estoque}>
+                {produto.qtdEstoque > 0
+                  ? `Estoque: ${produto.qtdEstoque}`
+                  : `Sem estoque`}
+              </p>
+            </>
           )}
         </div>
         {type === "cliente" && (
