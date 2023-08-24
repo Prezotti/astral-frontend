@@ -138,13 +138,15 @@ export function Header({
   else if (tipo === "admin")
     return (
       <header className={styles.headerContainer}>
-        <div className={styles.headerConteudo}>
+        <div
+          className={styles.headerConteudo}
+          style={{ justifyContent: "space-evenly" }}
+        >
           <a href="/">
             <img src="/icone-astral.png" alt="Astral logo" />
           </a>
-          <a href="/">Início</a>
+          <a href="/admin">Início</a>
           <a href={`/vendas/${idFeiraRecente}`}>Vendas</a>
-          <a href="/produtores">Produtores</a>
         </div>
       </header>
     );
