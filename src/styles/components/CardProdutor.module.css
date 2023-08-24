@@ -1,0 +1,70 @@
+.cardProdutorDiv {
+  width: 80%;
+  height: 170px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.headerCardProdutor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerCardProdutor h1 {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+.disponivel {
+  color: #72b234;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.indisponivel {
+  color: #ff3d3d;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cardProdutorDiv h3 {
+  font-size: 15px;
+  color: #929292;
+}
+
+.opcoesProdutor {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .cardProdutorDiv {
+    width: 90%;
+  }
+}
+
+@media (max-width: 560px) {
+  .cardProdutorDiv h3 {
+    font-size: 0.8em;
+  }
+  .headerCardProdutor h1 {
+    font-size: 1em;
+    font-weight: bold;
+    color: black;
+  }
+  .indisponivel,
+  .disponivel {
+    font-size: 0.8em;
+  }
+}

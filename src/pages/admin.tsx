@@ -18,6 +18,7 @@ import { Feira } from "@/types/Feira";
 import { ProdutorInterface } from "@/types/Produtor";
 import ModalConfirmacao from "@/components/ModalConfirmacao";
 import Toggle from "@/components/Toggle";
+import CardProdutor from "@/components/CardProdutor";
 
 const getInformacoesFeiras = async (token: string) => {
   let feiras: [Feira] | [] = [];
@@ -58,7 +59,13 @@ const getInformacoesProdutores = async (token: string) => {
   return produtores;
 };
 
-export default function Admin({ feirasSSR }: { feirasSSR: [Feira] | [] }) {
+export default function Admin({
+  feirasSSR,
+  produtoresSSR,
+}: {
+  feirasSSR: [Feira] | [];
+  produtoresSSR: [ProdutorInterface] | [];
+}) {
   const [modalProdutor, setModalProdutor] = useState(false);
   const [modalFeira, setModalFeira] = useState(false);
   const [infoFeira, setInfoFeira] = useState({
@@ -77,6 +84,9 @@ export default function Admin({ feirasSSR }: { feirasSSR: [Feira] | [] }) {
     "sucesso" | "erro" | "aviso"
   >("sucesso");
   const [feiras, setFeiras] = useState<[Feira] | []>(feirasSSR);
+  const [produtores, setProdutores] = useState<[ProdutorInterface] | []>(
+    produtoresSSR
+  );
   const [carregando, setCarregando] = useState(false);
   const [checked, setChecked] = useState(feirasSSR[0]?.aberta);
   const [textoSwitch, setTextoSwitch] = useState(
@@ -235,6 +245,11 @@ export default function Admin({ feirasSSR }: { feirasSSR: [Feira] | [] }) {
     setCarregando(false);
   };
 
+  const onEdit = async () => {
+    const token = Cookies.get("token");
+    if (token) setProdutores(await getInformacoesProdutores(token));
+  };
+
   return (
     <>
       <Header tipo="admin" />
@@ -266,7 +281,7 @@ export default function Admin({ feirasSSR }: { feirasSSR: [Feira] | [] }) {
           </div>
         </Painel>
         <div className={styles.divFeira}>
-          <section className={styles.sectionFeira}>
+          <div className={styles.innerDivFeira}>
             <section className={styles.headerAdmin}>
               <Toggle
                 item1="Feiras"
@@ -277,23 +292,43 @@ export default function Admin({ feirasSSR }: { feirasSSR: [Feira] | [] }) {
                 }}
               />
             </section>
-            <h1>Feiras</h1>
-            {feiras.length > 0 ? (
-              feiras.map((feira) => {
-                return (
-                  <CardFeira
-                    key={feira.id}
-                    id={feira.id}
-                    valorFinal={feira.valorTotal}
-                    data={feira.dataAbertura}
-                    aberta={feira.aberta}
-                  />
-                );
-              })
-            ) : (
-              <p>Não há feiras cadastradas</p>
+            {itemSelecionado === 1 && (
+              <section className={styles.sectionFeira}>
+                <h1>Feiras</h1>
+                {feiras.length > 0 ? (
+                  feiras.map((feira) => {
+                    return (
+                      <CardFeira
+                        key={feira.id}
+                        id={feira.id}
+                        valorFinal={feira.valorTotal}
+                        data={feira.dataAbertura}
+                        aberta={feira.aberta}
+                      />
+                    );
+                  })
+                ) : (
+                  <p>Não há feiras cadastradas</p>
+                )}
+              </section>
             )}
-          </section>
+            {itemSelecionado === 2 && (
+              <section className={styles.sectionProdutor}>
+                <h1>Produtores</h1>
+                <section className={styles.sectionProdutorContent}>
+                  {produtores.length > 0 ? (
+                    produtores.map((produtor) => {
+                      return (
+                        <CardProdutor produtor={produtor} onEdit={onEdit} />
+                      );
+                    })
+                  ) : (
+                    <p>Não existem produtores cadastrados</p>
+                  )}
+                </section>
+              </section>
+            )}
+          </div>
         </div>
       </section>
 
