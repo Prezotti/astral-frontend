@@ -10,6 +10,7 @@
     right: 20px;
     opacity: 0;
     gap: 10px;
+    z-index: 100;
 }
 
 .container p{
@@ -92,5 +93,12 @@
     }
     to{
         opacity: 0;
+    }
+}
+
+@media (max-width: 450px) {
+    .container{
+        width: 90vw;
+        right: 5vw;
     }
 }
