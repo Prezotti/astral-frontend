@@ -39,7 +39,7 @@ export function Header({
 
   const getProdutores = async () => {
     try {
-      const response = await api.get("/produtor");
+      const response = await api.get("/produtor?disponivel=1");
       setProdutores(response.data);
     } catch (error) {
       console.error(error);
