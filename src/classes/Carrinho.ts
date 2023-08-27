@@ -60,7 +60,7 @@ export class Carrinho{
         let carrinho = new Carrinho();
         let itens = JSON.parse(json)._itens;
         itens.forEach((item : string) => {
-            let produtor = new Produtor("", false, "", 0);
+            let produtor = new Produtor("", false, "", "", 0);
             let produto = new Produto("", 0, "", produtor, 0, "", "", 0, false);
             let itemCompra = new ItemCompra(0, produto)
             itemCompra = itemCompra.fromJSON(JSON.stringify(item));

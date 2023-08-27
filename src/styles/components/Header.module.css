@@ -74,6 +74,10 @@
   box-shadow: 0 -1px 0 0 white inset, 0 -2px 0 0 #72b234 inset;
 }
 
+.headerConteudo .icone:hover{
+  box-shadow: none;
+}
+
 .headerConteudo a::selection {
   color: white;
   background: black;

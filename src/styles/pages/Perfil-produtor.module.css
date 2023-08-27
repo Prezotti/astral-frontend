@@ -26,7 +26,7 @@
 }
 
 .titulo {
-    color: #FA8001;
+    color: #72B234;
     text-align: center;
     padding: 10px;
     font-size: 24px;
@@ -34,13 +34,11 @@
 
 .inputs{
     width: 100%;
+    height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.divBotao{
-    padding: 15px;
+    justify-content: space-around;
 }
 
 .voltar {
@@ -54,11 +52,8 @@
     text-decoration: none;
 }
 
-.botaoEditar {
-    background-color: #FFFFFF;
-    border-color: #72B234;
-    box-sizing: border-box;
-    text-align: center;
+.botao{
+    background-color: transparent;
     cursor: pointer;
     border-radius: 9px;
     font-weight: 500;
@@ -67,23 +62,25 @@
     width: 200px;
 }
 
-.botaoEditar:hover {
-    background-color: rgb(249, 250, 251);
+.botaoEditar {
+    border: 2px solid #72B234;
 }
 
 .botaoEncerrar {
-    background-color: #FFFFFF;
-    border-color: red;
-    box-sizing: border-box;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 9px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    padding: 10px;
-    width: 200px;
+    border: 2px solid #fa8001;
 }
 
-.botaoEncerrar:hover {
-    background-color: rgb(249, 250, 251);
+.modal .conteudo{
+    grid-template-columns: 1fr 1fr;
 }
+
+.divNovaSenha, .divConfirmarSenha{
+    position: relative;
+}
+
+.iconVerSenha, .iconNaoVerSenha{
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    cursor: pointer;
+  }

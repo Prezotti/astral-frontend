@@ -125,13 +125,14 @@ export function Header({
     return (
       <header className={styles.headerContainer}>
         <div className={styles.headerConteudo}>
-          <a href="/">
+          <a className={styles.icone} href="/">
             <img src="/icone-astral.png" alt="Astral logo" />
           </a>
-          <a href="/">Início</a>
-          <a href="/produtos">Produtos</a>
+          <a href="/produtor">Início</a>
           <a href={`/minhas-vendas/${idFeiraRecente}`}>Vendas</a>
-          <CgProfile className={styles.fotoProdutor} />
+          <a className={styles.icone} href="/perfil">
+            <CgProfile className={styles.fotoProdutor} />
+          </a>
         </div>
       </header>
     );
@@ -142,7 +143,7 @@ export function Header({
           className={styles.headerConteudo}
           style={{ justifyContent: "space-evenly" }}
         >
-          <a href="/">
+          <a className={styles.icone} href="/">
             <img src="/icone-astral.png" alt="Astral logo" />
           </a>
           <a href="/admin">Início</a>
@@ -154,7 +155,7 @@ export function Header({
     return (
       <header className={styles.headerContainer}>
         <div className={styles.headerConteudo}>
-          <a href="/">
+          <a className={styles.icone} href="/">
             <img src="/icone-astral.png" alt="Astral logo" />
           </a>
           <a href="/">Início</a>
