@@ -64,12 +64,14 @@ export default function perfilProdutor({
     "sucesso" | "erro" | "aviso"
   >("sucesso");
 
-  const produtor = new ProdutorClass(
-    produtorJSON.nome,
-    produtorJSON.disponivel,
-    produtorJSON.telefone,
-    produtorJSON.email,
-    produtorJSON.id
+  const [produtor, setProdutor] = useState(
+    new ProdutorClass(
+      produtorJSON.nome,
+      produtorJSON.disponivel,
+      produtorJSON.telefone,
+      produtorJSON.email,
+      produtorJSON.id
+    )
   );
 
   const [infoProdutor, setInfoProdutor] = useState({
@@ -155,6 +157,16 @@ export default function perfilProdutor({
         setMensagem("Seus dados foram editados com sucesso!");
         setmostrarMensagem(true);
         setTipoMensagem("sucesso");
+        setProdutor(
+          new ProdutorClass(
+            response.data.nome,
+            response.data.disponivel,
+            response.data.telefone,
+            response.data.email,
+            response.data.id
+          )
+        );
+
         setModalDados(false);
       })
       .catch((error) => {
