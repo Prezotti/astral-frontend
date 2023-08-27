@@ -42,6 +42,7 @@ export class Produtor {
     produtor._nome = JSON.parse(json)._nome;
     produtor._disponivel = JSON.parse(json)._disponivel;
     produtor._telefone = JSON.parse(json)._telefone;
+    produtor._email = JSON.parse(json)._email;
     produtor._id = JSON.parse(json)._id;
     return produtor;
   }

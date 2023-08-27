@@ -35,7 +35,7 @@ export class ItemCompra{
     }
 
     fromJSON(json : string){
-        let produtor = new Produtor("", false, "", 0);
+        let produtor = new Produtor("", false, "", "", 0);
         let produto = new Produto("", 0, "", produtor, 0, "", "", 0, false);
         produto = produto.fromJSON(JSON.stringify(JSON.parse(json)._produto));
 

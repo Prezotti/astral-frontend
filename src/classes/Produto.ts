@@ -75,7 +75,7 @@ export class Produto {
 
   fromJSON(json: string) {
     
-    let produtor = new Produtor("", false, "", 0);
+    let produtor = new Produtor("", false, "", "", 0);
     produtor = produtor.fromJSON(JSON.stringify(JSON.parse(json)._produtor));
 
     let produto = new Produto(
