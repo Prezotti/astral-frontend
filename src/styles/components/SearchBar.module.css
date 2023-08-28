@@ -49,3 +49,16 @@
     height: 40px;
   }
 }
+
+@media (max-width: 420px) {
+  .searchBarContainer{
+    height: 27px;
+  }
+  .searchBarContainer input{
+    height: 27px;
+  }
+  .searchBarContainer button{
+    height: 27px;
+    width: 27px;
+  }
+}

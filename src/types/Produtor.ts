@@ -3,4 +3,5 @@ export interface ProdutorInterface {
     disponivel: boolean;
     telefone: string;
     id: number;
+    email: string;
 }

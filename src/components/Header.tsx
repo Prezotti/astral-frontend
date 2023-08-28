@@ -39,7 +39,7 @@ export function Header({
 
   const getProdutores = async () => {
     try {
-      const response = await api.get("/produtor");
+      const response = await api.get("/produtor?disponivel=1");
       setProdutores(response.data);
     } catch (error) {
       console.error(error);
@@ -125,26 +125,29 @@ export function Header({
     return (
       <header className={styles.headerContainer}>
         <div className={styles.headerConteudo}>
-          <a href="/">
+          <a className={styles.icone} href="/">
             <img src="/icone-astral.png" alt="Astral logo" />
           </a>
-          <a href="/">Início</a>
-          <a href="/produtos">Produtos</a>
+          <a href="/produtor">Início</a>
           <a href={`/minhas-vendas/${idFeiraRecente}`}>Vendas</a>
-          <CgProfile className={styles.fotoProdutor} />
+          <a className={styles.icone} href="/perfil">
+            <CgProfile className={styles.fotoProdutor} />
+          </a>
         </div>
       </header>
     );
   else if (tipo === "admin")
     return (
       <header className={styles.headerContainer}>
-        <div className={styles.headerConteudo}>
-          <a href="/">
+        <div
+          className={styles.headerConteudo}
+          style={{ justifyContent: "space-evenly" }}
+        >
+          <a className={styles.icone} href="/">
             <img src="/icone-astral.png" alt="Astral logo" />
           </a>
-          <a href="/">Início</a>
+          <a href="/admin">Início</a>
           <a href={`/vendas/${idFeiraRecente}`}>Vendas</a>
-          <a href="/produtores">Produtores</a>
         </div>
       </header>
     );
@@ -152,7 +155,7 @@ export function Header({
     return (
       <header className={styles.headerContainer}>
         <div className={styles.headerConteudo}>
-          <a href="/">
+          <a className={styles.icone} href="/">
             <img src="/icone-astral.png" alt="Astral logo" />
           </a>
           <a href="/">Início</a>

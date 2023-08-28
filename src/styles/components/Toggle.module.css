@@ -1,0 +1,31 @@
+.toggleBar {
+  display: flex;
+  border-radius: 5px;
+  height: 25px;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
+}
+
+.toggle {
+  flex: 1;
+  border-radius: 5px;
+  width: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  z-index: 1;
+}
+
+.slider {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background-color: #90c75a;
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}

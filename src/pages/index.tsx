@@ -57,6 +57,7 @@ export default function Home() {
             produto.produtor.nome,
             produto.produtor.disponivel,
             produto.produtor.telefone,
+            produto.produtor.email,
             produto.produtor.id
           );
           const produtoNovo = new Produto(

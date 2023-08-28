@@ -74,6 +74,10 @@
   box-shadow: 0 -1px 0 0 white inset, 0 -2px 0 0 #72b234 inset;
 }
 
+.headerConteudo .icone:hover{
+  box-shadow: none;
+}
+
 .headerConteudo a::selection {
   color: white;
   background: black;
@@ -199,9 +203,6 @@
   .iconeCarrinho{
     width: 20px;
   }
-  .divCarrinho{
-    width: 80px;
-  }
   .selectProdutores {
     background-size: 10px;
     padding-right: 12px;
@@ -209,6 +210,9 @@
 }
 
 @media (max-width: 420px) {
+  .headerConteudo img{
+    height: 26px;
+  }
   .headerConteudo {
     padding: 0 5px;
   }
@@ -221,9 +225,6 @@
   }
   .iconeCarrinho{
     width: 19px;
-  }
-  .divCarrinho{
-    width: 75px;
   }
   .precoCarrinho {
     font-size: 0.7rem;
@@ -238,6 +239,9 @@
 }
 
 @media (max-width: 350px) {
+  .headerConteudo img{
+    height: 25px;
+  }
   .headerConteudo {
     padding: 0 5px;
   }
@@ -248,7 +252,7 @@
     width: 16px;
   }
   .divCarrinho{
-    width: 70px;
+    width: 80px;
   }
   .selectProdutores {
     font-size: 0.7rem;

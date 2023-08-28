@@ -87,6 +87,7 @@ export default function Produtor({
     produtorJSON.nome,
     produtorJSON.disponivel,
     produtorJSON.telefone,
+    produtorJSON.email,
     produtorJSON.id
   );
 

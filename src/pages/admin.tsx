@@ -15,10 +15,57 @@ import Cookies from "js-cookie";
 import api from "@/api/api";
 import { Mensagem } from "@/components/Mensagem";
 import { Feira } from "@/types/Feira";
+import { ProdutorInterface } from "@/types/Produtor";
+import ModalConfirmacao from "@/components/ModalConfirmacao";
+import Toggle from "@/components/Toggle";
+import CardProdutor from "@/components/CardProdutor";
 
-export default function Admin() {
-  const [checked, setChecked] = useState(true);
-  const [textoSwitch, setTextoSwitch] = useState("Feira aberta!");
+const getInformacoesFeiras = async (token: string) => {
+  let feiras: [Feira] | [] = [];
+  await api
+    .get("/feira", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      feiras = response.data.reverse();
+      feiras.forEach((feira) => {
+        feira.dataAbertura = new Date(feira.dataAbertura).toLocaleDateString(
+          "pt-BR"
+        );
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return feiras;
+};
+
+const getInformacoesProdutores = async (token: string) => {
+  let produtores: [ProdutorInterface] | [] = [];
+  await api
+    .get("/produtor", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      produtores = response.data.reverse();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return produtores;
+};
+
+export default function Admin({
+  feirasSSR,
+  produtoresSSR,
+}: {
+  feirasSSR: [Feira] | [];
+  produtoresSSR: [ProdutorInterface] | [];
+}) {
   const [modalProdutor, setModalProdutor] = useState(false);
   const [modalFeira, setModalFeira] = useState(false);
   const [infoFeira, setInfoFeira] = useState({
@@ -36,30 +83,41 @@ export default function Admin() {
   const [tipoMensagem, setTipoMensagem] = useState<
     "sucesso" | "erro" | "aviso"
   >("sucesso");
-  const [feiras, setFeiras] = useState<[Feira] | []>([]);
+  const [feiras, setFeiras] = useState<[Feira] | []>(feirasSSR);
+  const [produtores, setProdutores] = useState<[ProdutorInterface] | []>(
+    produtoresSSR
+  );
   const [carregando, setCarregando] = useState(false);
-
+  const [checked, setChecked] = useState(feirasSSR[0]?.aberta);
+  const [textoSwitch, setTextoSwitch] = useState(
+    feiras[0]?.aberta ? "Feira aberta!" : "Abrir feira"
+  );
+  const [modalConfirmacaoFeira, setModalConfirmacaoFeira] = useState(false);
+  const [itemSelecionado, setItemSelecionado] = useState(1);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-    setTextoSwitch(event.target.checked ? "Feira aberta!" : "Abrir feira");
+    setModalConfirmacaoFeira(true);
   };
 
-  const getInformacoesFeiras = () => {
+  const alterarDisponibilidadeFeira = async () => {
     const token = Cookies.get("token");
-
-    api
-      .get("/feira", {
+    const idFeiraRecente = feiras[0]?.id;
+    setCarregando(true);
+    await api
+      .put(`/feira/${idFeiraRecente}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        response.data.reverse();
-        setFeiras(response.data);
+      .then(async (response) => {
+        setChecked(response.data.aberta);
+        setTextoSwitch(response.data.aberta ? "Feira aberta!" : "Abrir feira");
+        if (token) setFeiras(await getInformacoesFeiras(token));
+        setModalConfirmacaoFeira(false);
       })
       .catch((error) => {
         console.log(error);
       });
+    setCarregando(false);
   };
 
   const validaCampos = () => {
@@ -187,9 +245,10 @@ export default function Admin() {
     setCarregando(false);
   };
 
-  useEffect(() => {
-    getInformacoesFeiras();
-  }, []);
+  const onEdit = async () => {
+    const token = Cookies.get("token");
+    if (token) setProdutores(await getInformacoesProdutores(token));
+  };
 
   return (
     <>
@@ -222,34 +281,62 @@ export default function Admin() {
           </div>
         </Painel>
         <div className={styles.divFeira}>
-          <section className={styles.sectionFeira}>
-            <h1>Feiras</h1>
-            {feiras.length > 0 ? (
-              feiras.map((feira) => {
-                feira.dataAbertura = new Date(
-                  feira.dataAbertura
-                ).toLocaleDateString("pt-BR");
-                return (
-                  <CardFeira
-                    key={feira.id}
-                    id={feira.id}
-                    valorFinal={feira.valorTotal}
-                    data={feira.dataAbertura}
-                    aberta={feira.aberta}
-                  />
-                );
-              })
-            ) : (
-              <p>Não há feiras cadastradas</p>
+          <div className={styles.innerDivFeira}>
+            <section className={styles.headerAdmin}>
+              <Toggle
+                item1="Feiras"
+                item2="Produtores"
+                selected={1}
+                onToggle={(item) => {
+                  setItemSelecionado(item);
+                }}
+              />
+            </section>
+            {itemSelecionado === 1 && (
+              <section className={styles.sectionFeira}>
+                <h1>Feiras</h1>
+                {feiras.length > 0 ? (
+                  feiras.map((feira) => {
+                    return (
+                      <CardFeira
+                        key={feira.id}
+                        id={feira.id}
+                        valorFinal={feira.valorTotal}
+                        data={feira.dataAbertura}
+                        aberta={feira.aberta}
+                      />
+                    );
+                  })
+                ) : (
+                  <p>Não há feiras cadastradas</p>
+                )}
+              </section>
             )}
-          </section>
+            {itemSelecionado === 2 && (
+              <section className={styles.sectionProdutor}>
+                <h1>Produtores</h1>
+                <section className={styles.sectionProdutorContent}>
+                  {produtores.length > 0 ? (
+                    produtores.map((produtor) => {
+                      return (
+                        <CardProdutor produtor={produtor} onEdit={onEdit} />
+                      );
+                    })
+                  ) : (
+                    <p>Não existem produtores cadastrados</p>
+                  )}
+                </section>
+              </section>
+            )}
+          </div>
         </div>
       </section>
 
       <Modal
         onClickBotao={() => {
+          const token = Cookies.get("token");
           cadastrarFeira();
-          getInformacoesFeiras();
+          if (token) getInformacoesFeiras(token);
         }}
         setVisivel={() => {
           setModalFeira(false);
@@ -271,6 +358,15 @@ export default function Admin() {
           }}
         />
       </Modal>
+
+      <ModalConfirmacao
+        aviso="Tem certeza que deseja alterar a disponibilidade da feira?"
+        mensagem="Ao fechar a feira nenhum cliente conseguirá fazer compras!"
+        visivel={modalConfirmacaoFeira}
+        setConfirmacaoVisivel={setModalConfirmacaoFeira}
+        onClickBotao={alterarDisponibilidadeFeira}
+        loadingBotao={carregando}
+      />
 
       <Modal
         loadingBotao={carregando}
@@ -340,10 +436,8 @@ export default function Admin() {
 }
 
 export async function getServerSideProps(contexto: GetServerSidePropsContext) {
-  if (
-    contexto.req.cookies.token === undefined ||
-    !temCargo(contexto.req.cookies.token, Cargos.ADMINISTRADOR)
-  ) {
+  const token = contexto.req.cookies.token;
+  if (token === undefined || !temCargo(token, Cargos.ADMINISTRADOR)) {
     return {
       redirect: {
         destination: "/login",
@@ -351,7 +445,12 @@ export async function getServerSideProps(contexto: GetServerSidePropsContext) {
       },
     };
   }
+  const feirasSSR = (await getInformacoesFeiras(token)) as [Feira] | [];
+  const produtoresSSR = (await getInformacoesProdutores(token)) as
+    | [ProdutorInterface]
+    | [];
+
   return {
-    props: {},
+    props: { feirasSSR, produtoresSSR },
   };
 }

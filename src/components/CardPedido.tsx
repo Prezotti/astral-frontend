@@ -34,7 +34,6 @@ export function CardPedido({ compra, isAdmin = false }: CardPedidoProps) {
   function formatarListaProdutos(produtor: string): ListagemProduto[] {
     return compra.itens.filter((item) => item.produtor === produtor);
   }
-
   return (
     <>
       <div
@@ -42,10 +41,12 @@ export function CardPedido({ compra, isAdmin = false }: CardPedidoProps) {
           containerExpandido ? styles.cardExpandido : ""
         }`}
       >
+        
         <div className={styles.infoPedido}>
           <div className={styles.pedido}>
             <BsExclamation
-              className={styles.iconeExclamacao}
+              className={`${styles.iconeExclamacao} ${compra.observacoes ? styles.iconeComObservacao : styles.iconeSemObservacao} `}
+              
               onClick={() => {
                 setdetalhamentoPedido(true);
               }}

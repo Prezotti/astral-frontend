@@ -106,6 +106,11 @@
   align-items: flex-end;
 }
 
+.estoque{
+  color: #a5a5a5;
+  font-size: 0.8rem;
+}
+
 
 @media (min-width: 768px) {
   .botaoAddItem button:hover {
@@ -117,6 +122,9 @@
   .cardProduto {
     width: 200px;
     height: 240px;
+  }
+  .descricao{    
+    gap: 5px;
   }
   .descricao h3 {
     font-size: 0.8rem;
@@ -139,12 +147,21 @@
   .botaoAddItem button {
     font-size: 1.2rem;
   }
+  .opcoesProdutor{
+    padding: 0;
+  }
 }
 
 @media (max-width: 670px) {
   .cardProduto {
     width: 160px;
     height: 192px;
+  }
+  .descricao{    
+    gap: 1px;
+  }
+  .preco{
+    font-size: 0.9rem;
   }
   .descricao h3 {
     font-size: 0.7rem;
@@ -170,12 +187,18 @@
   .opcoesProdutor {
     padding-bottom: 0px;
   }
+  .estoque{
+    font-size: 0.7rem;
+  }
 }
 
 @media (max-width: 560px) {
   .cardProduto {
     width: 200px;
     height: 240px;
+  }
+  .descricao{
+    gap: 5px;
   }
   .descricao h3 {
     font-size: 0.8rem;
@@ -197,6 +220,12 @@
   }
   .botaoAddItem button {
     font-size: 1.2rem;
+  }
+  .estoque{
+    font-size: 0.8rem;
+  }
+  .preco{
+    font-size: 1rem;
   }
 }
 
@@ -225,11 +254,10 @@
   .texto {
     width: 100%;
     font-size: 0.9rem;
-    justify-content: space-between;
     align-items: center;
   }
   .medida {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
   }
   .botaoAddItem {
     height: 24px;
@@ -239,6 +267,9 @@
   }
   .botaoAddItem button {
     font-size: 1.2rem;
+  }
+  .estoque{
+    font-size: 0.7rem;
   }
 }
 

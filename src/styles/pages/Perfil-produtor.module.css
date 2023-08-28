@@ -1,0 +1,86 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+
+/*Section confirmação*/
+
+.sectionPerfil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    flex-grow: 1;
+}
+
+.containerPerfil {
+    width: 1000px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+.titulo {
+    color: #72B234;
+    text-align: center;
+    padding: 10px;
+    font-size: 24px;
+}
+
+.inputs{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.voltar {
+    color: #72B234;
+    font-weight: 500;
+    margin: 25px 30px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.botao{
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 9px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 10px;
+    width: 200px;
+}
+
+.botaoEditar {
+    border: 2px solid #72B234;
+}
+
+.botaoEncerrar {
+    border: 2px solid #fa8001;
+}
+
+.modal .conteudo{
+    grid-template-columns: 1fr 1fr;
+}
+
+.divNovaSenha, .divConfirmarSenha{
+    position: relative;
+}
+
+.iconVerSenha, .iconNaoVerSenha{
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    cursor: pointer;
+  }
