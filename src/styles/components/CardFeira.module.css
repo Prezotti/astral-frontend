@@ -16,6 +16,11 @@
   height: 3vh;
 }
 
+.linhaTres section {
+  display: flex;
+  gap: 20px;
+}
+
 .divCard {
   display: flex;
   width: 90%;
@@ -88,6 +93,9 @@
 }
 
 @media (max-width: 560px) {
+  .linhaTres section {
+    gap: 10px;
+  }
   .divCard {
     height: 130px;
     padding: 15px 20px;
@@ -103,13 +111,14 @@
     font-size: 1em;
   }
   .linhaTres p {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 450px) {
   .divCard {
-    height: 110px;
+    gap: 10px;
+    height: auto;
   }
   .divCard h4 {
     font-size: 1em;
@@ -120,6 +129,14 @@
   .aberta,
   .fechado {
     font-size: 1em;
+  }
+  .linhaTres {
+    height: auto;
+  }
+  .linhaTres section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 }
 

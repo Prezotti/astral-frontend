@@ -131,3 +131,14 @@
     font-size: 1.2em;
   }
 }
+
+@media (max-width: 360px) {
+  .sectionFeira,
+  .sectionProdutorContent,
+  .innerDivFeira {
+    width: 300px;
+  }
+  .sectionFeira h1 {
+    font-size: 1em;
+  }
+}
