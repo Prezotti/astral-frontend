@@ -15,8 +15,12 @@ interface CardFeiraProps {
 export function CardFeira({ id, aberta, valorFinal, data }: CardFeiraProps) {
   const router = useRouter();
 
-  const handleClick = () => {
+  const handleClickVendas = () => {
     router.push(`/vendas/${id}`);
+  };
+
+  const handleClickEntregas = () => {
+    router.push(`/entregas/${id}`);
   };
 
   return (
@@ -43,14 +47,24 @@ export function CardFeira({ id, aberta, valorFinal, data }: CardFeiraProps) {
       </div>
 
       <div className={styles.linhaTres}>
-        <Button
-          text="Consultar vendas"
-          onClick={() => {
-            handleClick();
-          }}
-          classType="botaoCardFeira"
-          backgroundColor="#72B234"
-        />
+        <section>
+          <Button
+            text="Consultar vendas"
+            onClick={() => {
+              handleClickVendas();
+            }}
+            classType="botaoCardFeira"
+            backgroundColor="#72B234"
+          />
+          <Button
+            text="Consultar Entregas"
+            onClick={() => {
+              handleClickEntregas();
+            }}
+            classType="botaoCardFeira"
+            backgroundColor="#FA8001"
+          />
+        </section>
         <p className={styles.centralizar}>
           {" "}
           <BiCalendar /> {data}{" "}
