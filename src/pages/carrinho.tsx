@@ -19,6 +19,7 @@ export default function Carrinho() {
     {
       nome: "",
       telefone: "",
+      email: "",
       formaPagamento: "",
       valorDoacao: 0,
       localEntrega: "",
@@ -93,6 +94,17 @@ export default function Carrinho() {
       setMostrarMensagemErro(true);
       return false;
     }
+    if (informacoesCompra.email == "") {
+      setMostrarMensagemErro(true);
+      setMensagemErro("O campo E-mail é obrigatório");
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(informacoesCompra.email)) {
+      setMostrarMensagemErro(true);
+      setMensagemErro("E-mail inválido. Formato: exemplo@dominio.com");
+      return false;
+    }
     if (informacoesCompra.formaPagamento == "") {
       setMensagemErro("O campo forma de pagamento é obrigatório");
       setMostrarMensagemErro(true);
@@ -143,6 +155,7 @@ export default function Carrinho() {
         .post("/compra", {
           cliente: informacoesCompra.nome,
           telefone: informacoesCompra.telefone,
+          emailCliente: informacoesCompra.email,
           endereco: enderecoMontado,
           itens: carrinho.itens.map((item) => {
             return item.toItemCarrinho();
@@ -155,7 +168,10 @@ export default function Carrinho() {
         })
         .then((response) => {
           localStorage.removeItem("carrinho");
-          router.push("/confirmacao-compra");
+          router.push({
+            pathname: "/confirmacao-compra",
+            query: { emailConfirmacao: informacoesCompra.email },
+          });
         });
       setCarregando(false);
     } else
@@ -223,7 +239,7 @@ export default function Carrinho() {
             />
             <Input
               label="Telefone"
-              type="text"
+              type="tel"
               placeholder="(00) 0000-0000"
               value={formatarTelefone(informacoesCompra.telefone)}
               onChange={(e) => {
@@ -231,6 +247,19 @@ export default function Carrinho() {
                 setInformacoesCompra({
                   ...informacoesCompra,
                   telefone: inputValue,
+                });
+              }}
+              largura="100%"
+            />
+            <Input
+              label="E-mail"
+              type="email"
+              placeholder="Digite seu e-mail"
+              value={informacoesCompra.email}
+              onChange={(e) => {
+                setInformacoesCompra({
+                  ...informacoesCompra,
+                  email: e.target.value,
                 });
               }}
               largura="100%"
@@ -297,7 +326,7 @@ export default function Carrinho() {
                   />
                   <Input
                     label="Nº"
-                    type="text"
+                    type="number"
                     placeholder="Nº da casa"
                     value={endereco.numero}
                     onChange={(e) => {
