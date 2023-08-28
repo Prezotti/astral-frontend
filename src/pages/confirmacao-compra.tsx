@@ -4,8 +4,12 @@ import { Footer } from "@/components/Footer";
 
 import { IoIosArrowBack } from "react-icons/io";
 import { BsCartCheck } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 export default function confirmacaoCompra() {
+  const router = useRouter();
+  const emailConfirmacao = router.query.emailConfirmacao;
+
   return (
     <section className={styles.body}>
       <header className={styles.headerContainer}>
@@ -26,7 +30,8 @@ export default function confirmacaoCompra() {
               />
               <p>
                 Sua compra foi realizada com sucesso. Obrigado por escolher os
-                produtos da nossa feira! :D
+                produtos da nossa feira! Verifique a confirmação enviada para o
+                email {emailConfirmacao}!
               </p>
             </div>
             <div className={styles.imagensProdutos}>
