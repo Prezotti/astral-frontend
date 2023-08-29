@@ -45,6 +45,7 @@ export default function Login() {
   };
 
   const router = useRouter();
+  const redirectUrl = (router.query.redirectUrl || "") as string;
 
   const testarEnter = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
@@ -72,6 +73,13 @@ export default function Login() {
             expires: 1 / 12,
             path: "/",
           });
+          if (redirectUrl != "") {
+            setCarregando(false);
+            setEmail("");
+            setSenha("");
+            router.push(redirectUrl);
+            return;
+          }
           if (temCargo(response.data.token, Cargos.ADMINISTRADOR))
             router.push("/admin");
           if (temCargo(response.data.token, Cargos.PRODUTOR))
@@ -87,7 +95,7 @@ export default function Login() {
   return (
     <div className={styles.pagina}>
       <section className={styles.containerLogin}>
-        <p>
+        <p className={styles.pVoltar} onClick={() => router.push("/")}>
           <IoIosArrowBack size={24} color="#72B234" fontWeight={700} />
           Voltar
         </p>
