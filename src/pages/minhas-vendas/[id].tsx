@@ -179,13 +179,15 @@ export default function Compras() {
 }
 
 export async function getServerSideProps(contexto: GetServerSidePropsContext) {
+  const { query, req } = contexto;
+  const { id } = query;
   if (
     contexto.req.cookies.token === undefined ||
     !temCargo(contexto.req.cookies.token, Cargos.PRODUTOR)
   ) {
     return {
       redirect: {
-        destination: "/login",
+        destination: `/login?redirectUrl=%2Fminhas-vendas%2F${id}`,
         permanent: false,
       },
     };

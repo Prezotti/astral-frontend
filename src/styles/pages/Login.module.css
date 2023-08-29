@@ -30,6 +30,10 @@
   position: absolute;
 }
 
+.pVoltar{
+  cursor: pointer;
+}
+
 .containerLogin h1 {
   font-size: 2rem;
   font-weight: 700;

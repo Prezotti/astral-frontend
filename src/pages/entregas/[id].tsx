@@ -80,11 +80,13 @@ export default function Entregas() {
 }
 
 export async function getServerSideProps(contexto: GetServerSidePropsContext) {
+  const { query, req } = contexto;
+  const { id } = query;
   const token = contexto.req.cookies.token;
   if (token === undefined || !temCargo(token, Cargos.ADMINISTRADOR)) {
     return {
       redirect: {
-        destination: "/login",
+        destination: `/login?redirectUrl=%2Fentregas%2F${id}`,
         permanent: false,
       },
     };

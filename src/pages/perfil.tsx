@@ -296,7 +296,7 @@ export default function perfilProdutor({
               </button>
             </div>
 
-            <a href="/" className={styles.voltar}>
+            <a href="/produtor" className={styles.voltar}>
               <IoIosArrowBack size={24} color="#72B234" fontWeight={700} />
               Voltar para o Início
             </a>
@@ -433,7 +433,7 @@ export async function getServerSideProps(contexto: GetServerSidePropsContext) {
   if (token === undefined || !temCargo(token, Cargos.PRODUTOR)) {
     return {
       redirect: {
-        destination: "/login",
+        destination: "/login?redirectUrl=%2Fperfil",
         permanent: false,
       },
     };
