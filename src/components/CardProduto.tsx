@@ -16,6 +16,7 @@ import cookie from "js-cookie";
 
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { ImageCropper } from "./ImageCropper";
 
 interface CardProdutoProps {
   produto: Produto;
@@ -51,6 +52,8 @@ export function CardProduto({
   });
   const [mensagem, setMensagem] = useState("");
   const [display, setDisplay] = useState(true);
+  const [imagem, setImagem] = useState<File | null>();
+  const [mostrarImageCropper, setMostrarImageCropper] = useState(false);
 
   const item = new ItemCompra(quantidade, produto);
 
@@ -183,6 +186,7 @@ export function CardProduto({
 
     const formData = new FormData();
     formData.append("dados", jsonBlob, "dados.json");
+    if (imagem) formData.append("file", imagem);
     setCarregando(true);
     await api
       .put(`/produto`, formData, {
@@ -346,6 +350,11 @@ export function CardProduto({
         }}
         loadingBotao={carregando}
         setVisivel={() => {
+          setImagem(null);
+          setInfoProduto({
+            ...infoProduto,
+            imagem: "",
+          });
           setModalEditarVisivel(false);
         }}
         textoBotao="Editar Produto"
@@ -433,9 +442,27 @@ export function CardProduto({
           value={""}
           onChange={(e) => {
             setInfoProduto({ ...infoProduto, imagem: e.target.value });
+            setImagem(e.target.files ? e.target.files[0] : null);
+            if (e.target.files !== null && e.target.files.length > 0) {
+              setMostrarImageCropper(true);
+            }
           }}
         />
       </Modal>
+      {mostrarImageCropper && (
+        <ImageCropper
+          src={imagem}
+          closeCropper={() => {
+            setMostrarImageCropper(false);
+          }}
+          fileName={infoProduto.descricao}
+          goBack={() => {
+            setImagem(null);
+            setMostrarImageCropper(false);
+          }}
+          returnFile={(file) => setImagem(file)}
+        />
+      )}
     </section>
   );
 }
