@@ -24,7 +24,7 @@ export default function ModalConfirmacao({
   return (
     <div className={styles.modalConfirmacaoBlur}>
       <div className={styles.modalConfirmacao}>
-        <section>
+        <section className={styles.sectionTitulo}>
           <h2>Confirmação</h2>
           <div className={styles.divUnderline}></div>
         </section>

@@ -27,6 +27,10 @@
   width: 60%;
 }
 
+.sectionTitulo{
+  text-align: left;
+}
+
 .modalConfirmacao h2 {
   color: #72b234;
   text-transform: capitalize;
