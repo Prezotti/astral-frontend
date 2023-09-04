@@ -36,7 +36,9 @@ export default function sobre() {
           </section>
           <img className={styles.imgSacola} src="/sacola-sobre.png" alt="" />
         </section>
-        <h1 className={styles.titulo}>Como funciona a feira?</h1>
+        <h1 className={`${styles.titulo} ${styles.comoFunciona}`}>
+          Como funciona a feira?
+        </h1>
         <section className={styles.sectionFuncionamentoFeira}>
           <img className={styles.drawing} src="/drawing-sobre-nos.png" alt="" />
           <section className={styles.informacoes}>

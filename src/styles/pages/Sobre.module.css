@@ -57,8 +57,104 @@
     height: 350px;
     -webkit-user-drag: none;
     user-select: none;
+    padding-right: 10px;
 }
 
 .sectionFuncionamentoFeira{
     display: flex;
+    margin-bottom: 100px;
+}
+
+@media (max-width: 1000px) {
+    .main{
+        width: 640px;
+    }
+    .titulo{
+        font-size: 2.0rem;
+        max-width: 300px;
+    }
+    .paragrafo p{
+        font-size: 1.0rem;
+    }
+    .imgSacola{
+        height: 300px;
+    }
+    
+    .drawing{
+        height: 250px;
+    }
+  }
+
+@media (max-width: 700px) {
+    .main{
+        margin-top: 100px;
+        width: 430px;
+    }
+    .titulo{
+        font-size: 1.5rem;
+        max-width: 240px;
+        margin-bottom: 10px;
+    }
+    .paragrafo p{
+        font-size: 0.8rem;
+    }
+    .sectionFuncionamentoFeira{
+        align-items: center;
+    }
+    .imgSacola{
+        height: 250px;
+    }
+    
+    .drawing{
+        height: 150px;
+    }
+}
+
+@media (max-width: 450px) {
+    .main{
+        margin-top: 120px;
+        width: 100vw;
+    }
+    .titulo{
+        font-size: 1.2rem;
+        max-width: 200px;
+        margin-bottom: 10px;
+    }
+    .sectionAstral{     
+        padding-left: 10px;
+    }
+    .paragrafo p{
+        font-size: 0.7rem;
+    }
+    .ponto{
+        height: 7px;
+        width: 7px;
+        border-radius: 3.5px;
+        transform: translate(-30%, -50%);
+    }
+    .comoFunciona{
+        margin-top: 20px;
+        padding-left: 10px;
+    }
+    .sectionFuncionamentoFeira{
+        align-items: center;
+        padding-right: 10px;
+    }
+    .imgSacola{
+        height: 200px;
+    }
+    .drawing{
+        height: 150px;
+    }
+}
+
+@media (max-width: 350px) {
+    .main{
+        margin-top: 100px;
+    }
+    .titulo{
+        font-size: 1.0rem;
+        max-width: 190px;
+        margin-bottom: 10px;
+    }
 }
