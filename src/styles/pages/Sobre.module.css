@@ -49,10 +49,14 @@
 
 .imgSacola{
     height: 500px;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .drawing{
     height: 350px;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .sectionFuncionamentoFeira{

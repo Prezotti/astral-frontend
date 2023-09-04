@@ -1,8 +1,11 @@
 import { Header } from "@/components/Header";
 import styles from "../styles/pages/Sobre.module.css";
 import { Footer } from "@/components/Footer";
+import { Button } from "@/components/Button";
+import { useRouter } from "next/router";
 
 export default function sobre() {
+  const router = useRouter();
   return (
     <section className={styles.body}>
       <Header />
@@ -60,6 +63,14 @@ export default function sobre() {
                 </p>
               </div>
             </section>
+            <Button
+              backgroundColor="#72b234"
+              text="COMPRAR AGORA"
+              onClick={() => {
+                router.push("/");
+              }}
+              classType="botaoPaginaSobre"
+            />
           </section>
         </section>
       </section>
