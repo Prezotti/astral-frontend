@@ -52,7 +52,7 @@ export function Footer() {
         </div>
       </div>
       <section className={styles.copyright}>
-        <p>© Todos os Direitos Reservados, Alunos TSI 2023</p>
+        <p>© Todos os Direitos Reservados, EcoWebFeira 2023</p>
       </section>
     </footer>
   );

@@ -107,12 +107,29 @@
   margin: 15px 0;
 }
 
+.botaoPaginaSobre{
+  height: 35px;
+  width: 170px;
+  border-radius: 8.75px;
+  font-size: 0.9rem;
+  margin: 15px auto;
+}
+
 @media (max-width: 940px) {
   .botaoProduto {
     height: 24px;
     width: 80px;
     border-radius: 6px;
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .botaoPaginaSobre{
+    height: 32px;
+    width: 140px;
+    border-radius: 8px;
+    font-size: 0.7rem;
   }
 }
 
