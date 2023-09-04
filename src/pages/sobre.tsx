@@ -33,7 +33,35 @@ export default function sobre() {
           </section>
           <img className={styles.imgSacola} src="/sacola-sobre.png" alt="" />
         </section>
-        <section className={styles.sectionFuncionamentoFeira}></section>
+        <h1 className={styles.titulo}>Como funciona a feira?</h1>
+        <section className={styles.sectionFuncionamentoFeira}>
+          <img className={styles.drawing} src="/drawing-sobre-nos.png" alt="" />
+          <section className={styles.informacoes}>
+            <section className={styles.textos}>
+              <div className={styles.paragrafo}>
+                <div className={styles.ponto}></div>
+                <p>
+                  Faça seu pedido no nosso site, entre sexta-feira e domingo às
+                  20h.
+                </p>
+              </div>
+              <div className={styles.paragrafo}>
+                <div className={styles.ponto}></div>
+                <p>
+                  Os pedidos serão preparados na segunda-feira e estarão
+                  disponíveis para você na terça-feira!
+                </p>
+              </div>
+              <div className={styles.paragrafo}>
+                <div className={styles.ponto}></div>
+                <p>
+                  Seus produtos poderão ser entregues em Santa Teresa ou poderão
+                  ser retirados nos locais, depedendo da sua escolha!
+                </p>
+              </div>
+            </section>
+          </section>
+        </section>
       </section>
       <Footer />
     </section>
