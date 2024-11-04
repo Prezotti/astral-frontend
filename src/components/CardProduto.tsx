@@ -215,7 +215,11 @@ export function CardProduto({
       className={styles.cardProduto}
       style={display ? {} : { display: "none" }}
     >
-      <img src={produto.imagem} alt="Imagem do produto" />
+      <img
+        src={`http://localhost:8080/${produto.imagem}`}
+        alt="Imagem do produto"
+      />
+
       <div className={styles.conteudo}>
         <div
           className={styles.descricao}
