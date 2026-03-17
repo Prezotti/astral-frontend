@@ -1,21 +1,21 @@
 import styles from "../styles/components/CardProduto.module.css";
 import { Button } from "./Button";
 
-import { useEffect, useState } from "react";
-import { Mensagem } from "./Mensagem";
+import api from "@/api/api";
 import { ItemCompra } from "@/classes/ItemCompra";
 import { Produto } from "@/classes/Produto";
-import ModalConfirmacao from "./ModalConfirmacao";
-import Modal from "./Modal";
-import Input from "./Input";
-import Select from "./Select";
+import { useEffect, useState } from "react";
 import EscolherArquivoInput from "./EscolherArquivoInput";
-import api from "@/api/api";
+import Input from "./Input";
+import { Mensagem } from "./Mensagem";
+import Modal from "./Modal";
+import ModalConfirmacao from "./ModalConfirmacao";
+import Select from "./Select";
 
 import cookie from "js-cookie";
 
-import { MdModeEdit, MdDelete } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { MdDelete, MdModeEdit } from "react-icons/md";
 import { ImageCropper } from "./ImageCropper";
 
 interface CardProdutoProps {
@@ -60,10 +60,10 @@ export function CardProduto({
   useEffect(() => {
     if (qtd > 0) {
       const botaoAddItem = document.getElementById(
-        `btnAddItem${produto.id}`
+        `btnAddItem${produto.id}`,
       ) as HTMLDivElement;
       const botaoInicial = document.getElementById(
-        `btComprar${produto.id}`
+        `btComprar${produto.id}`,
       ) as HTMLButtonElement;
       botaoInicial.classList.add(styles.desabilitado);
       botaoAddItem.classList.add(styles.ativoDiv);
@@ -74,7 +74,7 @@ export function CardProduto({
 
   const mudarBotao = (event: React.MouseEvent<HTMLButtonElement>) => {
     const botaoAddItem = event.currentTarget.parentElement?.querySelector(
-      `.${styles.botaoAddItem}`
+      `.${styles.botaoAddItem}`,
     ) as HTMLDivElement;
     event.currentTarget.classList.add(styles.desabilitado);
     botaoAddItem.classList.add(styles.ativoDiv);
@@ -102,7 +102,7 @@ export function CardProduto({
     if (quantidade === 1) {
       const botaoAddItem =
         event.currentTarget.parentElement?.parentElement?.querySelector(
-          `.${styles.botaoAddItem}`
+          `.${styles.botaoAddItem}`,
         ) as HTMLDivElement;
       const botaoComprar = event.currentTarget.parentElement?.parentElement
         ?.children[1] as HTMLButtonElement;
@@ -123,7 +123,7 @@ export function CardProduto({
           headers: {
             Authorization: `Bearer ${cookie.get("token")}`,
           },
-        }
+        },
       )
       .then((response) => {
         setDisponivel(!disponivel);
@@ -133,7 +133,7 @@ export function CardProduto({
       .catch((error) => {
         console.log(error);
         setMensagem(
-          "Não foi possível trocar a disponibilidade agora. Tente mais tarde"
+          "Não foi possível trocar a disponibilidade agora. Tente mais tarde",
         );
         setmostrarMensagemErro(true);
         setCarregando(false);
@@ -155,7 +155,7 @@ export function CardProduto({
       })
       .catch((error) => {
         setMensagem(
-          "Não foi possível excluir o produto agora. Tente mais tarde"
+          "Não foi possível excluir o produto agora. Tente mais tarde",
         );
         setmostrarMensagemErro(true);
         setCarregando(false);
@@ -181,7 +181,7 @@ export function CardProduto({
       ],
       {
         type: "application/json",
-      }
+      },
     );
 
     const formData = new FormData();
@@ -201,7 +201,7 @@ export function CardProduto({
       .catch((error) => {
         console.log(error);
         setMensagem(
-          "Não foi possível editar o produto agora. Tente mais tarde"
+          "Não foi possível editar o produto agora. Tente mais tarde",
         );
         setCarregando(false);
         setmostrarMensagemErro(true);
@@ -216,7 +216,7 @@ export function CardProduto({
       style={display ? {} : { display: "none" }}
     >
       <img
-        src={`http://localhost:8080/${produto.imagem}`}
+        src={`http://localhost:8080${produto.imagem}`}
         alt="Imagem do produto"
       />
 
